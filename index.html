@@ -4,243 +4,252 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Thooster | AI Intent Exchange</title>
-  <meta name="description" content="Thooster is building AI Intent Exchange: a portable standard for turning AI requests into action files." />
   <style>
-    *{box-sizing:border-box} html{scroll-behavior:smooth}
-    body{margin:0;font-family:Arial,Helvetica,sans-serif;color:#0f172a;background:#f8fafc}
-    a{color:inherit;text-decoration:none}.wrap{max-width:1180px;margin:0 auto;padding:0 24px}
-    .nav{position:sticky;top:0;z-index:10;background:rgba(255,255,255,.92);backdrop-filter:blur(12px);border-bottom:1px solid #e2e8f0}
-    .nav-inner{height:72px;display:flex;align-items:center;justify-content:space-between}
-    .brand{display:flex;align-items:center;gap:12px;font-weight:800;font-size:22px}
-    .logo{width:38px;height:38px;border-radius:12px;background:linear-gradient(135deg,#0f172a,#2563eb);color:#fff;display:grid;place-items:center;font-weight:900}
-    .nav-links{display:flex;gap:20px;color:#475569;font-size:14px}
-    .hero{padding:82px 0 56px;background:radial-gradient(circle at 15% 10%,rgba(37,99,235,.16),transparent 32%),radial-gradient(circle at 85% 15%,rgba(14,165,233,.15),transparent 28%),linear-gradient(180deg,#fff,#f8fafc)}
-    .hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:42px;align-items:center}
-    .eyebrow{display:inline-flex;gap:8px;align-items:center;padding:8px 12px;border-radius:999px;background:#e0f2fe;color:#075985;font-weight:800;font-size:13px}
-    h1{font-size:clamp(42px,6vw,74px);line-height:.95;margin:20px 0 18px;letter-spacing:-3px}
-    .lead{font-size:20px;line-height:1.55;color:#475569;max-width:680px}.actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}
-    .btn{display:inline-block;border:0;border-radius:999px;padding:13px 20px;font-weight:800;cursor:pointer;background:#0f172a;color:#fff}
-    .btn.secondary{background:#fff;color:#0f172a;border:1px solid #cbd5e1}
-    .hero-card,.card{background:#fff;border:1px solid #e2e8f0;border-radius:28px;padding:22px;box-shadow:0 24px 70px rgba(15,23,42,.10)}
-    .demo-box{background:#020617;color:#fff;border-radius:22px;padding:20px;font-family:Consolas,monospace;font-size:13px;overflow:auto}
-    .tag-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}.tag{padding:7px 10px;border-radius:999px;background:#f1f5f9;font-size:12px;font-weight:800;color:#334155}
-    section{padding:70px 0}.section-title{font-size:42px;line-height:1.05;margin:0 0 12px;letter-spacing:-1.5px}.section-sub{color:#64748b;font-size:18px;max-width:760px;line-height:1.5}
-    .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:30px}.icon{width:44px;height:44px;border-radius:14px;display:grid;place-items:center;background:#eff6ff;color:#1d4ed8;font-size:22px;margin-bottom:14px}
-    .card h3{margin:0 0 8px;font-size:21px}.card p{margin:0;color:#64748b;line-height:1.5}
-    .flow{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-top:34px}.step{background:#fff;border:1px solid #e2e8f0;border-radius:22px;padding:18px;min-height:130px}.step b{display:block;margin-bottom:8px}.step span{color:#64748b;line-height:1.45;font-size:14px}.arrow{display:grid;place-items:center;color:#94a3b8;font-size:28px}
-    .builder{display:grid;grid-template-columns:.9fr 1.1fr;gap:22px;align-items:start}label{display:block;font-weight:800;margin-bottom:7px;font-size:14px}
-    input,textarea{width:100%;border:1px solid #cbd5e1;border-radius:14px;padding:13px;font-size:15px;margin-bottom:14px}textarea{min-height:155px;resize:vertical}.row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-    .download-grid,.tabs{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-top:12px}.small-btn,.tab{border:1px solid #cbd5e1;background:#fff;border-radius:13px;padding:10px;cursor:pointer;font-weight:800}.tab.active{background:#0f172a;color:#fff}
-    pre{background:#020617;color:#f8fafc;padding:18px;border-radius:18px;overflow:auto;max-height:460px;white-space:pre-wrap;font-size:13px;line-height:1.45;min-height:200px}
-    .notice{margin-top:16px;background:#fffbeb;border:1px solid #fde68a;color:#92400e;border-radius:18px;padding:14px;font-size:14px;line-height:1.45}
-    .dark{background:#0f172a;color:#fff}.dark .section-sub{color:#cbd5e1}.dark .card{background:#111827;border-color:#334155}.dark .card p{color:#cbd5e1}
-    .footer{padding:34px 0;border-top:1px solid #e2e8f0;color:#64748b;font-size:14px}
-    @media(max-width:920px){.hero-grid,.builder,.cards,.flow{grid-template-columns:1fr}.arrow,.nav-links{display:none}.download-grid,.tabs,.row{grid-template-columns:1fr}}
+    *{box-sizing:border-box}body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#f8fafc;color:#0f172a}a{text-decoration:none;color:inherit}.wrap{max-width:1120px;margin:0 auto;padding:0 24px}.nav{height:70px;background:white;border-bottom:1px solid #e2e8f0;position:sticky;top:0;z-index:5}.nav .wrap{height:70px;display:flex;align-items:center;justify-content:space-between}.brand{font-size:24px;font-weight:800;display:flex;gap:12px;align-items:center}.logo{background:#1d4ed8;color:white;border-radius:12px;width:40px;height:40px;display:grid;place-items:center}.navlinks{display:flex;gap:20px;color:#475569;font-size:14px}.hero{padding:70px 0;background:linear-gradient(180deg,#fff,#f8fafc)}h1{font-size:58px;line-height:.98;margin:16px 0;letter-spacing:-2px}.lead{font-size:20px;line-height:1.55;color:#475569;max-width:780px}.badge{display:inline-block;background:#dbeafe;color:#1e40af;padding:8px 12px;border-radius:999px;font-weight:800;font-size:13px}.dark{background:#0f172a;color:white;padding:54px 0}.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.card{background:white;border:1px solid #e2e8f0;border-radius:24px;padding:22px;box-shadow:0 20px 55px rgba(15,23,42,.08)}.dark .card{background:#111827;border-color:#334155}.dark .card p{color:#cbd5e1}.builder{padding:60px 0}.buildergrid{display:grid;grid-template-columns:.9fr 1.1fr;gap:24px}.sectiontitle{font-size:40px;margin:0 0 12px}.sub{color:#64748b;font-size:18px;line-height:1.5;max-width:760px}label{font-weight:800;font-size:14px;display:block;margin:0 0 7px}input,textarea{width:100%;border:1px solid #cbd5e1;border-radius:14px;padding:13px;font-size:15px;margin-bottom:14px}textarea{min-height:160px;resize:vertical}.row{display:grid;grid-template-columns:1fr 1fr;gap:12px}.btn{background:#0f172a;color:white;border:0;border-radius:999px;padding:14px 20px;font-weight:800;cursor:pointer;width:100%}.downloadgrid,.tabs{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-top:12px}.small,.tab{background:white;border:1px solid #cbd5e1;border-radius:13px;padding:11px;font-weight:800;cursor:pointer}.tab.active{background:#0f172a;color:white}pre{background:#020617;color:white;border-radius:18px;padding:18px;white-space:pre-wrap;overflow:auto;max-height:500px;min-height:260px;font-size:13px;line-height:1.45}.notice{margin-top:16px;background:#fffbeb;border:1px solid #fde68a;color:#92400e;border-radius:16px;padding:14px;font-size:14px;line-height:1.45}.footer{border-top:1px solid #e2e8f0;color:#64748b;padding:28px 0;font-size:14px}@media(max-width:900px){.buildergrid,.cards{grid-template-columns:1fr}.downloadgrid,.tabs,.row{grid-template-columns:1fr}.navlinks{display:none}h1{font-size:42px}}
   </style>
 </head>
 <body>
-  <nav class="nav"><div class="wrap nav-inner"><a class="brand" href="#"><span class="logo">T</span><span>Thooster</span></a><div class="nav-links"><a href="#vision">Vision</a><a href="#examples">Examples</a><a href="#builder">Try AIX</a></div></div></nav>
+<nav class="nav"><div class="wrap"><div class="brand"><span class="logo">T</span>Thooster</div><div class="navlinks"><a href="#why">Why</a><a href="#builder">Try AIX</a></div></div></nav>
 
-  <header class="hero">
-    <div class="wrap hero-grid">
-      <div>
-        <div class="eyebrow">AIX v0.2 • Intent Enrichment Demo</div>
-        <h1>The bridge between AI and the apps you use every day.</h1>
-        <p class="lead">Thooster turns plain-English requests into structured action files and app-ready outputs. This version adds simple intent enrichment for shopping, fashion, jewelry, fishing, food, and lodging trips.</p>
-        <div class="actions"><a class="btn" href="#builder">Try the prototype</a><a class="btn secondary" href="#vision">See the vision</a></div>
+<header class="hero"><div class="wrap">
+  <span class="badge">AIX v0.3 • Enriched Waypoint Demo</span>
+  <h1>The bridge between AI and the apps you use every day.</h1>
+  <p class="lead">Thooster turns plain-English requests into structured action files. This demo now enriches shopping, fashion, jewelry, food, lodging, entertainment, and fishing requests with actual route waypoints.</p>
+</div></header>
+
+<section id="why" class="dark"><div class="wrap">
+  <div class="cards">
+    <div class="card"><h3>🗺️ Travel routes</h3><p>Build Google Maps routes from intent, including useful stop suggestions.</p></div>
+    <div class="card"><h3>🛍️ Shopping trips</h3><p>Detects fashion, jewelry, boutiques, food, lodging, and entertainment requests.</p></div>
+    <div class="card"><h3>📄 Portable files</h3><p>Exports AIX JSON, Google Maps links, GPX, ICS, and CSV.</p></div>
+  </div>
+</div></section>
+
+<section id="builder" class="builder"><div class="wrap">
+  <h2 class="sectiontitle">Try the AIX travel prototype.</h2>
+  <p class="sub">This is still a prototype, but it now adds recommended stop waypoints based on the kind of trip requested.</p>
+
+  <div class="buildergrid">
+    <div class="card">
+      <label>Trip Title</label>
+      <input id="title" value="Arkansas Shopping Trip" />
+
+      <div class="row">
+        <div><label>Creator</label><input id="creator" value="Tracy McMahan" /></div>
+        <div><label>Days</label><input id="days" type="number" min="1" max="30" value="3" /></div>
       </div>
-      <div class="hero-card">
-        <div class="tag-row"><span class="tag">AI Request</span><span class="tag">Intent JSON</span><span class="tag">Enriched Waypoints</span></div>
-        <div class="demo-box">{
-  "standard": "AIX",
-  "version": "0.2",
-  "intent_type": "shopping_trip",
-  "interests": ["fashion", "jewelry"],
-  "recommended_waypoints": [
-    "The Promenade at Chenal",
-    "Park Plaza Mall",
-    "The Mall at Turtle Creek"
+
+      <label>Start Date</label>
+      <input id="startDate" type="date" value="2026-06-15" />
+
+      <label>Plain-English Request</label>
+      <textarea id="prompt">Plan a three day shopping trip starting in Batesville, AR for a 50 year old woman who wants to shop for jewelry and clothing with her friends. Drop points for where they should stay, eat, and maybe catch a show along the way.</textarea>
+
+      <button class="btn" onclick="generateIntent()">Generate AIX File</button>
+
+      <div class="downloadgrid">
+        <button class="small" onclick="downloadCurrent('json')">JSON</button>
+        <button class="small" onclick="openGoogleMaps()">Google Maps</button>
+        <button class="small" onclick="downloadCurrent('gpx')">GPX</button>
+        <button class="small" onclick="downloadCurrent('ics')">ICS</button>
+        <button class="small" onclick="downloadCurrent('csv')">CSV</button>
+      </div>
+
+      <div class="notice"><b>Important:</b> This version uses a built-in Arkansas demo waypoint library. It does not yet use live Google Places, current hours, reviews, inventory, or hotel availability.</div>
+    </div>
+
+    <div class="card">
+      <div class="tabs">
+        <button class="tab active" onclick="showTab('json', this)">JSON</button>
+        <button class="tab" onclick="showTab('maps', this)">Maps</button>
+        <button class="tab" onclick="showTab('gpx', this)">GPX</button>
+        <button class="tab" onclick="showTab('ics', this)">ICS</button>
+        <button class="tab" onclick="showTab('csv', this)">CSV</button>
+      </div>
+      <pre id="output"></pre>
+    </div>
+  </div>
+</div></section>
+
+<footer class="footer"><div class="wrap"><b>Thooster</b> — Home of AI Intent Exchange. Prototype only.</div></footer>
+
+<script>
+let currentIntent = {};
+let currentFiles = {};
+let currentTab = "json";
+
+function slugify(text){
+  return (text || "aix-intent").toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-+|-+$/g,"") || "aix-intent";
+}
+
+function escapeXml(value){
+  return String(value || "").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&apos;");
+}
+
+function getOrigin(prompt){
+  const p = prompt.toLowerCase();
+  if(p.includes("batesville")) return {name:"Batesville, Arkansas", latitude:35.7698, longitude:-91.6409, purpose:"Trip start"};
+  if(p.includes("little rock")) return {name:"Little Rock, Arkansas", latitude:34.7465, longitude:-92.2896, purpose:"Trip start"};
+  if(p.includes("jonesboro")) return {name:"Jonesboro, Arkansas", latitude:35.8423, longitude:-90.7043, purpose:"Trip start"};
+  return {name:"Batesville, Arkansas", latitude:35.7698, longitude:-91.6409, purpose:"Trip start"};
+}
+
+const demoStops = {
+  shopping: [
+    {name:"The Mall at Turtle Creek, Jonesboro, Arkansas", latitude:35.8068, longitude:-90.6669, purpose:"Shopping stop: fashion, department stores, and jewelry options"},
+    {name:"Park Plaza Mall, Little Rock, Arkansas", latitude:34.7522, longitude:-92.3438, purpose:"Shopping stop: fashion, jewelry, and department stores"},
+    {name:"The Promenade at Chenal, Little Rock, Arkansas", latitude:34.7726, longitude:-92.4606, purpose:"Upscale shopping stop: boutiques, fashion, and jewelry"},
+    {name:"Downtown Conway, Conway, Arkansas", latitude:35.0918, longitude:-92.4367, purpose:"Walkable shopping district with local stores and boutiques"}
+  ],
+  jewelry: [
+    {name:"Sissy's Log Cabin, Little Rock, Arkansas", latitude:34.7535, longitude:-92.3460, purpose:"Jewelry stop"},
+    {name:"Jones & Son Fine Jewelry, Little Rock, Arkansas", latitude:34.7521, longitude:-92.3441, purpose:"Jewelry stop"},
+    {name:"Gearhead Outfitters, Jonesboro, Arkansas", latitude:35.8070, longitude:-90.6670, purpose:"Fashion and apparel stop"}
+  ],
+  food: [
+    {name:"The Root Cafe, Little Rock, Arkansas", latitude:34.7377, longitude:-92.2726, purpose:"Food stop"},
+    {name:"Lost Forty Brewing, Little Rock, Arkansas", latitude:34.7420, longitude:-92.2609, purpose:"Food stop"},
+    {name:"Stoby's Restaurant, Conway, Arkansas", latitude:35.0892, longitude:-92.4428, purpose:"Food stop"}
+  ],
+  lodging: [
+    {name:"Capital Hotel, Little Rock, Arkansas", latitude:34.7462, longitude:-92.2705, purpose:"Lodging stop"},
+    {name:"Courtyard by Marriott Jonesboro, Jonesboro, Arkansas", latitude:35.8107, longitude:-90.6651, purpose:"Lodging stop"},
+    {name:"Hilton Garden Inn Conway, Conway, Arkansas", latitude:35.0838, longitude:-92.4172, purpose:"Lodging stop"}
+  ],
+  entertainment: [
+    {name:"Robinson Center, Little Rock, Arkansas", latitude:34.7478, longitude:-92.2740, purpose:"Show or entertainment stop"},
+    {name:"Simmons Bank Arena, North Little Rock, Arkansas", latitude:34.7550, longitude:-92.2655, purpose:"Concert or event stop"},
+    {name:"The Forum Theatre, Jonesboro, Arkansas", latitude:35.8427, longitude:-90.7043, purpose:"Show or entertainment stop"}
+  ],
+  fishing: [
+    {name:"Norfork River, Arkansas", latitude:36.2267, longitude:-92.6849, purpose:"Trout fishing stop"},
+    {name:"Bull Shoals White River State Park, Arkansas", latitude:36.3693, longitude:-92.5804, purpose:"Fishing and river access"},
+    {name:"Mountain Home, Arkansas", latitude:36.3353, longitude:-92.3852, purpose:"Food, lodging, and supply stop"}
   ]
-}</div>
-      </div>
-    </div>
-  </header>
+};
 
-  <section id="vision"><div class="wrap"><h2 class="section-title">AI should not stop at giving you text.</h2><p class="section-sub">When people ask AI to plan, organize, route, schedule, or shop, the answer should be portable. AIX is a proposed exchange layer that describes the user's intent in a form other software can understand.</p><div class="flow"><div class="step"><b>1. Ask AI</b><span>“Plan a boutique shopping trip,” “make a playlist,” or “build a grocery list.”</span></div><div class="arrow">→</div><div class="step"><b>2. Enrich Intent</b><span>Thooster identifies destinations, interests, stops, and output types.</span></div><div class="arrow">→</div><div class="step"><b>3. Export Actions</b><span>Adapters create Google Maps links, GPX, ICS, CSV, and AIX JSON.</span></div></div></div></section>
+function hasAny(text, words){
+  return words.some(w => text.includes(w));
+}
 
-  <section id="examples" class="dark"><div class="wrap"><h2 class="section-title">One intent. Many applications.</h2><p class="section-sub">AIX starts as a simple file format and grows into a translation layer between AI and execution platforms.</p><div class="cards"><div class="card"><div class="icon">🗺️</div><h3>Travel routes</h3><p>Convert trip plans into Google Maps links, GPX, ICS, and CSV files for maps, GPS devices, and calendars.</p></div><div class="card"><div class="icon">🎵</div><h3>Playlists</h3><p>Turn a theme, mood, or event into a portable playlist intent that music services can interpret.</p></div><div class="card"><div class="icon">🛒</div><h3>Shopping lists</h3><p>Convert recipes, budgets, diets, or meal plans into structured grocery lists and future retail integrations.</p></div></div></div></section>
-
-  <section id="builder">
-    <div class="wrap">
-      <h2 class="section-title">Try the AIX travel prototype.</h2>
-      <p class="section-sub">This demo creates an enriched travel intent file and exports starter files. It is a proof of concept, not final navigation software.</p>
-      <div class="builder" style="margin-top:28px;">
-        <div class="card">
-          <label>Trip Title</label><input id="title" value="Arkansas Shopping Trip" />
-          <div class="row"><div><label>Creator</label><input id="creator" value="Tracy McMahan" /></div><div><label>Days</label><input id="days" type="number" min="1" max="30" value="3" /></div></div>
-          <label>Start Date</label><input id="startDate" type="date" value="2026-06-15" />
-          <label>Plain-English Request</label><textarea id="prompt">Plan me a three day trip to three different shopping cities with recommended stops for a 50 year old lady who likes fashion and jewelry. Start in Batesville, Arkansas. Make the starting point Batesville, AR and add the recommended shops as waypoints.</textarea>
-          <button class="btn" style="width:100%;" onclick="generateIntent()">Generate AIX File</button>
-          <div class="download-grid"><button class="small-btn" onclick="downloadCurrent('json')">JSON</button><button class="small-btn" onclick="openGoogleMaps()">Google Maps</button><button class="small-btn" onclick="downloadCurrent('gpx')">GPX</button><button class="small-btn" onclick="downloadCurrent('ics')">ICS</button><button class="small-btn" onclick="downloadCurrent('csv')">CSV</button></div>
-          <div class="notice"><b>Review required:</b> This MVP includes a local enrichment rule set, not live search. Real integrations should validate addresses, hours, traffic, prices, inventory, and permissions.</div>
-        </div>
-        <div class="card">
-          <div class="tabs"><button class="tab active" onclick="showTab('json', this)">JSON</button><button class="tab" onclick="showTab('maps', this)">Maps</button><button class="tab" onclick="showTab('gpx', this)">GPX</button><button class="tab" onclick="showTab('ics', this)">ICS</button><button class="tab" onclick="showTab('csv', this)">CSV</button></div>
-          <pre id="output"></pre>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <footer class="footer"><div class="wrap"><b>Thooster</b> — Home of AI Intent Exchange. Prototype only. Generated files should be reviewed before real-world use.</div></footer>
-
-  <script>
-    let currentIntent = {};
-    let currentFiles = {};
-    let currentTab = "json";
-
-    function slugify(text) {
-      return (text || "aix-intent").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "") || "aix-intent";
+function addUnique(list, items){
+  const seen = new Set(list.map(x => x.name.toLowerCase()));
+  items.forEach(item => {
+    if(!seen.has(item.name.toLowerCase())){
+      list.push(item);
+      seen.add(item.name.toLowerCase());
     }
+  });
+}
 
-    function escapeXml(value) {
-      return String(value || "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&apos;");
+function inferIntentType(prompt){
+  const p = prompt.toLowerCase();
+  if(hasAny(p,["shopping","shop","fashion","jewelry","jewellery","clothing","boutique","mall"])) return "shopping_trip";
+  if(hasAny(p,["fish","fishing","trout","river","lake"])) return "fishing_trip";
+  return "travel_route";
+}
+
+function enrichWaypoints(prompt){
+  const p = prompt.toLowerCase();
+  const waypoints = [getOrigin(prompt)];
+  const notes = [];
+
+  if(hasAny(p,["shopping","shop","fashion","clothing","boutique","mall"])){
+    addUnique(waypoints, demoStops.shopping);
+    notes.push("Added shopping/fashion city waypoints.");
+  }
+
+  if(hasAny(p,["jewelry","jewellery"])){
+    addUnique(waypoints, demoStops.jewelry);
+    notes.push("Added jewelry-specific waypoints.");
+  }
+
+  if(hasAny(p,["eat","food","restaurant","dinner","lunch","breakfast"])){
+    addUnique(waypoints, demoStops.food);
+    notes.push("Added food waypoints.");
+  }
+
+  if(hasAny(p,["stay","hotel","lodging","room"])){
+    addUnique(waypoints, demoStops.lodging);
+    notes.push("Added lodging waypoints.");
+  }
+
+  if(hasAny(p,["show","concert","theater","theatre","entertainment"])){
+    addUnique(waypoints, demoStops.entertainment);
+    notes.push("Added entertainment/show waypoints.");
+  }
+
+  if(hasAny(p,["fish","fishing","trout","river","lake"])){
+    addUnique(waypoints, demoStops.fishing);
+    notes.push("Added fishing waypoints.");
+  }
+
+  if(waypoints.length === 1){
+    addUnique(waypoints, [
+      {name:"Jonesboro, Arkansas", latitude:35.8423, longitude:-90.7043, purpose:"General city stop"},
+      {name:"Little Rock, Arkansas", latitude:34.7465, longitude:-92.2896, purpose:"General city stop"},
+      {name:"Conway, Arkansas", latitude:35.0887, longitude:-92.4421, purpose:"General city stop"}
+    ]);
+    notes.push("Added general Arkansas city waypoints.");
+  }
+
+  return {waypoints, notes};
+}
+
+function buildIntent(){
+  const title = document.getElementById("title").value;
+  const creator = document.getElementById("creator").value;
+  const startDate = document.getElementById("startDate").value;
+  const days = Number(document.getElementById("days").value || 1);
+  const prompt = document.getElementById("prompt").value;
+  const enriched = enrichWaypoints(prompt);
+  const p = prompt.toLowerCase();
+
+  return {
+    standard:"AIX",
+    standard_name:"AI Intent Exchange",
+    version:"0.3",
+    title:title,
+    creator:creator,
+    created_at:new Date().toISOString(),
+    intent_type:inferIntentType(prompt),
+    user_prompt:prompt,
+    user_goal:prompt,
+    status:"draft_requires_review",
+    schedule:{start_date:startDate,duration_days:days},
+    preferences:{
+      shopping:hasAny(p,["shopping","shop","mall"]),
+      fashion:hasAny(p,["fashion","clothing","boutique"]),
+      jewelry:hasAny(p,["jewelry","jewellery"]),
+      food:hasAny(p,["eat","food","restaurant","dinner","lunch","breakfast"]),
+      lodging:hasAny(p,["stay","hotel","lodging","room"]),
+      entertainment:hasAny(p,["show","concert","theater","theatre","entertainment"])
+    },
+    requested_outputs:["aix.json","google_maps_url","gpx","ics","csv"],
+    route:{
+      origin:enriched.waypoints[0].name,
+      destination:enriched.waypoints[enriched.waypoints.length-1].name,
+      waypoints:enriched.waypoints
+    },
+    enrichment:{
+      notes:enriched.notes,
+      limitation:"Uses built-in demonstration stops. Future versions should use live AI, Google Places, Maps APIs, reviews, hours, hotel data, and user preferences."
+    },
+    audit:{
+      source:"human_prompt_plus_demo_waypoint_library",
+      requires_review:true
     }
+  };
+}
 
-    function getOrigin(prompt) {
-      const lower = prompt.toLowerCase();
-      if (lower.includes("batesville")) return { name: "Batesville, Arkansas", latitude: 35.7698, longitude: -91.6409 };
-      if (lower.includes("little rock")) return { name: "Little Rock, Arkansas", latitude: 34.7465, longitude: -92.2896 };
-      if (lower.includes("jonesboro")) return { name: "Jonesboro, Arkansas", latitude: 35.8423, longitude: -90.7043 };
-      if (lower.includes("conway")) return { name: "Conway, Arkansas", latitude: 35.0887, longitude: -92.4421 };
-      if (lower.includes("mountain view")) return { name: "Mountain View, Arkansas", latitude: 35.8684, longitude: -92.1177 };
-      return { name: "Batesville, Arkansas", latitude: 35.7698, longitude: -91.6409 };
-    }
+function toGoogleMapsUrl(intent){
+  const names = (intent.route.waypoints || []).map(p => p.name).filter(Boolean);
+  return "https://www.google.com/maps/dir/" + names.map(n => encodeURIComponent(n)).join("/");
+}
 
-    const waypointLibrary = {
-      shoppingFashionJewelry: [
-        { name: "The Mall at Turtle Creek, Jonesboro, Arkansas", latitude: 35.8068, longitude: -90.6669, purpose: "Shopping city 1: mall, fashion, and jewelry options" },
-        { name: "Park Plaza Mall, Little Rock, Arkansas", latitude: 34.7522, longitude: -92.3438, purpose: "Shopping city 2: department stores, fashion, and jewelry options" },
-        { name: "The Promenade at Chenal, Little Rock, Arkansas", latitude: 34.7726, longitude: -92.4606, purpose: "Upscale shopping, boutiques, fashion, and jewelry" },
-        { name: "Downtown Conway, Conway, Arkansas", latitude: 35.0918, longitude: -92.4367, purpose: "Shopping city 3: walkable downtown boutiques and local shopping" }
-      ],
-      fishing: [
-        { name: "Norfork River, Arkansas", latitude: 36.2267, longitude: -92.6849, purpose: "Trout fishing stop" },
-        { name: "Bull Shoals White River State Park, Arkansas", latitude: 36.3693, longitude: -92.5804, purpose: "Trout fishing and river access" },
-        { name: "Mountain Home, Arkansas", latitude: 36.3353, longitude: -92.3852, purpose: "Food, lodging, and supply stop" }
-      ],
-      food: [
-        { name: "Jonesboro, Arkansas", latitude: 35.8423, longitude: -90.7043, purpose: "Food stop and city waypoint" },
-        { name: "Conway, Arkansas", latitude: 35.0887, longitude: -92.4421, purpose: "Food stop and city waypoint" },
-        { name: "Little Rock, Arkansas", latitude: 34.7465, longitude: -92.2896, purpose: "Food stop and city waypoint" }
-      ]
-    };
-
-    function inferIntentType(prompt) {
-      const p = prompt.toLowerCase();
-      if (/shopping|shop|fashion|jewelry|jewellery|boutique|mall/.test(p)) return "shopping_trip";
-      if (/fish|fishing|trout|river|lake/.test(p)) return "fishing_trip";
-      if (/playlist|music|song/.test(p)) return "playlist";
-      if (/grocery|meal|recipe|shopping list/.test(p)) return "shopping_list";
-      return "travel_route";
-    }
-
-    function enrichWaypoints(prompt) {
-      const p = prompt.toLowerCase();
-      const origin = getOrigin(prompt);
-      let waypoints = [{ name: origin.name, latitude: origin.latitude, longitude: origin.longitude, purpose: "Trip start" }];
-      let enrichmentNotes = [];
-
-      if (/shopping|shop|fashion|jewelry|jewellery|boutique|mall/.test(p)) {
-        waypoints = waypoints.concat(waypointLibrary.shoppingFashionJewelry);
-        enrichmentNotes.push("Detected shopping/fashion/jewelry trip. Added Arkansas shopping city waypoints.");
-      } else if (/fish|fishing|trout|river|lake/.test(p)) {
-        waypoints = waypoints.concat(waypointLibrary.fishing);
-        enrichmentNotes.push("Detected fishing/trout trip. Added northern Arkansas fishing waypoints.");
-      } else {
-        waypoints = waypoints.concat(waypointLibrary.food);
-        enrichmentNotes.push("Detected general travel route. Added general Arkansas city waypoints.");
-      }
-
-      if (/food|restaurant|eat|dinner|lunch|breakfast/.test(p)) {
-        enrichmentNotes.push("Detected food stops. Route includes cities with restaurant options.");
-      }
-      if (/hotel|stay|lodging|cabin|room/.test(p)) {
-        enrichmentNotes.push("Detected lodging request. Lodging should be validated by a future hotel adapter.");
-      }
-      return { waypoints, enrichmentNotes };
-    }
-
-    function buildIntent() {
-      const title = document.getElementById("title").value;
-      const creator = document.getElementById("creator").value;
-      const startDate = document.getElementById("startDate").value;
-      const days = Number(document.getElementById("days").value || 1);
-      const prompt = document.getElementById("prompt").value;
-      const intentType = inferIntentType(prompt);
-      const enriched = enrichWaypoints(prompt);
-
-      return {
-        standard: "AIX",
-        standard_name: "AI Intent Exchange",
-        version: "0.2",
-        title: title,
-        creator: creator,
-        created_at: new Date().toISOString(),
-        intent_type: intentType,
-        user_prompt: prompt,
-        user_goal: prompt,
-        status: "draft_requires_review",
-        schedule: { start_date: startDate, duration_days: days },
-        preferences: {
-          shopping: /shopping|shop|mall/.test(prompt.toLowerCase()),
-          fashion: /fashion|clothes|clothing|boutique/.test(prompt.toLowerCase()),
-          jewelry: /jewelry|jewellery/.test(prompt.toLowerCase()),
-          fishing: /fish|fishing|trout/.test(prompt.toLowerCase()),
-          food: /food|restaurant|eat|dinner|lunch|breakfast/.test(prompt.toLowerCase()),
-          lodging: /hotel|stay|lodging|cabin|room/.test(prompt.toLowerCase())
-        },
-        constraints: {
-          requires_user_review: true,
-          requires_mapping_validation: true,
-          requires_current_business_hours_validation: true,
-          enrichment_source: "local_rule_set_v0.2"
-        },
-        requested_outputs: ["aix.json", "google_maps_url", "gpx", "ics", "csv"],
-        route: {
-          origin: enriched.waypoints[0].name,
-          destination: enriched.waypoints[enriched.waypoints.length - 1].name,
-          waypoints: enriched.waypoints
-        },
-        enrichment: {
-          notes: enriched.enrichmentNotes,
-          limitation: "This prototype uses preset demonstration waypoints. Future versions should use live AI, search APIs, maps APIs, and business data."
-        },
-        adapters: [
-          { name: "AIX JSON", purpose: "Canonical AI intent file" },
-          { name: "Google Maps Adapter", purpose: "Direct Google Maps route URL" },
-          { name: "GPX Adapter", purpose: "GPS devices and route applications" },
-          { name: "ICS Adapter", purpose: "Calendar itinerary" },
-          { name: "CSV Adapter", purpose: "Spreadsheet itinerary" }
-        ],
-        audit: {
-          source: "human_prompt_plus_local_enrichment",
-          ai_generated: true,
-          safety_note: "This file represents user intent and should be reviewed before use in navigation, scheduling, purchasing, or travel."
-        }
-      };
-    }
-
-    function toGoogleMapsUrl(intent) {
-      const points = intent.route.waypoints || [];
-      const names = points.map(p => p.name).filter(Boolean);
-      if (!names.length) return "https://www.google.com/maps";
-      return "https://www.google.com/maps/dir/" + names.map(n => encodeURIComponent(n)).join("/");
-    }
-
-    function toGpx(intent) {
-      const points = intent.route.waypoints || [];
-      return `<?xml version="1.0" encoding="UTF-8"?>
+function toGpx(intent){
+  const points = intent.route.waypoints || [];
+  return `<?xml version="1.0" encoding="UTF-8"?>
 <gpx version="1.1" creator="Thooster AIX Prototype" xmlns="http://www.topografix.com/GPX/1/1">
   <metadata>
     <name>${escapeXml(intent.title)}</name>
@@ -251,13 +260,13 @@ ${points.map(p => `  <wpt lat="${p.latitude}" lon="${p.longitude}">
     <desc>${escapeXml(p.purpose)}</desc>
   </wpt>`).join("\n")}
 </gpx>`;
-    }
+}
 
-    function toIcs(intent) {
-      const startDate = (intent.schedule.start_date || "2026-06-01").replace(/-/g, "");
-      const now = new Date().toISOString().replace(/[-:]/g, "").split(".")[0] + "Z";
-      const description = `${intent.user_goal}\\n\\nGenerated by AIX v${intent.version}. Review before use.`;
-      return `BEGIN:VCALENDAR
+function toIcs(intent){
+  const startDate = (intent.schedule.start_date || "2026-06-01").replace(/-/g,"");
+  const now = new Date().toISOString().replace(/[-:]/g,"").split(".")[0] + "Z";
+  const description = `${intent.user_goal}\\n\\nGenerated by AIX v${intent.version}. Review before use.`;
+  return `BEGIN:VCALENDAR
 VERSION:2.0
 PRODID:-//Thooster//AI Intent Exchange//EN
 BEGIN:VEVENT
@@ -269,55 +278,54 @@ DTSTART;VALUE=DATE:${startDate}
 DTEND;VALUE=DATE:${startDate}
 END:VEVENT
 END:VCALENDAR`;
-    }
+}
 
-    function toCsv(intent) {
-      const rows = intent.route.waypoints || [];
-      return ["name,latitude,longitude,purpose", ...rows.map(r => `"${r.name}","${r.latitude}","${r.longitude}","${r.purpose}"`)].join("\n");
-    }
+function toCsv(intent){
+  const rows = intent.route.waypoints || [];
+  return ["name,latitude,longitude,purpose", ...rows.map(r => `"${r.name}","${r.latitude}","${r.longitude}","${r.purpose}"`)].join("\n");
+}
 
-    function generateIntent() {
-      currentIntent = buildIntent();
-      currentFiles = {
-        json: JSON.stringify(currentIntent, null, 2),
-        maps: toGoogleMapsUrl(currentIntent),
-        gpx: toGpx(currentIntent),
-        ics: toIcs(currentIntent),
-        csv: toCsv(currentIntent)
-      };
-      document.getElementById("output").innerText = currentFiles[currentTab];
-    }
+function generateIntent(){
+  currentIntent = buildIntent();
+  currentFiles = {
+    json:JSON.stringify(currentIntent,null,2),
+    maps:toGoogleMapsUrl(currentIntent),
+    gpx:toGpx(currentIntent),
+    ics:toIcs(currentIntent),
+    csv:toCsv(currentIntent)
+  };
+  document.getElementById("output").innerText = currentFiles[currentTab];
+}
 
-    function showTab(tab, button) {
-      currentTab = tab;
-      document.querySelectorAll(".tab").forEach(b => b.classList.remove("active"));
-      button.classList.add("active");
-      document.getElementById("output").innerText = currentFiles[tab] || "";
-    }
+function showTab(tab, button){
+  currentTab = tab;
+  document.querySelectorAll(".tab").forEach(b => b.classList.remove("active"));
+  button.classList.add("active");
+  document.getElementById("output").innerText = currentFiles[tab] || "";
+}
 
-    function openGoogleMaps() {
-      generateIntent();
-      window.open(currentFiles.maps, "_blank", "noopener,noreferrer");
-    }
+function openGoogleMaps(){
+  generateIntent();
+  window.open(currentFiles.maps, "_blank", "noopener,noreferrer");
+}
 
-    function downloadCurrent(type) {
-      generateIntent();
-      const title = document.getElementById("title").value;
-      const base = slugify(title);
-      const filename = type === "json" ? `${base}.aix.json` : `${base}.${type}`;
-      const mimes = { json: "application/json", gpx: "application/gpx+xml", ics: "text/calendar", csv: "text/csv" };
-      const blob = new Blob([currentFiles[type]], { type: mimes[type] || "text/plain" });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = filename;
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      URL.revokeObjectURL(url);
-    }
+function downloadCurrent(type){
+  generateIntent();
+  const base = slugify(document.getElementById("title").value);
+  const filename = type === "json" ? `${base}.aix.json` : `${base}.${type}`;
+  const mimes = {json:"application/json",gpx:"application/gpx+xml",ics:"text/calendar",csv:"text/csv"};
+  const blob = new Blob([currentFiles[type]], {type:mimes[type] || "text/plain"});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = filename;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
 
-    generateIntent();
-  </script>
+generateIntent();
+</script>
 </body>
 </html>
