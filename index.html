@@ -2,89 +2,19 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Thooster | AI Intent Exchange</title>
   <style>
-    *{box-sizing:border-box}
-    html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
-    body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#f8fafc;color:#0f172a}
-    a{text-decoration:none;color:inherit}
-    .wrap{max-width:1120px;margin:0 auto;padding:0 22px}
-    .nav{min-height:66px;background:white;border-bottom:1px solid #e2e8f0;position:sticky;top:0;z-index:5}
-    .nav .wrap{min-height:66px;display:flex;align-items:center;justify-content:space-between}
-    .brand{font-size:24px;font-weight:800;display:flex;gap:12px;align-items:center}
-    .logo{background:#1d4ed8;color:white;border-radius:12px;width:40px;height:40px;display:grid;place-items:center;flex:0 0 auto}
-    .navlinks{display:flex;gap:20px;color:#475569;font-size:14px}
-    .hero{padding:64px 0;background:linear-gradient(180deg,#fff,#f8fafc)}
-    h1{font-size:58px;line-height:.98;margin:16px 0;letter-spacing:-2px}
-    .lead{font-size:20px;line-height:1.55;color:#475569;max-width:780px}
-    .badge{display:inline-block;background:#dbeafe;color:#1e40af;padding:8px 12px;border-radius:999px;font-weight:800;font-size:13px}
-    .dark{background:#0f172a;color:white;padding:50px 0}
-    .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
-    .card{background:white;border:1px solid #e2e8f0;border-radius:24px;padding:22px;box-shadow:0 20px 55px rgba(15,23,42,.08)}
-    .dark .card{background:#111827;border-color:#334155}
-    .dark .card p{color:#cbd5e1}
-    .builder{padding:56px 0}
-    .buildergrid{display:grid;grid-template-columns:.9fr 1.1fr;gap:24px}
-    .sectiontitle{font-size:40px;margin:0 0 12px}
-    .sub{color:#64748b;font-size:18px;line-height:1.5;max-width:760px}
-    label{font-weight:800;font-size:14px;display:block;margin:0 0 7px}
-    input,textarea{width:100%;border:1px solid #cbd5e1;border-radius:14px;padding:14px;font-size:16px;margin-bottom:14px;background:white}
-    textarea{min-height:170px;resize:vertical;line-height:1.35}
-    .row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-    .btn{background:#0f172a;color:white;border:0;border-radius:999px;padding:15px 20px;font-weight:800;cursor:pointer;width:100%;font-size:16px;min-height:52px}
-    .downloadgrid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-top:12px}
-    .tabs{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-top:0;margin-bottom:12px}
-    .small,.tab{background:white;border:1px solid #cbd5e1;border-radius:13px;padding:12px 8px;font-weight:800;cursor:pointer;font-size:14px;min-height:48px}
-    .tab.active{background:#0f172a;color:white}
-    pre{background:#020617;color:white;border-radius:18px;padding:18px;white-space:pre-wrap;overflow:auto;max-height:500px;min-height:260px;font-size:13px;line-height:1.45}
-    .notice{margin-top:16px;background:#fffbeb;border:1px solid #fde68a;color:#92400e;border-radius:16px;padding:14px;font-size:14px;line-height:1.45}
-    .toolbox{margin-top:16px;border:1px solid #e2e8f0;background:#f8fafc;border-radius:18px;padding:14px}
-    .toolbox h3{font-size:16px;margin:0 0 10px}
-    .copyrow{display:flex;gap:8px;align-items:center;margin-bottom:12px}
-    .copyrow input{margin:0;font-size:13px;padding:11px}
-    .copybtn{background:#0f172a;color:white;border:0;border-radius:12px;padding:12px 14px;font-weight:800;cursor:pointer;white-space:nowrap}
-    .waypoints{margin:0;padding-left:22px;color:#334155;font-size:14px;line-height:1.55;max-height:220px;overflow:auto}
-    .footer{border-top:1px solid #e2e8f0;color:#64748b;padding:28px 0;font-size:14px}
-    .mobilehint{display:none;color:#64748b;font-size:13px;margin-top:10px;line-height:1.4}
-
-    @media(max-width:900px){
-      .wrap{padding:0 16px}
-      .nav .wrap{min-height:62px}
-      .brand{font-size:21px}
-      .logo{width:36px;height:36px}
-      .navlinks{display:none}
-      .hero{padding:36px 0 28px}
-      h1{font-size:38px;letter-spacing:-1.2px;line-height:1.02}
-      .lead{font-size:17px}
-      .dark{padding:30px 0}
-      .cards{grid-template-columns:1fr;gap:12px}
-      .card{border-radius:20px;padding:18px}
-      .builder{padding:34px 0}
-      .buildergrid{grid-template-columns:1fr;gap:18px}
-      .sectiontitle{font-size:31px;line-height:1.08}
-      .sub{font-size:16px}
-      .row{grid-template-columns:1fr;gap:0}
-      .downloadgrid{grid-template-columns:1fr 1fr;gap:10px}
-      .downloadgrid .small:nth-child(2){grid-column:1 / -1;background:#0f172a;color:white}
-      .tabs{grid-template-columns:1fr 1fr 1fr;gap:8px}
-      .tab{font-size:13px}
-      textarea{min-height:190px}
-      pre{font-size:12px;max-height:360px;min-height:180px;padding:14px}
-      .mobilehint{display:block}
-      .copyrow{display:block}
-      .copyrow input{margin-bottom:8px}
-      .copybtn{width:100%}
-    }
+    *{box-sizing:border-box}body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#f8fafc;color:#0f172a}a{text-decoration:none;color:inherit}.wrap{max-width:1120px;margin:0 auto;padding:0 24px}.nav{height:70px;background:white;border-bottom:1px solid #e2e8f0;position:sticky;top:0;z-index:5}.nav .wrap{height:70px;display:flex;align-items:center;justify-content:space-between}.brand{font-size:24px;font-weight:800;display:flex;gap:12px;align-items:center}.logo{background:#1d4ed8;color:white;border-radius:12px;width:40px;height:40px;display:grid;place-items:center}.navlinks{display:flex;gap:20px;color:#475569;font-size:14px}.hero{padding:70px 0;background:linear-gradient(180deg,#fff,#f8fafc)}h1{font-size:58px;line-height:.98;margin:16px 0;letter-spacing:-2px}.lead{font-size:20px;line-height:1.55;color:#475569;max-width:780px}.badge{display:inline-block;background:#dbeafe;color:#1e40af;padding:8px 12px;border-radius:999px;font-weight:800;font-size:13px}.dark{background:#0f172a;color:white;padding:54px 0}.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.card{background:white;border:1px solid #e2e8f0;border-radius:24px;padding:22px;box-shadow:0 20px 55px rgba(15,23,42,.08)}.dark .card{background:#111827;border-color:#334155}.dark .card p{color:#cbd5e1}.builder{padding:60px 0}.buildergrid{display:grid;grid-template-columns:.9fr 1.1fr;gap:24px}.sectiontitle{font-size:40px;margin:0 0 12px}.sub{color:#64748b;font-size:18px;line-height:1.5;max-width:760px}label{font-weight:800;font-size:14px;display:block;margin:0 0 7px}input,textarea{width:100%;border:1px solid #cbd5e1;border-radius:14px;padding:13px;font-size:15px;margin-bottom:14px}textarea{min-height:160px;resize:vertical}.row{display:grid;grid-template-columns:1fr 1fr;gap:12px}.btn{background:#0f172a;color:white;border:0;border-radius:999px;padding:14px 20px;font-weight:800;cursor:pointer;width:100%}.downloadgrid,.tabs{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-top:12px}.small,.tab{background:white;border:1px solid #cbd5e1;border-radius:13px;padding:11px;font-weight:800;cursor:pointer}.tab.active{background:#0f172a;color:white}pre{background:#020617;color:white;border-radius:18px;padding:18px;white-space:pre-wrap;overflow:auto;max-height:500px;min-height:260px;font-size:13px;line-height:1.45}.notice{margin-top:16px;background:#fffbeb;border:1px solid #fde68a;color:#92400e;border-radius:16px;padding:14px;font-size:14px;line-height:1.45}.footer{border-top:1px solid #e2e8f0;color:#64748b;padding:28px 0;font-size:14px}@media(max-width:900px){.buildergrid,.cards{grid-template-columns:1fr}.downloadgrid,.tabs,.row{grid-template-columns:1fr}.navlinks{display:none}h1{font-size:42px}}
   </style>
 </head>
 <body>
 <nav class="nav"><div class="wrap"><div class="brand"><span class="logo">T</span>Thooster</div><div class="navlinks"><a href="#why">Why</a><a href="#builder">Try AIX</a></div></div></nav>
 
 <header class="hero"><div class="wrap">
-  <span class="badge">AIX v0.6 • Coordinate Maps Fix</span>
+  <span class="badge">AIX v0.3 • Enriched Waypoint Demo</span>
   <h1>The bridge between AI and the apps you use every day.</h1>
-  <p class="lead">Thooster turns plain-English requests into structured action files. This demo enriches shopping, fashion, jewelry, food, lodging, entertainment, and fishing requests with route waypoints.</p>
+  <p class="lead">Thooster turns plain-English requests into structured action files. This demo now enriches shopping, fashion, jewelry, food, lodging, entertainment, and fishing requests with actual route waypoints.</p>
 </div></header>
 
 <section id="why" class="dark"><div class="wrap">
@@ -97,7 +27,7 @@
 
 <section id="builder" class="builder"><div class="wrap">
   <h2 class="sectiontitle">Try the AIX travel prototype.</h2>
-  <p class="sub">This prototype adds recommended stop waypoints based on the kind of trip requested.</p>
+  <p class="sub">This is still a prototype, but it now adds recommended stop waypoints based on the kind of trip requested.</p>
 
   <div class="buildergrid">
     <div class="card">
@@ -119,14 +49,13 @@
 
       <div class="downloadgrid">
         <button class="small" onclick="downloadCurrent('json')">JSON</button>
-        <button class="small" onclick="openGoogleMaps()">Open in Google Maps</button>
+        <button class="small" onclick="openGoogleMaps()">Google Maps</button>
         <button class="small" onclick="downloadCurrent('gpx')">GPX</button>
         <button class="small" onclick="downloadCurrent('ics')">ICS</button>
         <button class="small" onclick="downloadCurrent('csv')">CSV</button>
       </div>
 
-      <div class="mobilehint">On a phone, tap <b>Open in Google Maps</b>. If prompted, choose the Google Maps app.</div>
-      <div class="notice"><b>Important:</b> This version uses a built-in Arkansas demo waypoint library and coordinate-based Google Maps routing. It does not yet use live Google Places, current hours, reviews, inventory, or hotel availability.</div>
+      <div class="notice"><b>Important:</b> This version uses a built-in Arkansas demo waypoint library. It does not yet use live Google Places, current hours, reviews, inventory, or hotel availability.</div>
     </div>
 
     <div class="card">
@@ -138,16 +67,6 @@
         <button class="tab" onclick="showTab('csv', this)">CSV</button>
       </div>
       <pre id="output"></pre>
-
-      <div class="toolbox">
-        <h3>Route Debug Tools</h3>
-        <div class="copyrow">
-          <input id="mapsUrlBox" readonly value="" />
-          <button class="copybtn" onclick="copyMapsUrl()">Copy Maps URL</button>
-        </div>
-        <h3>Waypoint List</h3>
-        <ol id="waypointList" class="waypoints"></ol>
-      </div>
     </div>
   </div>
 </div></section>
@@ -239,26 +158,32 @@ function enrichWaypoints(prompt){
     addUnique(waypoints, demoStops.shopping);
     notes.push("Added shopping/fashion city waypoints.");
   }
+
   if(hasAny(p,["jewelry","jewellery"])){
     addUnique(waypoints, demoStops.jewelry);
     notes.push("Added jewelry-specific waypoints.");
   }
+
   if(hasAny(p,["eat","food","restaurant","dinner","lunch","breakfast"])){
     addUnique(waypoints, demoStops.food);
     notes.push("Added food waypoints.");
   }
+
   if(hasAny(p,["stay","hotel","lodging","room"])){
     addUnique(waypoints, demoStops.lodging);
     notes.push("Added lodging waypoints.");
   }
+
   if(hasAny(p,["show","concert","theater","theatre","entertainment"])){
     addUnique(waypoints, demoStops.entertainment);
     notes.push("Added entertainment/show waypoints.");
   }
+
   if(hasAny(p,["fish","fishing","trout","river","lake"])){
     addUnique(waypoints, demoStops.fishing);
     notes.push("Added fishing waypoints.");
   }
+
   if(waypoints.length === 1){
     addUnique(waypoints, [
       {name:"Jonesboro, Arkansas", latitude:35.8423, longitude:-90.7043, purpose:"General city stop"},
@@ -267,6 +192,7 @@ function enrichWaypoints(prompt){
     ]);
     notes.push("Added general Arkansas city waypoints.");
   }
+
   return {waypoints, notes};
 }
 
@@ -282,7 +208,7 @@ function buildIntent(){
   return {
     standard:"AIX",
     standard_name:"AI Intent Exchange",
-    version:"0.5",
+    version:"0.3",
     title:title,
     creator:creator,
     created_at:new Date().toISOString(),
@@ -317,18 +243,7 @@ function buildIntent(){
 }
 
 function toGoogleMapsUrl(intent){
-  const points = (intent.route.waypoints || []).filter(p => typeof p.latitude === "number" && typeof p.longitude === "number");
-  if(points.length === 0) return "https://www.google.com/maps";
-
-  // Use coordinate path format instead of business/place names.
-  // This reduces Google Maps guessing differently on desktop vs mobile.
-  const coordPath = points.map(p => `${p.latitude},${p.longitude}`).join("/");
-  return "https://www.google.com/maps/dir/" + coordPath;
-}
-
-function toGoogleMapsNamedUrl(intent){
   const names = (intent.route.waypoints || []).map(p => p.name).filter(Boolean);
-  if(names.length === 0) return "https://www.google.com/maps";
   return "https://www.google.com/maps/dir/" + names.map(n => encodeURIComponent(n)).join("/");
 }
 
@@ -370,33 +285,16 @@ function toCsv(intent){
   return ["name,latitude,longitude,purpose", ...rows.map(r => `"${r.name}","${r.latitude}","${r.longitude}","${r.purpose}"`)].join("\n");
 }
 
-function updateDebugTools(){
-  const urlBox = document.getElementById("mapsUrlBox");
-  const list = document.getElementById("waypointList");
-  if(urlBox) urlBox.value = currentFiles.maps || "";
-  if(list){
-    list.innerHTML = "";
-    const points = (currentIntent.route && currentIntent.route.waypoints) ? currentIntent.route.waypoints : [];
-    points.forEach(p => {
-      const li = document.createElement("li");
-      li.textContent = p.name + " — " + p.purpose;
-      list.appendChild(li);
-    });
-  }
-}
-
 function generateIntent(){
   currentIntent = buildIntent();
   currentFiles = {
     json:JSON.stringify(currentIntent,null,2),
     maps:toGoogleMapsUrl(currentIntent),
-    named_maps:toGoogleMapsNamedUrl(currentIntent),
     gpx:toGpx(currentIntent),
     ics:toIcs(currentIntent),
     csv:toCsv(currentIntent)
   };
   document.getElementById("output").innerText = currentFiles[currentTab];
-  updateDebugTools();
 }
 
 function showTab(tab, button){
@@ -408,29 +306,7 @@ function showTab(tab, button){
 
 function openGoogleMaps(){
   generateIntent();
-  const url = currentFiles.maps;
-  const a = document.createElement("a");
-  a.href = url;
-  a.target = "_blank";
-  a.rel = "noopener noreferrer";
-  document.body.appendChild(a);
-  a.click();
-  document.body.removeChild(a);
-}
-
-async function copyMapsUrl(){
-  generateIntent();
-  const text = currentFiles.maps;
-  const box = document.getElementById("mapsUrlBox");
-  box.value = text;
-  try{
-    await navigator.clipboard.writeText(text);
-    alert("Maps URL copied.");
-  }catch(e){
-    box.select();
-    document.execCommand("copy");
-    alert("Maps URL selected/copied.");
-  }
+  window.open(currentFiles.maps, "_blank", "noopener,noreferrer");
 }
 
 function downloadCurrent(type){
