@@ -1,0 +1,2 @@
+# AIX
+beginng of AIX
