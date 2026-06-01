@@ -39,102 +39,53 @@
   </style>
 </head>
 <body>
-  <nav class="nav">
-    <div class="wrap nav-inner">
-      <a class="brand" href="#"><span class="logo">T</span><span>Thooster</span></a>
-      <div class="nav-links"><a href="#vision">Vision</a><a href="#examples">Examples</a><a href="#builder">Try AIX</a></div>
-    </div>
-  </nav>
+  <nav class="nav"><div class="wrap nav-inner"><a class="brand" href="#"><span class="logo">T</span><span>Thooster</span></a><div class="nav-links"><a href="#vision">Vision</a><a href="#examples">Examples</a><a href="#builder">Try AIX</a></div></div></nav>
 
   <header class="hero">
     <div class="wrap hero-grid">
       <div>
-        <div class="eyebrow">AIX v0.1 • AI Intent Exchange</div>
+        <div class="eyebrow">AIX v0.2 • Intent Enrichment Demo</div>
         <h1>The bridge between AI and the apps you use every day.</h1>
-        <p class="lead">Thooster is building a portable standard that lets AI systems turn plain-English requests into structured action files for maps, calendars, playlists, shopping lists, and more.</p>
+        <p class="lead">Thooster turns plain-English requests into structured action files and app-ready outputs. This version adds simple intent enrichment for shopping, fashion, jewelry, fishing, food, and lodging trips.</p>
         <div class="actions"><a class="btn" href="#builder">Try the prototype</a><a class="btn secondary" href="#vision">See the vision</a></div>
       </div>
       <div class="hero-card">
-        <div class="tag-row"><span class="tag">AI Request</span><span class="tag">Intent JSON</span><span class="tag">App Exports</span></div>
+        <div class="tag-row"><span class="tag">AI Request</span><span class="tag">Intent JSON</span><span class="tag">Enriched Waypoints</span></div>
         <div class="demo-box">{
   "standard": "AIX",
-  "version": "0.1",
-  "intent_type": "travel_route",
-  "user_goal": "Plan a 2-day trout fishing trip",
-  "requested_outputs": ["aix.json", "google_maps_url", "gpx", "ics", "csv"]
+  "version": "0.2",
+  "intent_type": "shopping_trip",
+  "interests": ["fashion", "jewelry"],
+  "recommended_waypoints": [
+    "The Promenade at Chenal",
+    "Park Plaza Mall",
+    "The Mall at Turtle Creek"
+  ]
 }</div>
       </div>
     </div>
   </header>
 
-  <section id="vision">
-    <div class="wrap">
-      <h2 class="section-title">AI should not stop at giving you text.</h2>
-      <p class="section-sub">When people ask AI to plan, organize, route, schedule, or shop, the answer should be portable. AIX is a proposed exchange layer that describes the user's intent in a form other software can understand.</p>
-      <div class="flow">
-        <div class="step"><b>1. Ask AI</b><span>“Plan my fishing trip,” “make a playlist,” or “build a grocery list.”</span></div>
-        <div class="arrow">→</div>
-        <div class="step"><b>2. Create AIX</b><span>The request becomes a structured AI Intent Exchange file.</span></div>
-        <div class="arrow">→</div>
-        <div class="step"><b>3. Export Actions</b><span>Adapters convert the intent into files apps already accept.</span></div>
-      </div>
-    </div>
-  </section>
+  <section id="vision"><div class="wrap"><h2 class="section-title">AI should not stop at giving you text.</h2><p class="section-sub">When people ask AI to plan, organize, route, schedule, or shop, the answer should be portable. AIX is a proposed exchange layer that describes the user's intent in a form other software can understand.</p><div class="flow"><div class="step"><b>1. Ask AI</b><span>“Plan a boutique shopping trip,” “make a playlist,” or “build a grocery list.”</span></div><div class="arrow">→</div><div class="step"><b>2. Enrich Intent</b><span>Thooster identifies destinations, interests, stops, and output types.</span></div><div class="arrow">→</div><div class="step"><b>3. Export Actions</b><span>Adapters create Google Maps links, GPX, ICS, CSV, and AIX JSON.</span></div></div></div></section>
 
-  <section id="examples" class="dark">
-    <div class="wrap">
-      <h2 class="section-title">One intent. Many applications.</h2>
-      <p class="section-sub">AIX starts as a simple file format and grows into a translation layer between AI and execution platforms.</p>
-      <div class="cards">
-        <div class="card"><div class="icon">🗺️</div><h3>Travel routes</h3><p>Convert trip plans into Google Maps links, GPX, ICS, and CSV files for maps, GPS devices, and calendars.</p></div>
-        <div class="card"><div class="icon">🎵</div><h3>Playlists</h3><p>Turn a theme, mood, or event into a portable playlist intent that music services can interpret.</p></div>
-        <div class="card"><div class="icon">🛒</div><h3>Shopping lists</h3><p>Convert recipes, budgets, diets, or meal plans into structured grocery lists and future retail integrations.</p></div>
-      </div>
-    </div>
-  </section>
+  <section id="examples" class="dark"><div class="wrap"><h2 class="section-title">One intent. Many applications.</h2><p class="section-sub">AIX starts as a simple file format and grows into a translation layer between AI and execution platforms.</p><div class="cards"><div class="card"><div class="icon">🗺️</div><h3>Travel routes</h3><p>Convert trip plans into Google Maps links, GPX, ICS, and CSV files for maps, GPS devices, and calendars.</p></div><div class="card"><div class="icon">🎵</div><h3>Playlists</h3><p>Turn a theme, mood, or event into a portable playlist intent that music services can interpret.</p></div><div class="card"><div class="icon">🛒</div><h3>Shopping lists</h3><p>Convert recipes, budgets, diets, or meal plans into structured grocery lists and future retail integrations.</p></div></div></div></section>
 
   <section id="builder">
     <div class="wrap">
       <h2 class="section-title">Try the AIX travel prototype.</h2>
-      <p class="section-sub">This first demo creates a travel-route intent file and exports starter files. It is a proof of concept, not final navigation software.</p>
-
+      <p class="section-sub">This demo creates an enriched travel intent file and exports starter files. It is a proof of concept, not final navigation software.</p>
       <div class="builder" style="margin-top:28px;">
         <div class="card">
-          <label>Trip Title</label>
-          <input id="title" value="Northern Arkansas Fishing Trip" />
-
-          <div class="row">
-            <div><label>Creator</label><input id="creator" value="Tracy McMahan" /></div>
-            <div><label>Days</label><input id="days" type="number" min="1" max="30" value="2" /></div>
-          </div>
-
-          <label>Start Date</label>
-          <input id="startDate" type="date" value="2026-06-15" />
-
-          <label>Plain-English Request</label>
-          <textarea id="prompt">Plan me a 2-day trout fishing trip starting in Batesville, Arkansas. Avoid interstates, prefer scenic routes, include fishing stops, food stops, and a simple calendar itinerary.</textarea>
-
+          <label>Trip Title</label><input id="title" value="Arkansas Shopping Trip" />
+          <div class="row"><div><label>Creator</label><input id="creator" value="Tracy McMahan" /></div><div><label>Days</label><input id="days" type="number" min="1" max="30" value="3" /></div></div>
+          <label>Start Date</label><input id="startDate" type="date" value="2026-06-15" />
+          <label>Plain-English Request</label><textarea id="prompt">Plan me a three day trip to three different shopping cities with recommended stops for a 50 year old lady who likes fashion and jewelry. Start in Batesville, Arkansas. Make the starting point Batesville, AR and add the recommended shops as waypoints.</textarea>
           <button class="btn" style="width:100%;" onclick="generateIntent()">Generate AIX File</button>
-
-          <div class="download-grid">
-            <button class="small-btn" onclick="downloadCurrent('json')">JSON</button>
-            <button class="small-btn" onclick="openGoogleMaps()">Google Maps</button>
-            <button class="small-btn" onclick="downloadCurrent('gpx')">GPX</button>
-            <button class="small-btn" onclick="downloadCurrent('ics')">ICS</button>
-            <button class="small-btn" onclick="downloadCurrent('csv')">CSV</button>
-          </div>
-
-          <div class="notice"><b>Review required:</b> This MVP uses placeholder route logic. Real integrations should validate addresses, road data, business hours, inventory, prices, and permissions.</div>
+          <div class="download-grid"><button class="small-btn" onclick="downloadCurrent('json')">JSON</button><button class="small-btn" onclick="openGoogleMaps()">Google Maps</button><button class="small-btn" onclick="downloadCurrent('gpx')">GPX</button><button class="small-btn" onclick="downloadCurrent('ics')">ICS</button><button class="small-btn" onclick="downloadCurrent('csv')">CSV</button></div>
+          <div class="notice"><b>Review required:</b> This MVP includes a local enrichment rule set, not live search. Real integrations should validate addresses, hours, traffic, prices, inventory, and permissions.</div>
         </div>
-
         <div class="card">
-          <div class="tabs">
-            <button class="tab active" onclick="showTab('json', this)">JSON</button>
-            <button class="tab" onclick="showTab('maps', this)">Maps</button>
-            <button class="tab" onclick="showTab('gpx', this)">GPX</button>
-            <button class="tab" onclick="showTab('ics', this)">ICS</button>
-            <button class="tab" onclick="showTab('csv', this)">CSV</button>
-          </div>
+          <div class="tabs"><button class="tab active" onclick="showTab('json', this)">JSON</button><button class="tab" onclick="showTab('maps', this)">Maps</button><button class="tab" onclick="showTab('gpx', this)">GPX</button><button class="tab" onclick="showTab('ics', this)">ICS</button><button class="tab" onclick="showTab('csv', this)">CSV</button></div>
           <pre id="output"></pre>
         </div>
       </div>
@@ -149,27 +100,75 @@
     let currentTab = "json";
 
     function slugify(text) {
-      return (text || "aix-intent")
-        .toLowerCase()
-        .replace(/[^a-z0-9]+/g, "-")
-        .replace(/^-+|-+$/g, "") || "aix-intent";
+      return (text || "aix-intent").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "") || "aix-intent";
     }
 
     function escapeXml(value) {
-      return String(value || "")
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&apos;");
+      return String(value || "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&apos;");
     }
 
-    function extractKnownLocation(prompt) {
+    function getOrigin(prompt) {
       const lower = prompt.toLowerCase();
       if (lower.includes("batesville")) return { name: "Batesville, Arkansas", latitude: 35.7698, longitude: -91.6409 };
       if (lower.includes("little rock")) return { name: "Little Rock, Arkansas", latitude: 34.7465, longitude: -92.2896 };
+      if (lower.includes("jonesboro")) return { name: "Jonesboro, Arkansas", latitude: 35.8423, longitude: -90.7043 };
+      if (lower.includes("conway")) return { name: "Conway, Arkansas", latitude: 35.0887, longitude: -92.4421 };
       if (lower.includes("mountain view")) return { name: "Mountain View, Arkansas", latitude: 35.8684, longitude: -92.1177 };
-      return { name: "Origin to be resolved", latitude: 35.7698, longitude: -91.6409 };
+      return { name: "Batesville, Arkansas", latitude: 35.7698, longitude: -91.6409 };
+    }
+
+    const waypointLibrary = {
+      shoppingFashionJewelry: [
+        { name: "The Mall at Turtle Creek, Jonesboro, Arkansas", latitude: 35.8068, longitude: -90.6669, purpose: "Shopping city 1: mall, fashion, and jewelry options" },
+        { name: "Park Plaza Mall, Little Rock, Arkansas", latitude: 34.7522, longitude: -92.3438, purpose: "Shopping city 2: department stores, fashion, and jewelry options" },
+        { name: "The Promenade at Chenal, Little Rock, Arkansas", latitude: 34.7726, longitude: -92.4606, purpose: "Upscale shopping, boutiques, fashion, and jewelry" },
+        { name: "Downtown Conway, Conway, Arkansas", latitude: 35.0918, longitude: -92.4367, purpose: "Shopping city 3: walkable downtown boutiques and local shopping" }
+      ],
+      fishing: [
+        { name: "Norfork River, Arkansas", latitude: 36.2267, longitude: -92.6849, purpose: "Trout fishing stop" },
+        { name: "Bull Shoals White River State Park, Arkansas", latitude: 36.3693, longitude: -92.5804, purpose: "Trout fishing and river access" },
+        { name: "Mountain Home, Arkansas", latitude: 36.3353, longitude: -92.3852, purpose: "Food, lodging, and supply stop" }
+      ],
+      food: [
+        { name: "Jonesboro, Arkansas", latitude: 35.8423, longitude: -90.7043, purpose: "Food stop and city waypoint" },
+        { name: "Conway, Arkansas", latitude: 35.0887, longitude: -92.4421, purpose: "Food stop and city waypoint" },
+        { name: "Little Rock, Arkansas", latitude: 34.7465, longitude: -92.2896, purpose: "Food stop and city waypoint" }
+      ]
+    };
+
+    function inferIntentType(prompt) {
+      const p = prompt.toLowerCase();
+      if (/shopping|shop|fashion|jewelry|jewellery|boutique|mall/.test(p)) return "shopping_trip";
+      if (/fish|fishing|trout|river|lake/.test(p)) return "fishing_trip";
+      if (/playlist|music|song/.test(p)) return "playlist";
+      if (/grocery|meal|recipe|shopping list/.test(p)) return "shopping_list";
+      return "travel_route";
+    }
+
+    function enrichWaypoints(prompt) {
+      const p = prompt.toLowerCase();
+      const origin = getOrigin(prompt);
+      let waypoints = [{ name: origin.name, latitude: origin.latitude, longitude: origin.longitude, purpose: "Trip start" }];
+      let enrichmentNotes = [];
+
+      if (/shopping|shop|fashion|jewelry|jewellery|boutique|mall/.test(p)) {
+        waypoints = waypoints.concat(waypointLibrary.shoppingFashionJewelry);
+        enrichmentNotes.push("Detected shopping/fashion/jewelry trip. Added Arkansas shopping city waypoints.");
+      } else if (/fish|fishing|trout|river|lake/.test(p)) {
+        waypoints = waypoints.concat(waypointLibrary.fishing);
+        enrichmentNotes.push("Detected fishing/trout trip. Added northern Arkansas fishing waypoints.");
+      } else {
+        waypoints = waypoints.concat(waypointLibrary.food);
+        enrichmentNotes.push("Detected general travel route. Added general Arkansas city waypoints.");
+      }
+
+      if (/food|restaurant|eat|dinner|lunch|breakfast/.test(p)) {
+        enrichmentNotes.push("Detected food stops. Route includes cities with restaurant options.");
+      }
+      if (/hotel|stay|lodging|cabin|room/.test(p)) {
+        enrichmentNotes.push("Detected lodging request. Lodging should be validated by a future hotel adapter.");
+      }
+      return { waypoints, enrichmentNotes };
     }
 
     function buildIntent() {
@@ -178,53 +177,44 @@
       const startDate = document.getElementById("startDate").value;
       const days = Number(document.getElementById("days").value || 1);
       const prompt = document.getElementById("prompt").value;
-
-      const origin = extractKnownLocation(prompt);
-      const scenic = /scenic|pretty|views|back road|backroad/i.test(prompt);
-      const avoidInterstates = /avoid interstate|no interstate|avoid highway/i.test(prompt);
-      const fishing = /fish|fishing|trout|river|lake/i.test(prompt);
-      const food = /food|restaurant|eat|dinner|lunch|breakfast/i.test(prompt);
-      const hotel = /hotel|stay|lodging|cabin|room/i.test(prompt);
-
-      const waypoints = [
-        { name: origin.name, latitude: origin.latitude, longitude: origin.longitude, purpose: "Trip start" },
-        { name: fishing ? "Norfork River" : "Mountain View, Arkansas", latitude: 36.2267, longitude: -92.6849, purpose: fishing ? "Suggested fishing waypoint placeholder" : "Suggested waypoint placeholder" },
-        { name: food ? "Mountain Home, Arkansas" : "Secondary stop", latitude: 36.3353, longitude: -92.3852, purpose: food ? "Meal stop placeholder" : "Secondary waypoint placeholder" }
-      ];
-
-      if (hotel) {
-        waypoints.push({ name: "Mountain Home, Arkansas", latitude: 36.3353, longitude: -92.3852, purpose: "Overnight lodging placeholder" });
-      }
+      const intentType = inferIntentType(prompt);
+      const enriched = enrichWaypoints(prompt);
 
       return {
         standard: "AIX",
         standard_name: "AI Intent Exchange",
-        version: "0.1",
+        version: "0.2",
         title: title,
         creator: creator,
         created_at: new Date().toISOString(),
-        intent_type: "travel_route",
+        intent_type: intentType,
         user_prompt: prompt,
         user_goal: prompt,
         status: "draft_requires_review",
         schedule: { start_date: startDate, duration_days: days },
         preferences: {
-          scenic_route: scenic,
-          avoid_interstates: avoidInterstates,
-          include_fishing_stops: fishing,
-          include_food_stops: food,
-          include_lodging: hotel
+          shopping: /shopping|shop|mall/.test(prompt.toLowerCase()),
+          fashion: /fashion|clothes|clothing|boutique/.test(prompt.toLowerCase()),
+          jewelry: /jewelry|jewellery/.test(prompt.toLowerCase()),
+          fishing: /fish|fishing|trout/.test(prompt.toLowerCase()),
+          food: /food|restaurant|eat|dinner|lunch|breakfast/.test(prompt.toLowerCase()),
+          lodging: /hotel|stay|lodging|cabin|room/.test(prompt.toLowerCase())
         },
         constraints: {
           requires_user_review: true,
           requires_mapping_validation: true,
-          requires_current_business_hours_validation: true
+          requires_current_business_hours_validation: true,
+          enrichment_source: "local_rule_set_v0.2"
         },
         requested_outputs: ["aix.json", "google_maps_url", "gpx", "ics", "csv"],
         route: {
-          origin: origin.name,
-          destination: "Destination to be resolved by mapping adapter",
-          waypoints: waypoints
+          origin: enriched.waypoints[0].name,
+          destination: enriched.waypoints[enriched.waypoints.length - 1].name,
+          waypoints: enriched.waypoints
+        },
+        enrichment: {
+          notes: enriched.enrichmentNotes,
+          limitation: "This prototype uses preset demonstration waypoints. Future versions should use live AI, search APIs, maps APIs, and business data."
         },
         adapters: [
           { name: "AIX JSON", purpose: "Canonical AI intent file" },
@@ -234,9 +224,9 @@
           { name: "CSV Adapter", purpose: "Spreadsheet itinerary" }
         ],
         audit: {
-          source: "human_prompt",
+          source: "human_prompt_plus_local_enrichment",
           ai_generated: true,
-          safety_note: "This file represents user intent and should be reviewed before use in navigation, scheduling, or purchasing."
+          safety_note: "This file represents user intent and should be reviewed before use in navigation, scheduling, purchasing, or travel."
         }
       };
     }
