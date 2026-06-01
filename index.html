@@ -3,414 +3,69 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>AIX - AI Intent Exchange</title>
+  <title>Thooster | AI Intent Exchange</title>
+  <meta name="description" content="Thooster is building AI Intent Exchange: a portable standard for turning AI requests into action files." />
   <style>
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      font-family: Arial, Helvetica, sans-serif;
-      background: linear-gradient(180deg, #f8fafc, #ffffff);
-      color: #0f172a;
-    }
-    .container {
-      max-width: 1180px;
-      margin: 0 auto;
-      padding: 28px;
-    }
-    .hero {
-      display: grid;
-      grid-template-columns: 1.1fr .9fr;
-      gap: 24px;
-      align-items: start;
-    }
-    h1 {
-      font-size: 54px;
-      line-height: 1;
-      margin: 16px 0;
-      letter-spacing: -2px;
-    }
-    h2 { margin-top: 0; }
-    p { color: #475569; line-height: 1.5; }
-    .badge {
-      display: inline-block;
-      background: #e2e8f0;
-      padding: 8px 12px;
-      border-radius: 999px;
-      font-size: 14px;
-      margin-right: 8px;
-    }
-    .card {
-      background: white;
-      border: 1px solid #e2e8f0;
-      border-radius: 24px;
-      box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
-      padding: 22px;
-    }
-    .grid3 {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 14px;
-      margin-top: 24px;
-    }
-    .mini {
-      background: white;
-      border: 1px solid #e2e8f0;
-      border-radius: 18px;
-      padding: 16px;
-    }
-    label {
-      display: block;
-      font-weight: 700;
-      font-size: 14px;
-      margin-bottom: 7px;
-    }
-    input, textarea {
-      width: 100%;
-      padding: 12px;
-      border: 1px solid #cbd5e1;
-      border-radius: 12px;
-      font-size: 15px;
-      margin-bottom: 14px;
-    }
-    textarea { min-height: 130px; resize: vertical; }
-    .row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 14px;
-    }
-    button {
-      border: none;
-      border-radius: 14px;
-      padding: 13px 16px;
-      font-size: 15px;
-      font-weight: 700;
-      cursor: pointer;
-      background: #0f172a;
-      color: white;
-      width: 100%;
-    }
-    .outline {
-      background: white;
-      color: #0f172a;
-      border: 1px solid #cbd5e1;
-    }
-    .downloads {
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: 10px;
-      margin-top: 14px;
-    }
-    .main {
-      display: grid;
-      grid-template-columns: .85fr 1.15fr;
-      gap: 24px;
-      margin-top: 24px;
-    }
-    .stats {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-    }
-    .stat {
-      background: #f8fafc;
-      border: 1px solid #e2e8f0;
-      border-radius: 16px;
-      padding: 14px;
-    }
-    .stat small { color: #64748b; display: block; margin-bottom: 5px; }
-    .warning {
-      background: #fffbeb;
-      border: 1px solid #fde68a;
-      color: #92400e;
-      border-radius: 16px;
-      padding: 14px;
-      margin: 16px 0;
-      font-size: 14px;
-      line-height: 1.45;
-    }
-    .tabs {
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: 8px;
-      margin-bottom: 12px;
-    }
-    .tab {
-      background: #f1f5f9;
-      color: #0f172a;
-      border: 1px solid #e2e8f0;
-      padding: 10px;
-      border-radius: 12px;
-    }
-    .tab.active {
-      background: #0f172a;
-      color: white;
-    }
-    pre {
-      background: #020617;
-      color: #f8fafc;
-      padding: 16px;
-      border-radius: 16px;
-      overflow: auto;
-      max-height: 460px;
-      font-size: 13px;
-      line-height: 1.45;
-      white-space: pre-wrap;
-    }
-    footer {
-      margin-top: 30px;
-      color: #64748b;
-      font-size: 13px;
-      text-align: center;
-    }
-    @media (max-width: 900px) {
-      .hero, .main { grid-template-columns: 1fr; }
-      .grid3, .downloads, .tabs { grid-template-columns: 1fr; }
-      h1 { font-size: 40px; }
-      .row { grid-template-columns: 1fr; }
-    }
+    *{box-sizing:border-box} html{scroll-behavior:smooth}
+    body{margin:0;font-family:Arial,Helvetica,sans-serif;color:#0f172a;background:#f8fafc}
+    a{color:inherit;text-decoration:none}.wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+    .nav{position:sticky;top:0;z-index:10;background:rgba(255,255,255,.92);backdrop-filter:blur(12px);border-bottom:1px solid #e2e8f0}
+    .nav-inner{height:72px;display:flex;align-items:center;justify-content:space-between}
+    .brand{display:flex;align-items:center;gap:12px;font-weight:800;font-size:22px}
+    .logo{width:38px;height:38px;border-radius:12px;background:linear-gradient(135deg,#0f172a,#2563eb);color:#fff;display:grid;place-items:center;font-weight:900}
+    .nav-links{display:flex;gap:20px;color:#475569;font-size:14px}
+    .hero{padding:82px 0 56px;background:radial-gradient(circle at 15% 10%,rgba(37,99,235,.16),transparent 32%),radial-gradient(circle at 85% 15%,rgba(14,165,233,.15),transparent 28%),linear-gradient(180deg,#fff,#f8fafc)}
+    .hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:42px;align-items:center}
+    .eyebrow{display:inline-flex;gap:8px;align-items:center;padding:8px 12px;border-radius:999px;background:#e0f2fe;color:#075985;font-weight:800;font-size:13px}
+    h1{font-size:clamp(42px,6vw,74px);line-height:.95;margin:20px 0 18px;letter-spacing:-3px}
+    .lead{font-size:20px;line-height:1.55;color:#475569;max-width:680px}.actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}
+    .btn{display:inline-block;border:0;border-radius:999px;padding:13px 20px;font-weight:800;cursor:pointer;background:#0f172a;color:#fff}
+    .btn.secondary{background:#fff;color:#0f172a;border:1px solid #cbd5e1}
+    .hero-card,.card{background:#fff;border:1px solid #e2e8f0;border-radius:28px;padding:22px;box-shadow:0 24px 70px rgba(15,23,42,.10)}
+    .demo-box{background:#020617;color:#fff;border-radius:22px;padding:20px;font-family:Consolas,monospace;font-size:13px;overflow:auto}
+    .tag-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}.tag{padding:7px 10px;border-radius:999px;background:#f1f5f9;font-size:12px;font-weight:800;color:#334155}
+    section{padding:70px 0}.section-title{font-size:42px;line-height:1.05;margin:0 0 12px;letter-spacing:-1.5px}.section-sub{color:#64748b;font-size:18px;max-width:760px;line-height:1.5}
+    .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:30px}.icon{width:44px;height:44px;border-radius:14px;display:grid;place-items:center;background:#eff6ff;color:#1d4ed8;font-size:22px;margin-bottom:14px}
+    .card h3{margin:0 0 8px;font-size:21px}.card p{margin:0;color:#64748b;line-height:1.5}
+    .flow{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-top:34px}.step{background:#fff;border:1px solid #e2e8f0;border-radius:22px;padding:18px;min-height:130px}.step b{display:block;margin-bottom:8px}.step span{color:#64748b;line-height:1.45;font-size:14px}.arrow{display:grid;place-items:center;color:#94a3b8;font-size:28px}
+    .builder{display:grid;grid-template-columns:.9fr 1.1fr;gap:22px;align-items:start}label{display:block;font-weight:800;margin-bottom:7px;font-size:14px}
+    input,textarea{width:100%;border:1px solid #cbd5e1;border-radius:14px;padding:13px;font-size:15px;margin-bottom:14px}textarea{min-height:155px;resize:vertical}.row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .download-grid,.tabs{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-top:12px}.small-btn,.tab{border:1px solid #cbd5e1;background:#fff;border-radius:13px;padding:10px;cursor:pointer;font-weight:800}.tab.active{background:#0f172a;color:#fff}
+    pre{background:#020617;color:#f8fafc;padding:18px;border-radius:18px;overflow:auto;max-height:460px;white-space:pre-wrap;font-size:13px;line-height:1.45}
+    .notice{margin-top:16px;background:#fffbeb;border:1px solid #fde68a;color:#92400e;border-radius:18px;padding:14px;font-size:14px;line-height:1.45}
+    .dark{background:#0f172a;color:#fff}.dark .section-sub{color:#cbd5e1}.dark .card{background:#111827;border-color:#334155}.dark .card p{color:#cbd5e1}
+    .footer{padding:34px 0;border-top:1px solid #e2e8f0;color:#64748b;font-size:14px}
+    @media(max-width:920px){.hero-grid,.builder,.cards,.flow{grid-template-columns:1fr}.arrow,.nav-links{display:none}.download-grid,.tabs,.row{grid-template-columns:1fr}}
   </style>
 </head>
 <body>
-  <div class="container">
-    <section class="hero">
-      <div>
-        <span class="badge">AIX v0.1</span>
-        <span class="badge">Travel Route MVP</span>
-        <h1>AI Intent Exchange</h1>
-        <p>
-          Turn a plain-English request into a structured AI intent file, then export files that other applications can use:
-          JSON, KML, GPX, ICS, and CSV.
-        </p>
-        <div class="grid3">
-          <div class="mini"><strong>Intent JSON</strong><p>Canonical AIX file</p></div>
-          <div class="mini"><strong>Map Exports</strong><p>KML and GPX</p></div>
-          <div class="mini"><strong>Calendar</strong><p>ICS itinerary</p></div>
-        </div>
-      </div>
-
-      <div class="card">
-        <h2>Build an Intent</h2>
-        <div class="row">
-          <div>
-            <label>Trip Title</label>
-            <input id="title" value="Northern Arkansas Fishing Trip" />
-          </div>
-          <div>
-            <label>Creator</label>
-            <input id="creator" value="Tracy McMahan" />
-          </div>
-          <div>
-            <label>Start Date</label>
-            <input id="startDate" type="date" value="2026-06-15" />
-          </div>
-          <div>
-            <label>Days</label>
-            <input id="days" type="number" min="1" max="30" value="2" />
-          </div>
-        </div>
-        <label>Plain-English Request</label>
-        <textarea id="prompt">Plan me a 2-day trout fishing trip starting in Batesville, Arkansas. Avoid interstates, prefer scenic routes, include fishing stops, food stops, and a simple calendar itinerary.</textarea>
-        <button onclick="generateIntent()">Generate AIX File</button>
-      </div>
-    </section>
-
-    <section class="main">
-      <div class="card">
-        <h2>Generated Intent</h2>
-        <p>This is the structured representation of what the user wants.</p>
-        <div class="stats">
-          <div class="stat"><small>Intent Type</small><strong id="intentType">travel_route</strong></div>
-          <div class="stat"><small>Standard</small><strong>AIX 0.1</strong></div>
-          <div class="stat"><small>Waypoints</small><strong id="waypointCount">3</strong></div>
-          <div class="stat"><small>Status</small><strong>Draft</strong></div>
-        </div>
-
-        <div class="warning">
-          <strong>Review required:</strong> This MVP creates starter files. Real app integration should validate addresses,
-          business hours, road data, inventory, prices, and user permissions before acting.
-        </div>
-
-        <div class="downloads">
-          <button class="outline" onclick="downloadCurrent('json')">AIX JSON</button>
-          <button class="outline" onclick="downloadCurrent('kml')">KML</button>
-          <button class="outline" onclick="downloadCurrent('gpx')">GPX</button>
-          <button class="outline" onclick="downloadCurrent('ics')">ICS</button>
-          <button class="outline" onclick="downloadCurrent('csv')">CSV</button>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="tabs">
-          <button class="tab active" onclick="showTab('json', this)">JSON</button>
-          <button class="tab" onclick="showTab('kml', this)">KML</button>
-          <button class="tab" onclick="showTab('gpx', this)">GPX</button>
-          <button class="tab" onclick="showTab('ics', this)">ICS</button>
-          <button class="tab" onclick="showTab('csv', this)">CSV</button>
-        </div>
-        <pre id="output"></pre>
-      </div>
-    </section>
-
-    <footer>
-      AIX — AI Intent Exchange. Prototype only. Generated files should be reviewed before real-world use.
-    </footer>
-  </div>
-
+  <nav class="nav"><div class="wrap nav-inner"><a class="brand" href="#"><span class="logo">T</span><span>Thooster</span></a><div class="nav-links"><a href="#vision">Vision</a><a href="#examples">Examples</a><a href="#builder">Try AIX</a></div></div></nav>
+  <header class="hero"><div class="wrap hero-grid"><div><div class="eyebrow">AIX v0.1 • AI Intent Exchange</div><h1>The bridge between AI and the apps you use every day.</h1><p class="lead">Thooster is building a portable standard that lets AI systems turn plain-English requests into structured action files for maps, calendars, playlists, shopping lists, and more.</p><div class="actions"><a class="btn" href="#builder">Try the prototype</a><a class="btn secondary" href="#vision">See the vision</a></div></div><div class="hero-card"><div class="tag-row"><span class="tag">AI Request</span><span class="tag">Intent JSON</span><span class="tag">App Exports</span></div><div class="demo-box">{
+  "standard": "AIX",
+  "version": "0.1",
+  "intent_type": "travel_route",
+  "user_goal": "Plan a 2-day trout fishing trip",
+  "requested_outputs": ["aix.json", "google_maps_url", "gpx", "ics", "csv"]
+}</div></div></div></header>
+  <section id="vision"><div class="wrap"><h2 class="section-title">AI should not stop at giving you text.</h2><p class="section-sub">When people ask AI to plan, organize, route, schedule, or shop, the answer should be portable. AIX is a proposed exchange layer that describes the user's intent in a form other software can understand.</p><div class="flow"><div class="step"><b>1. Ask AI</b><span>“Plan my fishing trip,” “make a playlist,” or “build a grocery list.”</span></div><div class="arrow">→</div><div class="step"><b>2. Create AIX</b><span>The request becomes a structured AI Intent Exchange file.</span></div><div class="arrow">→</div><div class="step"><b>3. Export Actions</b><span>Adapters convert the intent into files apps already accept.</span></div></div></div></section>
+  <section id="examples" class="dark"><div class="wrap"><h2 class="section-title">One intent. Many applications.</h2><p class="section-sub">AIX starts as a simple file format and grows into a translation layer between AI and execution platforms.</p><div class="cards"><div class="card"><div class="icon">🗺️</div><h3>Travel routes</h3><p>Convert trip plans into Google Maps links, GPX, ICS, and CSV files for maps, GPS devices, and calendars.</p></div><div class="card"><div class="icon">🎵</div><h3>Playlists</h3><p>Turn a theme, mood, or event into a portable playlist intent that music services can interpret.</p></div><div class="card"><div class="icon">🛒</div><h3>Shopping lists</h3><p>Convert recipes, budgets, diets, or meal plans into structured grocery lists and future retail integrations.</p></div></div></div></section>
+  <section id="builder"><div class="wrap"><h2 class="section-title">Try the AIX travel prototype.</h2><p class="section-sub">This first demo creates a travel-route intent file and exports starter files. It is a proof of concept, not final navigation software.</p><div class="builder" style="margin-top:28px;"><div class="card"><label>Trip Title</label><input id="title" value="Northern Arkansas Fishing Trip" /><div class="row"><div><label>Creator</label><input id="creator" value="Tracy McMahan" /></div><div><label>Days</label><input id="days" type="number" min="1" max="30" value="2" /></div></div><label>Start Date</label><input id="startDate" type="date" value="2026-06-15" /><label>Plain-English Request</label><textarea id="prompt">Plan me a 2-day trout fishing trip starting in Batesville, Arkansas. Avoid interstates, prefer scenic routes, include fishing stops, food stops, and a simple calendar itinerary.</textarea><button class="btn" style="width:100%;" onclick="generateIntent()">Generate AIX File</button><div class="download-grid"><button class="small-btn" onclick="downloadCurrent('json')">JSON</button><button class="small-btn" onclick="openGoogleMaps()">Google Maps</button><button class="small-btn" onclick="downloadCurrent('gpx')">GPX</button><button class="small-btn" onclick="downloadCurrent('ics')">ICS</button><button class="small-btn" onclick="downloadCurrent('csv')">CSV</button></div><div class="notice"><b>Review required:</b> This MVP uses placeholder route logic. Real integrations should validate addresses, road data, business hours, inventory, prices, and permissions.</div></div><div class="card"><div class="tabs"><button class="tab active" onclick="showTab('json', this)">JSON</button><button class="tab" onclick="showTab('maps', this)">Maps</button><button class="tab" onclick="showTab('gpx', this)">GPX</button><button class="tab" onclick="showTab('ics', this)">ICS</button><button class="tab" onclick="showTab('csv', this)">CSV</button></div><pre id="output"></pre></div></div></div></section>
+  <footer class="footer"><div class="wrap"><b>Thooster</b> — Home of AI Intent Exchange. Prototype only. Generated files should be reviewed before real-world use.</div></footer>
   <script>
-    let currentIntent = {};
-    let currentFiles = {};
-    let currentTab = "json";
+    let currentIntent={}, currentFiles={}, currentTab="json";
+    function slugify(text){return(text||"aix-intent").toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-+|-+$/g,"")||"aix-intent"}
+    function escapeXml(value){return String(value||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&apos;")}
+    function extractKnownLocation(prompt){const lower=prompt.toLowerCase();if(lower.includes("batesville"))return{name:"Batesville, Arkansas",latitude:35.7698,longitude:-91.6409};if(lower.includes("little rock"))return{name:"Little Rock, Arkansas",latitude:34.7465,longitude:-92.2896};if(lower.includes("mountain view"))return{name:"Mountain View, Arkansas",latitude:35.8684,longitude:-92.1177};return{name:"Origin to be resolved",latitude:35.7698,longitude:-91.6409}}
+    function buildIntent(){const title=document.getElementById("title").value,creator=document.getElementById("creator").value,startDate=document.getElementById("startDate").value,days=Number(document.getElementById("days").value||1),prompt=document.getElementById("prompt").value,origin=extractKnownLocation(prompt),scenic=/scenic|pretty|views|back road|backroad/i.test(prompt),avoidInterstates=/avoid interstate|no interstate|avoid highway/i.test(prompt),fishing=/fish|fishing|trout|river|lake/i.test(prompt),food=/food|restaurant|eat|dinner|lunch|breakfast/i.test(prompt),hotel=/hotel|stay|lodging|cabin|room/i.test(prompt);const waypoints=[{name:origin.name,latitude:origin.latitude,longitude:origin.longitude,purpose:"Trip start"},{name:fishing?"Trout fishing stop":"Primary stop",latitude:36.2267,longitude:-92.6849,purpose:fishing?"Suggested fishing waypoint placeholder":"Suggested waypoint placeholder"},{name:food?"Food stop":"Secondary stop",latitude:36.3353,longitude:-92.3852,purpose:food?"Meal stop placeholder":"Secondary waypoint placeholder"}];if(hotel)waypoints.push({name:"Lodging stop",latitude:36.3353,longitude:-92.3852,purpose:"Overnight lodging placeholder"});return{standard:"AIX",standard_name:"AI Intent Exchange",version:"0.1",title,creator,created_at:new Date().toISOString(),intent_type:"travel_route",user_prompt:prompt,user_goal:prompt,status:"draft_requires_review",schedule:{start_date:startDate,duration_days:days},preferences:{scenic_route:scenic,avoid_interstates:avoidInterstates,include_fishing_stops:fishing,include_food_stops:food,include_lodging:hotel},constraints:{requires_user_review:true,requires_mapping_validation:true,requires_current_business_hours_validation:true},requested_outputs:["aix.json","google_maps_url","gpx","ics","csv"],route:{origin:origin.name,destination:"Destination to be resolved by mapping adapter",waypoints},adapters:[{name:"AIX JSON",purpose:"Canonical AI intent file"},{name:"Google Maps Adapter",purpose:"Direct Google Maps route URL"},{name:"GPX Adapter",purpose:"GPS devices and route applications"},{name:"ICS Adapter",purpose:"Calendar itinerary"},{name:"CSV Adapter",purpose:"Spreadsheet itinerary"}],audit:{source:"human_prompt",ai_generated:true,safety_note:"This file represents user intent and should be reviewed before use in navigation, scheduling, or purchasing."}}}
+    function toKml(intent){const points=intent.route.waypoints||[];return `<?xml version="1.0" encoding="UTF-8"?>\n<kml xmlns="http://www.opengis.net/kml/2.2">\n  <Document>\n    <name>${escapeXml(intent.title)}</name>\n    <description>${escapeXml(intent.user_goal)}</description>\n${points.map(p=>`    <Placemark>\n      <name>${escapeXml(p.name)}</name>\n      <description>${escapeXml(p.purpose)}</description>\n      <Point>\n        <coordinates>${p.longitude},${p.latitude},0</coordinates>\n      </Point>\n    </Placemark>`).join("\n")}\n  </Document>\n</kml>`}
+    function toGpx(intent){const points=intent.route.waypoints||[];return `<?xml version="1.0" encoding="UTF-8"?>\n<gpx version="1.1" creator="AIX Prototype" xmlns="http://www.topografix.com/GPX/1/1">\n  <metadata>\n    <name>${escapeXml(intent.title)}</name>\n    <desc>${escapeXml(intent.user_goal)}</desc>\n  </metadata>\n${points.map(p=>`  <wpt lat="${p.latitude}" lon="${p.longitude}">\n    <name>${escapeXml(p.name)}</name>\n    <desc>${escapeXml(p.purpose)}</desc>\n  </wpt>`).join("\n")}\n</gpx>`}
+    function toIcs(intent){const startDate=(intent.schedule.start_date||"2026-06-01").replace(/-/g,""),now=new Date().toISOString().replace(/[-:]/g,"").split(".")[0]+"Z",description=`${intent.user_goal}\\n\\nGenerated by AIX v${intent.version}. Review before use.`;return `BEGIN:VCALENDAR\nVERSION:2.0\nPRODID:-//Thooster//AI Intent Exchange//EN\nBEGIN:VEVENT\nUID:${slugify(intent.title)}-${Date.now()}@thooster.com\nDTSTAMP:${now}\nSUMMARY:${intent.title}\nDESCRIPTION:${description}\nDTSTART;VALUE=DATE:${startDate}\nDTEND;VALUE=DATE:${startDate}\nEND:VEVENT\nEND:VCALENDAR`}
+    function toCsv(intent){const rows=intent.route.waypoints||[];return["name,latitude,longitude,purpose",...rows.map(r=>`"${r.name}","${r.latitude}","${r.longitude}","${r.purpose}"`)].join("\n")}
+    function generateIntent(){currentIntent=buildIntent();currentFiles={json:JSON.stringify(currentIntent,null,2),maps:toGoogleMapsUrl(currentIntent),gpx:toGpx(currentIntent),ics:toIcs(currentIntent),csv:toCsv(currentIntent)};document.getElementById("output").innerText=currentFiles[currentTab]}
+    function showTab(tab,button){currentTab=tab;document.querySelectorAll(".tab").forEach(b=>b.classList.remove("active"));button.classList.add("active");document.getElementById("output").innerText=currentFiles[tab]||""}
+    function downloadCurrent(type){if(!currentFiles[type])generateIntent();const title=document.getElementById("title").value,base=slugify(title),filename=type==="json"?`${base}.aix.json`:`${base}.${type}`,mimes={json:"application/json",kml:"application/vnd.google-earth.kml+xml",gpx:"application/gpx+xml",ics:"text/calendar",csv:"text/csv"},blob=new Blob([currentFiles[type]],{type:mimes[type]||"text/plain"}),url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download=filename;document.body.appendChild(a);a.click();document.body.removeChild(a);URL.revokeObjectURL(url)}
 
-    function slugify(text) {
-      return (text || "aix-intent").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "") || "aix-intent";
-    }
-
-    function escapeXml(value) {
-      return String(value || "")
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&apos;");
-    }
-
-    function extractKnownLocation(prompt) {
-      const lower = prompt.toLowerCase();
-      if (lower.includes("batesville")) return { name: "Batesville, Arkansas", latitude: 35.7698, longitude: -91.6409 };
-      if (lower.includes("little rock")) return { name: "Little Rock, Arkansas", latitude: 34.7465, longitude: -92.2896 };
-      if (lower.includes("mountain view")) return { name: "Mountain View, Arkansas", latitude: 35.8684, longitude: -92.1177 };
-      return { name: "Origin to be resolved", latitude: 35.7698, longitude: -91.6409 };
-    }
-
-    function buildIntent() {
-      const title = document.getElementById("title").value;
-      const creator = document.getElementById("creator").value;
-      const startDate = document.getElementById("startDate").value;
-      const days = Number(document.getElementById("days").value || 1);
-      const prompt = document.getElementById("prompt").value;
-
-      const origin = extractKnownLocation(prompt);
-      const scenic = /scenic|pretty|views|back road|backroad/i.test(prompt);
-      const avoidInterstates = /avoid interstate|no interstate|avoid highway/i.test(prompt);
-      const fishing = /fish|fishing|trout|river|lake/i.test(prompt);
-      const food = /food|restaurant|eat|dinner|lunch|breakfast/i.test(prompt);
-      const hotel = /hotel|stay|lodging|cabin|room/i.test(prompt);
-
-      const waypoints = [
-        { name: origin.name, latitude: origin.latitude, longitude: origin.longitude, purpose: "Trip start" },
-        { name: fishing ? "Trout fishing stop" : "Primary stop", latitude: 36.2267, longitude: -92.6849, purpose: fishing ? "Suggested fishing waypoint placeholder" : "Suggested waypoint placeholder" },
-        { name: food ? "Food stop" : "Secondary stop", latitude: 36.3353, longitude: -92.3852, purpose: food ? "Meal stop placeholder" : "Secondary waypoint placeholder" }
-      ];
-
-      if (hotel) {
-        waypoints.push({ name: "Lodging stop", latitude: 36.3353, longitude: -92.3852, purpose: "Overnight lodging placeholder" });
-      }
-
-      return {
-        standard: "AIX",
-        standard_name: "AI Intent Exchange",
-        version: "0.1",
-        title,
-        creator,
-        created_at: new Date().toISOString(),
-        intent_type: "travel_route",
-        user_prompt: prompt,
-        user_goal: prompt,
-        status: "draft_requires_review",
-        schedule: { start_date: startDate, duration_days: days },
-        preferences: {
-          scenic_route: scenic,
-          avoid_interstates: avoidInterstates,
-          include_fishing_stops: fishing,
-          include_food_stops: food,
-          include_lodging: hotel
-        },
-        constraints: {
-          requires_user_review: true,
-          requires_mapping_validation: true,
-          requires_current_business_hours_validation: true
-        },
-        requested_outputs: ["aix.json", "kml", "gpx", "ics", "csv"],
-        route: {
-          origin: origin.name,
-          destination: "Destination to be resolved by mapping adapter",
-          waypoints
-        },
-        adapters: [
-          { name: "AIX JSON", purpose: "Canonical AI intent file" },
-          { name: "KML Adapter", purpose: "Google Earth and supported map tools" },
-          { name: "GPX Adapter", purpose: "GPS devices and route applications" },
-          { name: "ICS Adapter", purpose: "Calendar itinerary" },
-          { name: "CSV Adapter", purpose: "Spreadsheet itinerary" }
-        ],
-        audit: {
-          source: "human_prompt",
-          ai_generated: true,
-          safety_note: "This file represents user intent and should be reviewed before use in navigation, scheduling, or purchasing."
-        }
-      };
-    }
-
-    function toKml(intent) {
-      const points = intent.route.waypoints || [];
-      return `<?xml version="1.0" encoding="UTF-8"?>\n<kml xmlns="http://www.opengis.net/kml/2.2">\n  <Document>\n    <name>${escapeXml(intent.title)}</name>\n    <description>${escapeXml(intent.user_goal)}</description>\n${points.map(p => `    <Placemark>\n      <name>${escapeXml(p.name)}</name>\n      <description>${escapeXml(p.purpose)}</description>\n      <Point>\n        <coordinates>${p.longitude},${p.latitude},0</coordinates>\n      </Point>\n    </Placemark>`).join("\n")}\n  </Document>\n</kml>`;
-    }
-
-    function toGpx(intent) {
-      const points = intent.route.waypoints || [];
-      return `<?xml version="1.0" encoding="UTF-8"?>\n<gpx version="1.1" creator="AIX Prototype" xmlns="http://www.topografix.com/GPX/1/1">\n  <metadata>\n    <name>${escapeXml(intent.title)}</name>\n    <desc>${escapeXml(intent.user_goal)}</desc>\n  </metadata>\n${points.map(p => `  <wpt lat="${p.latitude}" lon="${p.longitude}">\n    <name>${escapeXml(p.name)}</name>\n    <desc>${escapeXml(p.purpose)}</desc>\n  </wpt>`).join("\n")}\n</gpx>`;
-    }
-
-    function toIcs(intent) {
-      const startDate = (intent.schedule.start_date || "2026-06-01").replace(/-/g, "");
-      const now = new Date().toISOString().replace(/[-:]/g, "").split(".")[0] + "Z";
-      const description = `${intent.user_goal}\\n\\nGenerated by AIX v${intent.version}. Review before use.`;
-      return `BEGIN:VCALENDAR\nVERSION:2.0\nPRODID:-//AIX Prototype//AI Intent Exchange//EN\nBEGIN:VEVENT\nUID:${slugify(intent.title)}-${Date.now()}@aix.local\nDTSTAMP:${now}\nSUMMARY:${intent.title}\nDESCRIPTION:${description}\nDTSTART;VALUE=DATE:${startDate}\nDTEND;VALUE=DATE:${startDate}\nEND:VEVENT\nEND:VCALENDAR`;
-    }
-
-    function toCsv(intent) {
-      const rows = intent.route.waypoints || [];
-      return ["name,latitude,longitude,purpose", ...rows.map(r => `"${r.name}","${r.latitude}","${r.longitude}","${r.purpose}"`)].join("\n");
-    }
-
-    function generateIntent() {
-      currentIntent = buildIntent();
-      currentFiles = {
-        json: JSON.stringify(currentIntent, null, 2),
-        kml: toKml(currentIntent),
-        gpx: toGpx(currentIntent),
-        ics: toIcs(currentIntent),
-        csv: toCsv(currentIntent)
-      };
-      document.getElementById("intentType").innerText = currentIntent.intent_type;
-      document.getElementById("waypointCount").innerText = currentIntent.route.waypoints.length;
-      document.getElementById("output").innerText = currentFiles[currentTab];
-    }
-
-    function showTab(tab, button) {
-      currentTab = tab;
-      document.querySelectorAll(".tab").forEach(b => b.classList.remove("active"));
-      button.classList.add("active");
-      document.getElementById("output").innerText = currentFiles[tab] || "";
-    }
-
-    function downloadCurrent(type) {
-      const title = document.getElementById("title").value;
-      const base = slugify(title);
-      const extensions = { json: "aix.json", kml: "kml", gpx: "gpx", ics: "ics", csv: "csv" };
-      const mimes = { json: "application/json", kml: "application/vnd.google-earth.kml+xml", gpx: "application/gpx+xml", ics: "text/calendar", csv: "text/csv" };
-      const filename = type === "json" ? `${base}.aix.json` : `${base}.${extensions[type]}`;
-      const blob = new Blob([currentFiles[type]], { type: mimes[type] || "text/plain" });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = filename;
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      URL.revokeObjectURL(url);
-    }
-
+    function openGoogleMaps(){if(!currentFiles.maps)generateIntent();window.open(currentFiles.maps,"_blank","noopener,noreferrer")}
     generateIntent();
   </script>
 </body>
