@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Thooster | Playlist Intent Generator</title>
+  <title>Thooster | AIX Playlist Standard</title>
   <style>
     *{box-sizing:border-box}
     body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#f8fafc;color:#0f172a}
@@ -15,7 +15,7 @@
     .badge{display:inline-block;background:#ede9fe;color:#5b21b6;border-radius:999px;padding:8px 12px;font-weight:800;font-size:13px}
     .hero{padding:58px 0 42px;background:linear-gradient(180deg,#fff,#f8fafc)}
     h1{font-size:clamp(40px,6vw,68px);line-height:.98;margin:16px 0;letter-spacing:-2px}
-    .lead{font-size:20px;line-height:1.55;color:#475569;max-width:780px}
+    .lead{font-size:20px;line-height:1.55;color:#475569;max-width:820px}
     .grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:24px;margin:34px 0 60px}
     .card{background:white;border:1px solid #e2e8f0;border-radius:24px;padding:22px;box-shadow:0 20px 55px rgba(15,23,42,.08)}
     label{font-size:14px;font-weight:900;display:block;margin-bottom:7px}
@@ -26,33 +26,29 @@
     .downloads,.tabs{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:12px}
     .small,.tab{background:white;border:1px solid #cbd5e1;border-radius:13px;padding:12px 8px;font-weight:900;cursor:pointer;font-size:14px;min-height:48px}
     .tab.active{background:#0f172a;color:white}
-    pre{background:#020617;color:white;border-radius:18px;padding:18px;white-space:pre-wrap;overflow:auto;max-height:520px;min-height:280px;font-size:13px;line-height:1.45}
-    .notice{margin-top:16px;background:#fffbeb;border:1px solid #fde68a;color:#92400e;border-radius:16px;padding:14px;font-size:14px;line-height:1.45}
+    pre{background:#020617;color:white;border-radius:18px;padding:18px;white-space:pre-wrap;overflow:auto;max-height:540px;min-height:300px;font-size:13px;line-height:1.45}
+    .notice{margin-top:16px;background:#eff6ff;border:1px solid #bfdbfe;color:#1e3a8a;border-radius:16px;padding:14px;font-size:14px;line-height:1.45}
     .playlist{margin-top:16px;border:1px solid #e2e8f0;background:#f8fafc;border-radius:18px;padding:14px}
     .playlist h3{margin:0 0 10px;font-size:16px}
-    .songlist{display:grid;gap:10px}
-    .song{background:white;border:1px solid #e2e8f0;border-radius:14px;padding:12px}
+    .songlist{display:grid;gap:8px}
+    .song{background:white;border:1px solid #e2e8f0;border-radius:14px;padding:11px}
     .songtitle{font-weight:900;margin-bottom:4px}
-    .songmeta{color:#64748b;font-size:13px;margin-bottom:9px}
-    .appbuttons{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-    .appbtn{display:block;text-align:center;border-radius:999px;padding:9px 10px;font-weight:900;font-size:13px;text-decoration:none}
-    .spotify{background:#1db954;color:#06150a}
-    .youtube{background:#ff0033;color:white}
-    .playlist-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}
-    .platformbtn{border:0;border-radius:999px;padding:12px 10px;font-weight:900;cursor:pointer}
-    .green{background:#1db954;color:#06150a}
-    .red{background:#ff0033;color:white}
+    .songmeta{color:#64748b;font-size:13px}
+    .adaptergrid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:14px}
+    .adapter{border:1px solid #e2e8f0;border-radius:14px;padding:12px;background:#f8fafc}
+    .adapter b{display:block;margin-bottom:4px}
+    .adapter span{color:#64748b;font-size:13px;line-height:1.35}
     .footer{border-top:1px solid #e2e8f0;color:#64748b;padding:28px 0;font-size:14px}
-    @media(max-width:900px){.grid,.row{grid-template-columns:1fr}.downloads,.tabs,.playlist-actions{grid-template-columns:1fr 1fr}h1{letter-spacing:-1px}.appbuttons{grid-template-columns:1fr}.card{padding:18px}}
+    @media(max-width:900px){.grid,.row,.adaptergrid{grid-template-columns:1fr}.downloads,.tabs{grid-template-columns:1fr 1fr}h1{letter-spacing:-1px}.card{padding:18px}}
   </style>
 </head>
 <body>
-<nav class="nav"><div class="wrap"><div class="brand"><span class="logo">T</span>Thooster</div><div class="badge">AIX Playlist v1.1</div></div></nav>
+<nav class="nav"><div class="wrap"><div class="brand"><span class="logo">T</span>Thooster</div><div class="badge">AIX Playlist v2.0</div></div></nav>
 
 <header class="hero"><div class="wrap">
-  <span class="badge">AI Intent Exchange • Playlist Generator</span>
-  <h1>Turn a music idea into a portable playlist file.</h1>
-  <p class="lead">Choose how many songs you want, describe the mood or theme, then open each song in Spotify or YouTube Music.</p>
+  <span class="badge">AI Intent Exchange • Universal Playlist File</span>
+  <h1>A playlist file for AI-generated music intent.</h1>
+  <p class="lead">Thooster creates a portable AIX Playlist file. It is not a Spotify file, not a YouTube file, and not an Apple Music file. It is a universal music-intent file that future adapters can turn into playlists on any platform.</p>
 </div></header>
 
 <main class="wrap">
@@ -78,28 +74,29 @@
       <label>Playlist Request</label>
       <textarea id="prompt">Make me a clean playlist for a fun Saturday night with classic rock, 80s, 90s, upbeat songs, and a few sing-alongs.</textarea>
 
-      <button class="btn" onclick="generatePlaylist()">Generate Playlist Intent</button>
+      <button class="btn" onclick="generatePlaylist()">Generate AIX Playlist File</button>
 
       <div class="downloads">
-        <button class="small" onclick="downloadCurrent('json')">AIX JSON</button>
-        <button class="small" onclick="downloadCurrent('csv')">CSV</button>
-        <button class="small" onclick="downloadCurrent('m3u')">M3U</button>
-        <button class="small" onclick="copyPlaylist()">Copy List</button>
-      </div>
-
-      <div class="playlist-actions">
-        <button class="platformbtn green" onclick="openAllSpotify()">Open All in Spotify</button>
-        <button class="platformbtn red" onclick="openAllYouTube()">Open All in YouTube Music</button>
+        <button class="small" onclick="downloadCurrent('json')">Download .aix.json</button>
+        <button class="small" onclick="downloadCurrent('csv')">Download CSV</button>
+        <button class="small" onclick="downloadCurrent('m3u')">Download M3U</button>
+        <button class="small" onclick="copyPlaylist()">Copy Track List</button>
       </div>
 
       <div class="notice">
-        <b>Prototype note:</b> This opens search results in Spotify and YouTube Music. A true “create playlist in account” feature requires OAuth/API integration with each streaming platform.
+        <b>What this is:</b> a platform-neutral playlist intent file. Future adapters can read this same file and create a playlist in YouTube Music, Spotify, Apple Music, Amazon Music, or another app.
+      </div>
+
+      <div class="adaptergrid">
+        <div class="adapter"><b>YouTube Adapter</b><span>Future connector: search tracks and create YouTube playlist.</span></div>
+        <div class="adapter"><b>Spotify Adapter</b><span>Future connector: OAuth login, search tracks, add tracks.</span></div>
+        <div class="adapter"><b>Apple Adapter</b><span>Future connector: convert AIX playlist into Apple Music library items.</span></div>
       </div>
     </div>
 
     <div class="card">
       <div class="tabs">
-        <button class="tab active" onclick="showTab('json', this)">JSON</button>
+        <button class="tab active" onclick="showTab('json', this)">AIX JSON</button>
         <button class="tab" onclick="showTab('csv', this)">CSV</button>
         <button class="tab" onclick="showTab('m3u', this)">M3U</button>
         <button class="tab" onclick="showTab('list', this)">List</button>
@@ -107,14 +104,14 @@
       <pre id="output"></pre>
 
       <div class="playlist">
-        <h3>Generated Playlist</h3>
+        <h3>Generated Track Intent</h3>
         <div id="playlistList" class="songlist"></div>
       </div>
     </div>
   </div>
 </main>
 
-<footer class="footer"><div class="wrap"><b>Thooster</b> — AI Intent Exchange for music, maps, calendars, shopping, and more.</div></footer>
+<footer class="footer"><div class="wrap"><b>Thooster</b> — AIX files for playlists, maps, calendars, shopping, and future AI-to-app actions.</div></footer>
 
 <script>
 let currentIntent = {};
@@ -122,47 +119,41 @@ let currentFiles = {};
 let currentTab = "json";
 
 const songLibrary = [
-  {title:"Don't Stop Believin'", artist:"Journey", era:"80s", mood:["upbeat","classic","singalong"], clean:true},
-  {title:"Livin' on a Prayer", artist:"Bon Jovi", era:"80s", mood:["upbeat","rock","singalong"], clean:true},
-  {title:"Sweet Home Alabama", artist:"Lynyrd Skynyrd", era:"70s", mood:["classic","rock","singalong"], clean:true},
-  {title:"Here I Go Again", artist:"Whitesnake", era:"80s", mood:["rock","upbeat"], clean:true},
-  {title:"Summer of '69", artist:"Bryan Adams", era:"80s", mood:["upbeat","singalong"], clean:true},
-  {title:"You Shook Me All Night Long", artist:"AC/DC", era:"80s", mood:["rock","party"], clean:false},
-  {title:"Take It Easy", artist:"Eagles", era:"70s", mood:["classic","roadtrip"], clean:true},
-  {title:"Free Fallin'", artist:"Tom Petty", era:"80s", mood:["classic","singalong"], clean:true},
-  {title:"Brown Eyed Girl", artist:"Van Morrison", era:"60s", mood:["upbeat","singalong"], clean:true},
-  {title:"Come and Get Your Love", artist:"Redbone", era:"70s", mood:["upbeat","fun"], clean:true},
-  {title:"Dancing Queen", artist:"ABBA", era:"70s", mood:["dance","party","singalong"], clean:true},
-  {title:"September", artist:"Earth, Wind & Fire", era:"70s", mood:["dance","upbeat","party"], clean:true},
-  {title:"Footloose", artist:"Kenny Loggins", era:"80s", mood:["dance","upbeat"], clean:true},
-  {title:"Walking on Sunshine", artist:"Katrina and the Waves", era:"80s", mood:["happy","upbeat"], clean:true},
-  {title:"Man! I Feel Like a Woman!", artist:"Shania Twain", era:"90s", mood:["party","singalong"], clean:true},
-  {title:"Friends in Low Places", artist:"Garth Brooks", era:"90s", mood:["country","singalong"], clean:true},
-  {title:"I Want It That Way", artist:"Backstreet Boys", era:"90s", mood:["90s","singalong"], clean:true},
-  {title:"No Diggity", artist:"Blackstreet", era:"90s", mood:["90s","groove"], clean:false},
-  {title:"All Star", artist:"Smash Mouth", era:"90s", mood:["fun","singalong"], clean:true},
-  {title:"Mr. Brightside", artist:"The Killers", era:"2000s", mood:["upbeat","singalong"], clean:true},
-  {title:"Uptown Funk", artist:"Mark Ronson ft. Bruno Mars", era:"2010s", mood:["dance","party"], clean:true},
-  {title:"Shut Up and Dance", artist:"WALK THE MOON", era:"2010s", mood:["dance","upbeat"], clean:true},
-  {title:"Can't Stop the Feeling!", artist:"Justin Timberlake", era:"2010s", mood:["happy","dance"], clean:true},
-  {title:"Life is a Highway", artist:"Rascal Flatts", era:"2000s", mood:["roadtrip","upbeat"], clean:true},
-  {title:"Beautiful Day", artist:"U2", era:"2000s", mood:["upbeat","positive"], clean:true},
-  {title:"Pour Some Sugar on Me", artist:"Def Leppard", era:"80s", mood:["rock","party"], clean:false},
-  {title:"Every Rose Has Its Thorn", artist:"Poison", era:"80s", mood:["rock","classic"], clean:true},
-  {title:"Jessie's Girl", artist:"Rick Springfield", era:"80s", mood:["upbeat","singalong"], clean:true},
-  {title:"Africa", artist:"Toto", era:"80s", mood:["classic","singalong"], clean:true},
-  {title:"Girls Just Want to Have Fun", artist:"Cyndi Lauper", era:"80s", mood:["party","upbeat","singalong"], clean:true},
-  {title:"Love Shack", artist:"The B-52's", era:"80s", mood:["party","dance","singalong"], clean:true},
-  {title:"Wannabe", artist:"Spice Girls", era:"90s", mood:["party","90s","singalong"], clean:true},
-  {title:"Waterfalls", artist:"TLC", era:"90s", mood:["90s","groove"], clean:true},
-  {title:"Semi-Charmed Life", artist:"Third Eye Blind", era:"90s", mood:["90s","upbeat"], clean:false},
-  {title:"Iris", artist:"Goo Goo Dolls", era:"90s", mood:["90s","classic"], clean:true},
-  {title:"Sweet Caroline", artist:"Neil Diamond", era:"60s", mood:["classic","singalong"], clean:true},
-  {title:"Old Time Rock and Roll", artist:"Bob Seger", era:"70s", mood:["classic","rock","party"], clean:true},
-  {title:"Centerfold", artist:"The J. Geils Band", era:"80s", mood:["upbeat","party"], clean:false},
-  {title:"Hooked on a Feeling", artist:"Blue Swede", era:"70s", mood:["fun","classic"], clean:true},
-  {title:"What I Like About You", artist:"The Romantics", era:"80s", mood:["rock","upbeat"], clean:true},
-  {title:"Hit Me With Your Best Shot", artist:"Pat Benatar", era:"80s", mood:["rock","upbeat"], clean:true}
+  {title:"Don't Stop Believin'", artist:"Journey", era:"80s", genre:"classic rock", mood:["upbeat","classic","singalong"], clean:true},
+  {title:"Livin' on a Prayer", artist:"Bon Jovi", era:"80s", genre:"rock", mood:["upbeat","rock","singalong"], clean:true},
+  {title:"Sweet Home Alabama", artist:"Lynyrd Skynyrd", era:"70s", genre:"southern rock", mood:["classic","rock","singalong"], clean:true},
+  {title:"Here I Go Again", artist:"Whitesnake", era:"80s", genre:"rock", mood:["rock","upbeat"], clean:true},
+  {title:"Summer of '69", artist:"Bryan Adams", era:"80s", genre:"rock", mood:["upbeat","singalong"], clean:true},
+  {title:"Take It Easy", artist:"Eagles", era:"70s", genre:"classic rock", mood:["classic","roadtrip"], clean:true},
+  {title:"Free Fallin'", artist:"Tom Petty", era:"80s", genre:"classic rock", mood:["classic","singalong"], clean:true},
+  {title:"Brown Eyed Girl", artist:"Van Morrison", era:"60s", genre:"oldies", mood:["upbeat","singalong"], clean:true},
+  {title:"Come and Get Your Love", artist:"Redbone", era:"70s", genre:"classic pop", mood:["upbeat","fun"], clean:true},
+  {title:"Dancing Queen", artist:"ABBA", era:"70s", genre:"pop", mood:["dance","party","singalong"], clean:true},
+  {title:"September", artist:"Earth, Wind & Fire", era:"70s", genre:"funk", mood:["dance","upbeat","party"], clean:true},
+  {title:"Footloose", artist:"Kenny Loggins", era:"80s", genre:"pop rock", mood:["dance","upbeat"], clean:true},
+  {title:"Walking on Sunshine", artist:"Katrina and the Waves", era:"80s", genre:"pop", mood:["happy","upbeat"], clean:true},
+  {title:"Man! I Feel Like a Woman!", artist:"Shania Twain", era:"90s", genre:"country pop", mood:["party","singalong"], clean:true},
+  {title:"Friends in Low Places", artist:"Garth Brooks", era:"90s", genre:"country", mood:["country","singalong"], clean:true},
+  {title:"I Want It That Way", artist:"Backstreet Boys", era:"90s", genre:"pop", mood:["90s","singalong"], clean:true},
+  {title:"All Star", artist:"Smash Mouth", era:"90s", genre:"pop rock", mood:["fun","singalong"], clean:true},
+  {title:"Mr. Brightside", artist:"The Killers", era:"2000s", genre:"alternative", mood:["upbeat","singalong"], clean:true},
+  {title:"Uptown Funk", artist:"Mark Ronson ft. Bruno Mars", era:"2010s", genre:"funk pop", mood:["dance","party"], clean:true},
+  {title:"Shut Up and Dance", artist:"WALK THE MOON", era:"2010s", genre:"pop rock", mood:["dance","upbeat"], clean:true},
+  {title:"Can't Stop the Feeling!", artist:"Justin Timberlake", era:"2010s", genre:"pop", mood:["happy","dance"], clean:true},
+  {title:"Life is a Highway", artist:"Rascal Flatts", era:"2000s", genre:"country pop", mood:["roadtrip","upbeat"], clean:true},
+  {title:"Beautiful Day", artist:"U2", era:"2000s", genre:"rock", mood:["upbeat","positive"], clean:true},
+  {title:"Jessie's Girl", artist:"Rick Springfield", era:"80s", genre:"rock", mood:["upbeat","singalong"], clean:true},
+  {title:"Africa", artist:"Toto", era:"80s", genre:"pop rock", mood:["classic","singalong"], clean:true},
+  {title:"Girls Just Want to Have Fun", artist:"Cyndi Lauper", era:"80s", genre:"pop", mood:["party","upbeat","singalong"], clean:true},
+  {title:"Love Shack", artist:"The B-52's", era:"80s", genre:"pop rock", mood:["party","dance","singalong"], clean:true},
+  {title:"Wannabe", artist:"Spice Girls", era:"90s", genre:"pop", mood:["party","90s","singalong"], clean:true},
+  {title:"Waterfalls", artist:"TLC", era:"90s", genre:"r&b", mood:["90s","groove"], clean:true},
+  {title:"Iris", artist:"Goo Goo Dolls", era:"90s", genre:"alternative rock", mood:["90s","classic"], clean:true},
+  {title:"Sweet Caroline", artist:"Neil Diamond", era:"60s", genre:"oldies", mood:["classic","singalong"], clean:true},
+  {title:"Old Time Rock and Roll", artist:"Bob Seger", era:"70s", genre:"classic rock", mood:["classic","rock","party"], clean:true},
+  {title:"Hooked on a Feeling", artist:"Blue Swede", era:"70s", genre:"classic pop", mood:["fun","classic"], clean:true},
+  {title:"What I Like About You", artist:"The Romantics", era:"80s", genre:"rock", mood:["rock","upbeat"], clean:true},
+  {title:"Hit Me With Your Best Shot", artist:"Pat Benatar", era:"80s", genre:"rock", mood:["rock","upbeat"], clean:true}
 ];
 
 function slugify(text){
@@ -177,9 +168,10 @@ function scoreSong(song, prompt){
   const p = prompt.toLowerCase();
   let score = 0;
   if(p.includes(song.era.toLowerCase())) score += 4;
+  if(p.includes(song.genre.toLowerCase())) score += 4;
   song.mood.forEach(m => { if(p.includes(m)) score += 3; });
   if(hasAny(p,["classic","classics"]) && song.mood.includes("classic")) score += 3;
-  if(hasAny(p,["rock"]) && song.mood.includes("rock")) score += 3;
+  if(hasAny(p,["rock"]) && song.genre.includes("rock")) score += 3;
   if(hasAny(p,["party","fun","saturday","upbeat"]) && (song.mood.includes("party") || song.mood.includes("upbeat") || song.mood.includes("fun"))) score += 2;
   if(hasAny(p,["sing","sing-along","singalong"]) && song.mood.includes("singalong")) score += 3;
   if(hasAny(p,["road","drive","trip"]) && song.mood.includes("roadtrip")) score += 3;
@@ -191,32 +183,20 @@ function generateSongs(prompt, count, cleanOnly){
   let songs = songLibrary.filter(s => !cleanOnly || s.clean);
   songs = songs.map(s => ({...s, score: scoreSong(s, prompt)}));
   songs.sort((a,b) => b.score - a.score || a.title.localeCompare(b.title));
-
-  const selected = [];
-  let i = 0;
-  while(selected.length < count && i < songs.length){
-    selected.push(songs[i]);
-    i++;
-  }
-
-  return selected.map((s, index) => ({
+  return songs.slice(0, count).map((s, index) => ({
     track_number:index+1,
     title:s.title,
     artist:s.artist,
     era:s.era,
-    reason:s.mood.join(", "),
+    genre:s.genre,
+    intent_tags:s.mood,
+    match_reason:s.mood.join(", "),
     clean:s.clean,
-    spotify_search_url:spotifyUrl(s),
-    youtube_music_search_url:youtubeMusicUrl(s)
+    platform_resolution:{
+      status:"unresolved",
+      note:"A future adapter should resolve this artist/title to platform-specific IDs such as YouTube videoId, Spotify trackId, or Apple Music catalogId."
+    }
   }));
-}
-
-function spotifyUrl(song){
-  return "https://open.spotify.com/search/" + encodeURIComponent(song.title + " " + song.artist);
-}
-
-function youtubeMusicUrl(song){
-  return "https://music.youtube.com/search?q=" + encodeURIComponent(song.title + " " + song.artist);
 }
 
 function buildIntent(){
@@ -229,7 +209,9 @@ function buildIntent(){
   return {
     standard:"AIX",
     standard_name:"AI Intent Exchange",
-    version:"1.1",
+    schema:"aix.playlist",
+    version:"2.0",
+    file_extension:".aix.json",
     intent_type:"playlist",
     title:title,
     created_at:new Date().toISOString(),
@@ -246,30 +228,32 @@ function buildIntent(){
         singalong:hasAny(prompt.toLowerCase(),["singalong","sing-along","sing"])
       }
     },
-    requested_outputs:["aix.json","csv","m3u","plain_text","spotify_search_links","youtube_music_search_links"],
     playlist:{
       track_count:songs.length,
       tracks:songs
     },
-    adapters:[
-      {name:"CSV Adapter", purpose:"Spreadsheet/import-ready song list"},
-      {name:"M3U Adapter", purpose:"Generic playlist file"},
-      {name:"Spotify Search Adapter", purpose:"Open tracks in Spotify search"},
-      {name:"YouTube Music Search Adapter", purpose:"Open tracks in YouTube Music search"},
-      {name:"Future Spotify OAuth Adapter", purpose:"Create playlist inside user's Spotify account"},
-      {name:"Future YouTube Music Adapter", purpose:"Create playlist inside user's YouTube Music account"}
-    ],
+    requested_outputs:["aix.json","csv","m3u","plain_text"],
+    adapter_contract:{
+      purpose:"Adapters should resolve generic artist/title track intent into platform-specific songs and create/import a playlist.",
+      required_track_fields:["title","artist"],
+      optional_track_fields:["era","genre","intent_tags","clean"],
+      expected_adapter_outputs:[
+        {platform:"YouTube Music", output:"playlist in user account or shareable YouTube playlist URL"},
+        {platform:"Spotify", output:"playlist in user account or shareable Spotify playlist URL"},
+        {platform:"Apple Music", output:"playlist in user account or Apple Music catalog list"}
+      ]
+    },
     audit:{
       source:"human_prompt_plus_demo_song_library",
       requires_review:true,
-      limitation:"Prototype uses a built-in demo library and opens platform search links. True account playlist creation requires backend OAuth integration."
+      limitation:"Prototype uses a built-in demo library. Production version should use AI plus platform adapters."
     }
   };
 }
 
 function toCsv(intent){
   const rows = intent.playlist.tracks || [];
-  return ["track_number,title,artist,era,reason,clean,spotify_search_url,youtube_music_search_url", ...rows.map(r => `"${r.track_number}","${r.title}","${r.artist}","${r.era}","${r.reason}","${r.clean}","${r.spotify_search_url}","${r.youtube_music_search_url}"`)].join("\n");
+  return ["track_number,title,artist,era,genre,intent_tags,clean", ...rows.map(r => `"${r.track_number}","${r.title}","${r.artist}","${r.era}","${r.genre}","${r.intent_tags.join("; ")}","${r.clean}"`)].join("\n");
 }
 
 function toM3u(intent){
@@ -291,11 +275,7 @@ function updatePlaylistList(){
     div.className = "song";
     div.innerHTML = `
       <div class="songtitle">${r.track_number}. ${r.title} — ${r.artist}</div>
-      <div class="songmeta">${r.era} • ${r.reason}</div>
-      <div class="appbuttons">
-        <a class="appbtn spotify" href="${r.spotify_search_url}" target="_blank" rel="noopener noreferrer">Open in Spotify</a>
-        <a class="appbtn youtube" href="${r.youtube_music_search_url}" target="_blank" rel="noopener noreferrer">Open in YouTube Music</a>
-      </div>
+      <div class="songmeta">${r.era} • ${r.genre} • ${r.match_reason}</div>
     `;
     list.appendChild(div);
   });
@@ -342,26 +322,10 @@ async function copyPlaylist(){
   const text = currentFiles.list;
   try{
     await navigator.clipboard.writeText(text);
-    alert("Playlist copied.");
+    alert("Track list copied.");
   }catch(e){
     alert(text);
   }
-}
-
-function openAllSpotify(){
-  generatePlaylist();
-  const tracks = currentIntent.playlist.tracks || [];
-  tracks.forEach((track, index) => {
-    setTimeout(() => window.open(track.spotify_search_url, "_blank", "noopener,noreferrer"), index * 350);
-  });
-}
-
-function openAllYouTube(){
-  generatePlaylist();
-  const tracks = currentIntent.playlist.tracks || [];
-  tracks.forEach((track, index) => {
-    setTimeout(() => window.open(track.youtube_music_search_url, "_blank", "noopener,noreferrer"), index * 350);
-  });
 }
 
 generatePlaylist();
