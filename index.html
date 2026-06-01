@@ -3,298 +3,314 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Thooster | AI Intent Exchange</title>
+  <title>Thooster | Playlist Intent Generator</title>
   <style>
-    *{box-sizing:border-box}body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#f8fafc;color:#0f172a}a{text-decoration:none;color:inherit}.wrap{max-width:1120px;margin:0 auto;padding:0 24px}.nav{height:70px;background:white;border-bottom:1px solid #e2e8f0;position:sticky;top:0;z-index:5}.nav .wrap{height:70px;display:flex;align-items:center;justify-content:space-between}.brand{font-size:24px;font-weight:800;display:flex;gap:12px;align-items:center}.logo{background:#1d4ed8;color:white;border-radius:12px;width:40px;height:40px;display:grid;place-items:center}.navlinks{display:flex;gap:20px;color:#475569;font-size:14px}.hero{padding:70px 0;background:linear-gradient(180deg,#fff,#f8fafc)}h1{font-size:58px;line-height:.98;margin:16px 0;letter-spacing:-2px}.lead{font-size:20px;line-height:1.55;color:#475569;max-width:780px}.badge{display:inline-block;background:#dbeafe;color:#1e40af;padding:8px 12px;border-radius:999px;font-weight:800;font-size:13px}.dark{background:#0f172a;color:white;padding:54px 0}.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.card{background:white;border:1px solid #e2e8f0;border-radius:24px;padding:22px;box-shadow:0 20px 55px rgba(15,23,42,.08)}.dark .card{background:#111827;border-color:#334155}.dark .card p{color:#cbd5e1}.builder{padding:60px 0}.buildergrid{display:grid;grid-template-columns:.9fr 1.1fr;gap:24px}.sectiontitle{font-size:40px;margin:0 0 12px}.sub{color:#64748b;font-size:18px;line-height:1.5;max-width:760px}label{font-weight:800;font-size:14px;display:block;margin:0 0 7px}input,textarea{width:100%;border:1px solid #cbd5e1;border-radius:14px;padding:13px;font-size:15px;margin-bottom:14px}textarea{min-height:160px;resize:vertical}.row{display:grid;grid-template-columns:1fr 1fr;gap:12px}.btn{background:#0f172a;color:white;border:0;border-radius:999px;padding:14px 20px;font-weight:800;cursor:pointer;width:100%}.downloadgrid,.tabs{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-top:12px}.small,.tab{background:white;border:1px solid #cbd5e1;border-radius:13px;padding:11px;font-weight:800;cursor:pointer}.tab.active{background:#0f172a;color:white}pre{background:#020617;color:white;border-radius:18px;padding:18px;white-space:pre-wrap;overflow:auto;max-height:500px;min-height:260px;font-size:13px;line-height:1.45}.notice{margin-top:16px;background:#fffbeb;border:1px solid #fde68a;color:#92400e;border-radius:16px;padding:14px;font-size:14px;line-height:1.45}.footer{border-top:1px solid #e2e8f0;color:#64748b;padding:28px 0;font-size:14px}@media(max-width:900px){.buildergrid,.cards{grid-template-columns:1fr}.downloadgrid,.tabs,.row{grid-template-columns:1fr}.navlinks{display:none}h1{font-size:42px}}
+    *{box-sizing:border-box}
+    body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#f8fafc;color:#0f172a}
+    .wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+    .nav{background:white;border-bottom:1px solid #e2e8f0;position:sticky;top:0;z-index:10}
+    .nav .wrap{min-height:66px;display:flex;align-items:center;justify-content:space-between}
+    .brand{font-size:24px;font-weight:900;display:flex;gap:12px;align-items:center}
+    .logo{width:40px;height:40px;border-radius:12px;background:linear-gradient(135deg,#0f172a,#7c3aed);color:white;display:grid;place-items:center}
+    .badge{display:inline-block;background:#ede9fe;color:#5b21b6;border-radius:999px;padding:8px 12px;font-weight:800;font-size:13px}
+    .hero{padding:58px 0 42px;background:linear-gradient(180deg,#fff,#f8fafc)}
+    h1{font-size:clamp(40px,6vw,68px);line-height:.98;margin:16px 0;letter-spacing:-2px}
+    .lead{font-size:20px;line-height:1.55;color:#475569;max-width:780px}
+    .grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:24px;margin:34px 0 60px}
+    .card{background:white;border:1px solid #e2e8f0;border-radius:24px;padding:22px;box-shadow:0 20px 55px rgba(15,23,42,.08)}
+    label{font-size:14px;font-weight:900;display:block;margin-bottom:7px}
+    input,textarea,select{width:100%;border:1px solid #cbd5e1;border-radius:14px;padding:14px;font-size:16px;margin-bottom:14px;background:white}
+    textarea{min-height:150px;resize:vertical;line-height:1.4}
+    .row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .btn{background:#0f172a;color:white;border:0;border-radius:999px;padding:15px 20px;font-weight:900;cursor:pointer;width:100%;font-size:16px;min-height:52px}
+    .downloads,.tabs{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:12px}
+    .small,.tab{background:white;border:1px solid #cbd5e1;border-radius:13px;padding:12px 8px;font-weight:900;cursor:pointer;font-size:14px;min-height:48px}
+    .tab.active{background:#0f172a;color:white}
+    pre{background:#020617;color:white;border-radius:18px;padding:18px;white-space:pre-wrap;overflow:auto;max-height:520px;min-height:280px;font-size:13px;line-height:1.45}
+    .notice{margin-top:16px;background:#fffbeb;border:1px solid #fde68a;color:#92400e;border-radius:16px;padding:14px;font-size:14px;line-height:1.45}
+    .playlist{margin-top:16px;border:1px solid #e2e8f0;background:#f8fafc;border-radius:18px;padding:14px}
+    .playlist h3{margin:0 0 10px;font-size:16px}
+    .songlist{display:grid;gap:10px}
+    .song{background:white;border:1px solid #e2e8f0;border-radius:14px;padding:12px}
+    .songtitle{font-weight:900;margin-bottom:4px}
+    .songmeta{color:#64748b;font-size:13px;margin-bottom:9px}
+    .appbuttons{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+    .appbtn{display:block;text-align:center;border-radius:999px;padding:9px 10px;font-weight:900;font-size:13px;text-decoration:none}
+    .spotify{background:#1db954;color:#06150a}
+    .youtube{background:#ff0033;color:white}
+    .playlist-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}
+    .platformbtn{border:0;border-radius:999px;padding:12px 10px;font-weight:900;cursor:pointer}
+    .green{background:#1db954;color:#06150a}
+    .red{background:#ff0033;color:white}
+    .footer{border-top:1px solid #e2e8f0;color:#64748b;padding:28px 0;font-size:14px}
+    @media(max-width:900px){.grid,.row{grid-template-columns:1fr}.downloads,.tabs,.playlist-actions{grid-template-columns:1fr 1fr}h1{letter-spacing:-1px}.appbuttons{grid-template-columns:1fr}.card{padding:18px}}
   </style>
 </head>
 <body>
-<nav class="nav"><div class="wrap"><div class="brand"><span class="logo">T</span>Thooster</div><div class="navlinks"><a href="#why">Why</a><a href="#builder">Try AIX</a></div></div></nav>
+<nav class="nav"><div class="wrap"><div class="brand"><span class="logo">T</span>Thooster</div><div class="badge">AIX Playlist v1.1</div></div></nav>
 
 <header class="hero"><div class="wrap">
-  <span class="badge">AIX v0.3 • Enriched Waypoint Demo</span>
-  <h1>The bridge between AI and the apps you use every day.</h1>
-  <p class="lead">Thooster turns plain-English requests into structured action files. This demo now enriches shopping, fashion, jewelry, food, lodging, entertainment, and fishing requests with actual route waypoints.</p>
+  <span class="badge">AI Intent Exchange • Playlist Generator</span>
+  <h1>Turn a music idea into a portable playlist file.</h1>
+  <p class="lead">Choose how many songs you want, describe the mood or theme, then open each song in Spotify or YouTube Music.</p>
 </div></header>
 
-<section id="why" class="dark"><div class="wrap">
-  <div class="cards">
-    <div class="card"><h3>🗺️ Travel routes</h3><p>Build Google Maps routes from intent, including useful stop suggestions.</p></div>
-    <div class="card"><h3>🛍️ Shopping trips</h3><p>Detects fashion, jewelry, boutiques, food, lodging, and entertainment requests.</p></div>
-    <div class="card"><h3>📄 Portable files</h3><p>Exports AIX JSON, Google Maps links, GPX, ICS, and CSV.</p></div>
-  </div>
-</div></section>
-
-<section id="builder" class="builder"><div class="wrap">
-  <h2 class="sectiontitle">Try the AIX travel prototype.</h2>
-  <p class="sub">This is still a prototype, but it now adds recommended stop waypoints based on the kind of trip requested.</p>
-
-  <div class="buildergrid">
+<main class="wrap">
+  <div class="grid">
     <div class="card">
-      <label>Trip Title</label>
-      <input id="title" value="Arkansas Shopping Trip" />
+      <label>Playlist Title</label>
+      <input id="title" value="Saturday Night Classics" />
 
       <div class="row">
-        <div><label>Creator</label><input id="creator" value="Tracy McMahan" /></div>
-        <div><label>Days</label><input id="days" type="number" min="1" max="30" value="3" /></div>
+        <div>
+          <label>Number of Songs</label>
+          <input id="count" type="number" min="1" max="50" value="12" />
+        </div>
+        <div>
+          <label>Clean / Family Friendly</label>
+          <select id="clean">
+            <option value="true">Yes</option>
+            <option value="false">No preference</option>
+          </select>
+        </div>
       </div>
 
-      <label>Start Date</label>
-      <input id="startDate" type="date" value="2026-06-15" />
+      <label>Playlist Request</label>
+      <textarea id="prompt">Make me a clean playlist for a fun Saturday night with classic rock, 80s, 90s, upbeat songs, and a few sing-alongs.</textarea>
 
-      <label>Plain-English Request</label>
-      <textarea id="prompt">Plan a three day shopping trip starting in Batesville, AR for a 50 year old woman who wants to shop for jewelry and clothing with her friends. Drop points for where they should stay, eat, and maybe catch a show along the way.</textarea>
+      <button class="btn" onclick="generatePlaylist()">Generate Playlist Intent</button>
 
-      <button class="btn" onclick="generateIntent()">Generate AIX File</button>
-
-      <div class="downloadgrid">
-        <button class="small" onclick="downloadCurrent('json')">JSON</button>
-        <button class="small" onclick="openGoogleMaps()">Google Maps</button>
-        <button class="small" onclick="downloadCurrent('gpx')">GPX</button>
-        <button class="small" onclick="downloadCurrent('ics')">ICS</button>
+      <div class="downloads">
+        <button class="small" onclick="downloadCurrent('json')">AIX JSON</button>
         <button class="small" onclick="downloadCurrent('csv')">CSV</button>
+        <button class="small" onclick="downloadCurrent('m3u')">M3U</button>
+        <button class="small" onclick="copyPlaylist()">Copy List</button>
       </div>
 
-      <div class="notice"><b>Important:</b> This version uses a built-in Arkansas demo waypoint library. It does not yet use live Google Places, current hours, reviews, inventory, or hotel availability.</div>
+      <div class="playlist-actions">
+        <button class="platformbtn green" onclick="openAllSpotify()">Open All in Spotify</button>
+        <button class="platformbtn red" onclick="openAllYouTube()">Open All in YouTube Music</button>
+      </div>
+
+      <div class="notice">
+        <b>Prototype note:</b> This opens search results in Spotify and YouTube Music. A true “create playlist in account” feature requires OAuth/API integration with each streaming platform.
+      </div>
     </div>
 
     <div class="card">
       <div class="tabs">
         <button class="tab active" onclick="showTab('json', this)">JSON</button>
-        <button class="tab" onclick="showTab('maps', this)">Maps</button>
-        <button class="tab" onclick="showTab('gpx', this)">GPX</button>
-        <button class="tab" onclick="showTab('ics', this)">ICS</button>
         <button class="tab" onclick="showTab('csv', this)">CSV</button>
+        <button class="tab" onclick="showTab('m3u', this)">M3U</button>
+        <button class="tab" onclick="showTab('list', this)">List</button>
       </div>
       <pre id="output"></pre>
+
+      <div class="playlist">
+        <h3>Generated Playlist</h3>
+        <div id="playlistList" class="songlist"></div>
+      </div>
     </div>
   </div>
-</div></section>
+</main>
 
-<footer class="footer"><div class="wrap"><b>Thooster</b> — Home of AI Intent Exchange. Prototype only.</div></footer>
+<footer class="footer"><div class="wrap"><b>Thooster</b> — AI Intent Exchange for music, maps, calendars, shopping, and more.</div></footer>
 
 <script>
 let currentIntent = {};
 let currentFiles = {};
 let currentTab = "json";
 
+const songLibrary = [
+  {title:"Don't Stop Believin'", artist:"Journey", era:"80s", mood:["upbeat","classic","singalong"], clean:true},
+  {title:"Livin' on a Prayer", artist:"Bon Jovi", era:"80s", mood:["upbeat","rock","singalong"], clean:true},
+  {title:"Sweet Home Alabama", artist:"Lynyrd Skynyrd", era:"70s", mood:["classic","rock","singalong"], clean:true},
+  {title:"Here I Go Again", artist:"Whitesnake", era:"80s", mood:["rock","upbeat"], clean:true},
+  {title:"Summer of '69", artist:"Bryan Adams", era:"80s", mood:["upbeat","singalong"], clean:true},
+  {title:"You Shook Me All Night Long", artist:"AC/DC", era:"80s", mood:["rock","party"], clean:false},
+  {title:"Take It Easy", artist:"Eagles", era:"70s", mood:["classic","roadtrip"], clean:true},
+  {title:"Free Fallin'", artist:"Tom Petty", era:"80s", mood:["classic","singalong"], clean:true},
+  {title:"Brown Eyed Girl", artist:"Van Morrison", era:"60s", mood:["upbeat","singalong"], clean:true},
+  {title:"Come and Get Your Love", artist:"Redbone", era:"70s", mood:["upbeat","fun"], clean:true},
+  {title:"Dancing Queen", artist:"ABBA", era:"70s", mood:["dance","party","singalong"], clean:true},
+  {title:"September", artist:"Earth, Wind & Fire", era:"70s", mood:["dance","upbeat","party"], clean:true},
+  {title:"Footloose", artist:"Kenny Loggins", era:"80s", mood:["dance","upbeat"], clean:true},
+  {title:"Walking on Sunshine", artist:"Katrina and the Waves", era:"80s", mood:["happy","upbeat"], clean:true},
+  {title:"Man! I Feel Like a Woman!", artist:"Shania Twain", era:"90s", mood:["party","singalong"], clean:true},
+  {title:"Friends in Low Places", artist:"Garth Brooks", era:"90s", mood:["country","singalong"], clean:true},
+  {title:"I Want It That Way", artist:"Backstreet Boys", era:"90s", mood:["90s","singalong"], clean:true},
+  {title:"No Diggity", artist:"Blackstreet", era:"90s", mood:["90s","groove"], clean:false},
+  {title:"All Star", artist:"Smash Mouth", era:"90s", mood:["fun","singalong"], clean:true},
+  {title:"Mr. Brightside", artist:"The Killers", era:"2000s", mood:["upbeat","singalong"], clean:true},
+  {title:"Uptown Funk", artist:"Mark Ronson ft. Bruno Mars", era:"2010s", mood:["dance","party"], clean:true},
+  {title:"Shut Up and Dance", artist:"WALK THE MOON", era:"2010s", mood:["dance","upbeat"], clean:true},
+  {title:"Can't Stop the Feeling!", artist:"Justin Timberlake", era:"2010s", mood:["happy","dance"], clean:true},
+  {title:"Life is a Highway", artist:"Rascal Flatts", era:"2000s", mood:["roadtrip","upbeat"], clean:true},
+  {title:"Beautiful Day", artist:"U2", era:"2000s", mood:["upbeat","positive"], clean:true},
+  {title:"Pour Some Sugar on Me", artist:"Def Leppard", era:"80s", mood:["rock","party"], clean:false},
+  {title:"Every Rose Has Its Thorn", artist:"Poison", era:"80s", mood:["rock","classic"], clean:true},
+  {title:"Jessie's Girl", artist:"Rick Springfield", era:"80s", mood:["upbeat","singalong"], clean:true},
+  {title:"Africa", artist:"Toto", era:"80s", mood:["classic","singalong"], clean:true},
+  {title:"Girls Just Want to Have Fun", artist:"Cyndi Lauper", era:"80s", mood:["party","upbeat","singalong"], clean:true},
+  {title:"Love Shack", artist:"The B-52's", era:"80s", mood:["party","dance","singalong"], clean:true},
+  {title:"Wannabe", artist:"Spice Girls", era:"90s", mood:["party","90s","singalong"], clean:true},
+  {title:"Waterfalls", artist:"TLC", era:"90s", mood:["90s","groove"], clean:true},
+  {title:"Semi-Charmed Life", artist:"Third Eye Blind", era:"90s", mood:["90s","upbeat"], clean:false},
+  {title:"Iris", artist:"Goo Goo Dolls", era:"90s", mood:["90s","classic"], clean:true},
+  {title:"Sweet Caroline", artist:"Neil Diamond", era:"60s", mood:["classic","singalong"], clean:true},
+  {title:"Old Time Rock and Roll", artist:"Bob Seger", era:"70s", mood:["classic","rock","party"], clean:true},
+  {title:"Centerfold", artist:"The J. Geils Band", era:"80s", mood:["upbeat","party"], clean:false},
+  {title:"Hooked on a Feeling", artist:"Blue Swede", era:"70s", mood:["fun","classic"], clean:true},
+  {title:"What I Like About You", artist:"The Romantics", era:"80s", mood:["rock","upbeat"], clean:true},
+  {title:"Hit Me With Your Best Shot", artist:"Pat Benatar", era:"80s", mood:["rock","upbeat"], clean:true}
+];
+
 function slugify(text){
-  return (text || "aix-intent").toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-+|-+$/g,"") || "aix-intent";
+  return (text || "playlist").toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-+|-+$/g,"") || "playlist";
 }
-
-function escapeXml(value){
-  return String(value || "").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&apos;");
-}
-
-function getOrigin(prompt){
-  const p = prompt.toLowerCase();
-  if(p.includes("batesville")) return {name:"Batesville, Arkansas", latitude:35.7698, longitude:-91.6409, purpose:"Trip start"};
-  if(p.includes("little rock")) return {name:"Little Rock, Arkansas", latitude:34.7465, longitude:-92.2896, purpose:"Trip start"};
-  if(p.includes("jonesboro")) return {name:"Jonesboro, Arkansas", latitude:35.8423, longitude:-90.7043, purpose:"Trip start"};
-  return {name:"Batesville, Arkansas", latitude:35.7698, longitude:-91.6409, purpose:"Trip start"};
-}
-
-const demoStops = {
-  shopping: [
-    {name:"The Mall at Turtle Creek, Jonesboro, Arkansas", latitude:35.8068, longitude:-90.6669, purpose:"Shopping stop: fashion, department stores, and jewelry options"},
-    {name:"Park Plaza Mall, Little Rock, Arkansas", latitude:34.7522, longitude:-92.3438, purpose:"Shopping stop: fashion, jewelry, and department stores"},
-    {name:"The Promenade at Chenal, Little Rock, Arkansas", latitude:34.7726, longitude:-92.4606, purpose:"Upscale shopping stop: boutiques, fashion, and jewelry"},
-    {name:"Downtown Conway, Conway, Arkansas", latitude:35.0918, longitude:-92.4367, purpose:"Walkable shopping district with local stores and boutiques"}
-  ],
-  jewelry: [
-    {name:"Sissy's Log Cabin, Little Rock, Arkansas", latitude:34.7535, longitude:-92.3460, purpose:"Jewelry stop"},
-    {name:"Jones & Son Fine Jewelry, Little Rock, Arkansas", latitude:34.7521, longitude:-92.3441, purpose:"Jewelry stop"},
-    {name:"Gearhead Outfitters, Jonesboro, Arkansas", latitude:35.8070, longitude:-90.6670, purpose:"Fashion and apparel stop"}
-  ],
-  food: [
-    {name:"The Root Cafe, Little Rock, Arkansas", latitude:34.7377, longitude:-92.2726, purpose:"Food stop"},
-    {name:"Lost Forty Brewing, Little Rock, Arkansas", latitude:34.7420, longitude:-92.2609, purpose:"Food stop"},
-    {name:"Stoby's Restaurant, Conway, Arkansas", latitude:35.0892, longitude:-92.4428, purpose:"Food stop"}
-  ],
-  lodging: [
-    {name:"Capital Hotel, Little Rock, Arkansas", latitude:34.7462, longitude:-92.2705, purpose:"Lodging stop"},
-    {name:"Courtyard by Marriott Jonesboro, Jonesboro, Arkansas", latitude:35.8107, longitude:-90.6651, purpose:"Lodging stop"},
-    {name:"Hilton Garden Inn Conway, Conway, Arkansas", latitude:35.0838, longitude:-92.4172, purpose:"Lodging stop"}
-  ],
-  entertainment: [
-    {name:"Robinson Center, Little Rock, Arkansas", latitude:34.7478, longitude:-92.2740, purpose:"Show or entertainment stop"},
-    {name:"Simmons Bank Arena, North Little Rock, Arkansas", latitude:34.7550, longitude:-92.2655, purpose:"Concert or event stop"},
-    {name:"The Forum Theatre, Jonesboro, Arkansas", latitude:35.8427, longitude:-90.7043, purpose:"Show or entertainment stop"}
-  ],
-  fishing: [
-    {name:"Norfork River, Arkansas", latitude:36.2267, longitude:-92.6849, purpose:"Trout fishing stop"},
-    {name:"Bull Shoals White River State Park, Arkansas", latitude:36.3693, longitude:-92.5804, purpose:"Fishing and river access"},
-    {name:"Mountain Home, Arkansas", latitude:36.3353, longitude:-92.3852, purpose:"Food, lodging, and supply stop"}
-  ]
-};
 
 function hasAny(text, words){
   return words.some(w => text.includes(w));
 }
 
-function addUnique(list, items){
-  const seen = new Set(list.map(x => x.name.toLowerCase()));
-  items.forEach(item => {
-    if(!seen.has(item.name.toLowerCase())){
-      list.push(item);
-      seen.add(item.name.toLowerCase());
-    }
-  });
+function scoreSong(song, prompt){
+  const p = prompt.toLowerCase();
+  let score = 0;
+  if(p.includes(song.era.toLowerCase())) score += 4;
+  song.mood.forEach(m => { if(p.includes(m)) score += 3; });
+  if(hasAny(p,["classic","classics"]) && song.mood.includes("classic")) score += 3;
+  if(hasAny(p,["rock"]) && song.mood.includes("rock")) score += 3;
+  if(hasAny(p,["party","fun","saturday","upbeat"]) && (song.mood.includes("party") || song.mood.includes("upbeat") || song.mood.includes("fun"))) score += 2;
+  if(hasAny(p,["sing","sing-along","singalong"]) && song.mood.includes("singalong")) score += 3;
+  if(hasAny(p,["road","drive","trip"]) && song.mood.includes("roadtrip")) score += 3;
+  if(score === 0) score = 1;
+  return score;
 }
 
-function inferIntentType(prompt){
-  const p = prompt.toLowerCase();
-  if(hasAny(p,["shopping","shop","fashion","jewelry","jewellery","clothing","boutique","mall"])) return "shopping_trip";
-  if(hasAny(p,["fish","fishing","trout","river","lake"])) return "fishing_trip";
-  return "travel_route";
+function generateSongs(prompt, count, cleanOnly){
+  let songs = songLibrary.filter(s => !cleanOnly || s.clean);
+  songs = songs.map(s => ({...s, score: scoreSong(s, prompt)}));
+  songs.sort((a,b) => b.score - a.score || a.title.localeCompare(b.title));
+
+  const selected = [];
+  let i = 0;
+  while(selected.length < count && i < songs.length){
+    selected.push(songs[i]);
+    i++;
+  }
+
+  return selected.map((s, index) => ({
+    track_number:index+1,
+    title:s.title,
+    artist:s.artist,
+    era:s.era,
+    reason:s.mood.join(", "),
+    clean:s.clean,
+    spotify_search_url:spotifyUrl(s),
+    youtube_music_search_url:youtubeMusicUrl(s)
+  }));
 }
 
-function enrichWaypoints(prompt){
-  const p = prompt.toLowerCase();
-  const waypoints = [getOrigin(prompt)];
-  const notes = [];
+function spotifyUrl(song){
+  return "https://open.spotify.com/search/" + encodeURIComponent(song.title + " " + song.artist);
+}
 
-  if(hasAny(p,["shopping","shop","fashion","clothing","boutique","mall"])){
-    addUnique(waypoints, demoStops.shopping);
-    notes.push("Added shopping/fashion city waypoints.");
-  }
-
-  if(hasAny(p,["jewelry","jewellery"])){
-    addUnique(waypoints, demoStops.jewelry);
-    notes.push("Added jewelry-specific waypoints.");
-  }
-
-  if(hasAny(p,["eat","food","restaurant","dinner","lunch","breakfast"])){
-    addUnique(waypoints, demoStops.food);
-    notes.push("Added food waypoints.");
-  }
-
-  if(hasAny(p,["stay","hotel","lodging","room"])){
-    addUnique(waypoints, demoStops.lodging);
-    notes.push("Added lodging waypoints.");
-  }
-
-  if(hasAny(p,["show","concert","theater","theatre","entertainment"])){
-    addUnique(waypoints, demoStops.entertainment);
-    notes.push("Added entertainment/show waypoints.");
-  }
-
-  if(hasAny(p,["fish","fishing","trout","river","lake"])){
-    addUnique(waypoints, demoStops.fishing);
-    notes.push("Added fishing waypoints.");
-  }
-
-  if(waypoints.length === 1){
-    addUnique(waypoints, [
-      {name:"Jonesboro, Arkansas", latitude:35.8423, longitude:-90.7043, purpose:"General city stop"},
-      {name:"Little Rock, Arkansas", latitude:34.7465, longitude:-92.2896, purpose:"General city stop"},
-      {name:"Conway, Arkansas", latitude:35.0887, longitude:-92.4421, purpose:"General city stop"}
-    ]);
-    notes.push("Added general Arkansas city waypoints.");
-  }
-
-  return {waypoints, notes};
+function youtubeMusicUrl(song){
+  return "https://music.youtube.com/search?q=" + encodeURIComponent(song.title + " " + song.artist);
 }
 
 function buildIntent(){
   const title = document.getElementById("title").value;
-  const creator = document.getElementById("creator").value;
-  const startDate = document.getElementById("startDate").value;
-  const days = Number(document.getElementById("days").value || 1);
+  const count = Math.max(1, Math.min(50, Number(document.getElementById("count").value || 12)));
+  const cleanOnly = document.getElementById("clean").value === "true";
   const prompt = document.getElementById("prompt").value;
-  const enriched = enrichWaypoints(prompt);
-  const p = prompt.toLowerCase();
+  const songs = generateSongs(prompt, count, cleanOnly);
 
   return {
     standard:"AIX",
     standard_name:"AI Intent Exchange",
-    version:"0.3",
+    version:"1.1",
+    intent_type:"playlist",
     title:title,
-    creator:creator,
     created_at:new Date().toISOString(),
-    intent_type:inferIntentType(prompt),
     user_prompt:prompt,
     user_goal:prompt,
-    status:"draft_requires_review",
-    schedule:{start_date:startDate,duration_days:days},
     preferences:{
-      shopping:hasAny(p,["shopping","shop","mall"]),
-      fashion:hasAny(p,["fashion","clothing","boutique"]),
-      jewelry:hasAny(p,["jewelry","jewellery"]),
-      food:hasAny(p,["eat","food","restaurant","dinner","lunch","breakfast"]),
-      lodging:hasAny(p,["stay","hotel","lodging","room"]),
-      entertainment:hasAny(p,["show","concert","theater","theatre","entertainment"])
+      clean_or_family_friendly:cleanOnly,
+      requested_song_count:count,
+      detected_themes:{
+        classic_rock:hasAny(prompt.toLowerCase(),["classic rock","rock"]),
+        eighties:hasAny(prompt.toLowerCase(),["80s","eighties"]),
+        nineties:hasAny(prompt.toLowerCase(),["90s","nineties"]),
+        upbeat:hasAny(prompt.toLowerCase(),["upbeat","fun","party"]),
+        singalong:hasAny(prompt.toLowerCase(),["singalong","sing-along","sing"])
+      }
     },
-    requested_outputs:["aix.json","google_maps_url","gpx","ics","csv"],
-    route:{
-      origin:enriched.waypoints[0].name,
-      destination:enriched.waypoints[enriched.waypoints.length-1].name,
-      waypoints:enriched.waypoints
+    requested_outputs:["aix.json","csv","m3u","plain_text","spotify_search_links","youtube_music_search_links"],
+    playlist:{
+      track_count:songs.length,
+      tracks:songs
     },
-    enrichment:{
-      notes:enriched.notes,
-      limitation:"Uses built-in demonstration stops. Future versions should use live AI, Google Places, Maps APIs, reviews, hours, hotel data, and user preferences."
-    },
+    adapters:[
+      {name:"CSV Adapter", purpose:"Spreadsheet/import-ready song list"},
+      {name:"M3U Adapter", purpose:"Generic playlist file"},
+      {name:"Spotify Search Adapter", purpose:"Open tracks in Spotify search"},
+      {name:"YouTube Music Search Adapter", purpose:"Open tracks in YouTube Music search"},
+      {name:"Future Spotify OAuth Adapter", purpose:"Create playlist inside user's Spotify account"},
+      {name:"Future YouTube Music Adapter", purpose:"Create playlist inside user's YouTube Music account"}
+    ],
     audit:{
-      source:"human_prompt_plus_demo_waypoint_library",
-      requires_review:true
+      source:"human_prompt_plus_demo_song_library",
+      requires_review:true,
+      limitation:"Prototype uses a built-in demo library and opens platform search links. True account playlist creation requires backend OAuth integration."
     }
   };
 }
 
-function toGoogleMapsUrl(intent){
-  const names = (intent.route.waypoints || []).map(p => p.name).filter(Boolean);
-  return "https://www.google.com/maps/dir/" + names.map(n => encodeURIComponent(n)).join("/");
-}
-
-function toGpx(intent){
-  const points = intent.route.waypoints || [];
-  return `<?xml version="1.0" encoding="UTF-8"?>
-<gpx version="1.1" creator="Thooster AIX Prototype" xmlns="http://www.topografix.com/GPX/1/1">
-  <metadata>
-    <name>${escapeXml(intent.title)}</name>
-    <desc>${escapeXml(intent.user_goal)}</desc>
-  </metadata>
-${points.map(p => `  <wpt lat="${p.latitude}" lon="${p.longitude}">
-    <name>${escapeXml(p.name)}</name>
-    <desc>${escapeXml(p.purpose)}</desc>
-  </wpt>`).join("\n")}
-</gpx>`;
-}
-
-function toIcs(intent){
-  const startDate = (intent.schedule.start_date || "2026-06-01").replace(/-/g,"");
-  const now = new Date().toISOString().replace(/[-:]/g,"").split(".")[0] + "Z";
-  const description = `${intent.user_goal}\\n\\nGenerated by AIX v${intent.version}. Review before use.`;
-  return `BEGIN:VCALENDAR
-VERSION:2.0
-PRODID:-//Thooster//AI Intent Exchange//EN
-BEGIN:VEVENT
-UID:${slugify(intent.title)}-${Date.now()}@thooster.com
-DTSTAMP:${now}
-SUMMARY:${intent.title}
-DESCRIPTION:${description}
-DTSTART;VALUE=DATE:${startDate}
-DTEND;VALUE=DATE:${startDate}
-END:VEVENT
-END:VCALENDAR`;
-}
-
 function toCsv(intent){
-  const rows = intent.route.waypoints || [];
-  return ["name,latitude,longitude,purpose", ...rows.map(r => `"${r.name}","${r.latitude}","${r.longitude}","${r.purpose}"`)].join("\n");
+  const rows = intent.playlist.tracks || [];
+  return ["track_number,title,artist,era,reason,clean,spotify_search_url,youtube_music_search_url", ...rows.map(r => `"${r.track_number}","${r.title}","${r.artist}","${r.era}","${r.reason}","${r.clean}","${r.spotify_search_url}","${r.youtube_music_search_url}"`)].join("\n");
 }
 
-function generateIntent(){
+function toM3u(intent){
+  const rows = intent.playlist.tracks || [];
+  return "#EXTM3U\n" + rows.map(r => `#EXTINF:-1,${r.artist} - ${r.title}\n${r.artist} - ${r.title}.mp3`).join("\n");
+}
+
+function toList(intent){
+  const rows = intent.playlist.tracks || [];
+  return rows.map(r => `${r.track_number}. ${r.title} — ${r.artist}`).join("\n");
+}
+
+function updatePlaylistList(){
+  const list = document.getElementById("playlistList");
+  list.innerHTML = "";
+  const rows = currentIntent.playlist ? currentIntent.playlist.tracks : [];
+  rows.forEach(r => {
+    const div = document.createElement("div");
+    div.className = "song";
+    div.innerHTML = `
+      <div class="songtitle">${r.track_number}. ${r.title} — ${r.artist}</div>
+      <div class="songmeta">${r.era} • ${r.reason}</div>
+      <div class="appbuttons">
+        <a class="appbtn spotify" href="${r.spotify_search_url}" target="_blank" rel="noopener noreferrer">Open in Spotify</a>
+        <a class="appbtn youtube" href="${r.youtube_music_search_url}" target="_blank" rel="noopener noreferrer">Open in YouTube Music</a>
+      </div>
+    `;
+    list.appendChild(div);
+  });
+}
+
+function generatePlaylist(){
   currentIntent = buildIntent();
   currentFiles = {
     json:JSON.stringify(currentIntent,null,2),
-    maps:toGoogleMapsUrl(currentIntent),
-    gpx:toGpx(currentIntent),
-    ics:toIcs(currentIntent),
-    csv:toCsv(currentIntent)
+    csv:toCsv(currentIntent),
+    m3u:toM3u(currentIntent),
+    list:toList(currentIntent)
   };
   document.getElementById("output").innerText = currentFiles[currentTab];
+  updatePlaylistList();
 }
 
 function showTab(tab, button){
@@ -304,16 +320,12 @@ function showTab(tab, button){
   document.getElementById("output").innerText = currentFiles[tab] || "";
 }
 
-function openGoogleMaps(){
-  generateIntent();
-  window.open(currentFiles.maps, "_blank", "noopener,noreferrer");
-}
-
 function downloadCurrent(type){
-  generateIntent();
+  generatePlaylist();
   const base = slugify(document.getElementById("title").value);
-  const filename = type === "json" ? `${base}.aix.json` : `${base}.${type}`;
-  const mimes = {json:"application/json",gpx:"application/gpx+xml",ics:"text/calendar",csv:"text/csv"};
+  const extensions = {json:"aix.json", csv:"csv", m3u:"m3u", list:"txt"};
+  const mimes = {json:"application/json", csv:"text/csv", m3u:"audio/x-mpegurl", list:"text/plain"};
+  const filename = type === "json" ? `${base}.aix.json` : `${base}.${extensions[type]}`;
   const blob = new Blob([currentFiles[type]], {type:mimes[type] || "text/plain"});
   const url = URL.createObjectURL(blob);
   const a = document.createElement("a");
@@ -325,7 +337,34 @@ function downloadCurrent(type){
   URL.revokeObjectURL(url);
 }
 
-generateIntent();
+async function copyPlaylist(){
+  generatePlaylist();
+  const text = currentFiles.list;
+  try{
+    await navigator.clipboard.writeText(text);
+    alert("Playlist copied.");
+  }catch(e){
+    alert(text);
+  }
+}
+
+function openAllSpotify(){
+  generatePlaylist();
+  const tracks = currentIntent.playlist.tracks || [];
+  tracks.forEach((track, index) => {
+    setTimeout(() => window.open(track.spotify_search_url, "_blank", "noopener,noreferrer"), index * 350);
+  });
+}
+
+function openAllYouTube(){
+  generatePlaylist();
+  const tracks = currentIntent.playlist.tracks || [];
+  tracks.forEach((track, index) => {
+    setTimeout(() => window.open(track.youtube_music_search_url, "_blank", "noopener,noreferrer"), index * 350);
+  });
+}
+
+generatePlaylist();
 </script>
 </body>
 </html>
