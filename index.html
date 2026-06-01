@@ -31,7 +31,7 @@
     .builder{display:grid;grid-template-columns:.9fr 1.1fr;gap:22px;align-items:start}label{display:block;font-weight:800;margin-bottom:7px;font-size:14px}
     input,textarea{width:100%;border:1px solid #cbd5e1;border-radius:14px;padding:13px;font-size:15px;margin-bottom:14px}textarea{min-height:155px;resize:vertical}.row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
     .download-grid,.tabs{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-top:12px}.small-btn,.tab{border:1px solid #cbd5e1;background:#fff;border-radius:13px;padding:10px;cursor:pointer;font-weight:800}.tab.active{background:#0f172a;color:#fff}
-    pre{background:#020617;color:#f8fafc;padding:18px;border-radius:18px;overflow:auto;max-height:460px;white-space:pre-wrap;font-size:13px;line-height:1.45}
+    pre{background:#020617;color:#f8fafc;padding:18px;border-radius:18px;overflow:auto;max-height:460px;white-space:pre-wrap;font-size:13px;line-height:1.45;min-height:200px}
     .notice{margin-top:16px;background:#fffbeb;border:1px solid #fde68a;color:#92400e;border-radius:18px;padding:14px;font-size:14px;line-height:1.45}
     .dark{background:#0f172a;color:#fff}.dark .section-sub{color:#cbd5e1}.dark .card{background:#111827;border-color:#334155}.dark .card p{color:#cbd5e1}
     .footer{padding:34px 0;border-top:1px solid #e2e8f0;color:#64748b;font-size:14px}
@@ -39,33 +39,294 @@
   </style>
 </head>
 <body>
-  <nav class="nav"><div class="wrap nav-inner"><a class="brand" href="#"><span class="logo">T</span><span>Thooster</span></a><div class="nav-links"><a href="#vision">Vision</a><a href="#examples">Examples</a><a href="#builder">Try AIX</a></div></div></nav>
-  <header class="hero"><div class="wrap hero-grid"><div><div class="eyebrow">AIX v0.1 • AI Intent Exchange</div><h1>The bridge between AI and the apps you use every day.</h1><p class="lead">Thooster is building a portable standard that lets AI systems turn plain-English requests into structured action files for maps, calendars, playlists, shopping lists, and more.</p><div class="actions"><a class="btn" href="#builder">Try the prototype</a><a class="btn secondary" href="#vision">See the vision</a></div></div><div class="hero-card"><div class="tag-row"><span class="tag">AI Request</span><span class="tag">Intent JSON</span><span class="tag">App Exports</span></div><div class="demo-box">{
+  <nav class="nav">
+    <div class="wrap nav-inner">
+      <a class="brand" href="#"><span class="logo">T</span><span>Thooster</span></a>
+      <div class="nav-links"><a href="#vision">Vision</a><a href="#examples">Examples</a><a href="#builder">Try AIX</a></div>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <div class="eyebrow">AIX v0.1 • AI Intent Exchange</div>
+        <h1>The bridge between AI and the apps you use every day.</h1>
+        <p class="lead">Thooster is building a portable standard that lets AI systems turn plain-English requests into structured action files for maps, calendars, playlists, shopping lists, and more.</p>
+        <div class="actions"><a class="btn" href="#builder">Try the prototype</a><a class="btn secondary" href="#vision">See the vision</a></div>
+      </div>
+      <div class="hero-card">
+        <div class="tag-row"><span class="tag">AI Request</span><span class="tag">Intent JSON</span><span class="tag">App Exports</span></div>
+        <div class="demo-box">{
   "standard": "AIX",
   "version": "0.1",
   "intent_type": "travel_route",
   "user_goal": "Plan a 2-day trout fishing trip",
   "requested_outputs": ["aix.json", "google_maps_url", "gpx", "ics", "csv"]
-}</div></div></div></header>
-  <section id="vision"><div class="wrap"><h2 class="section-title">AI should not stop at giving you text.</h2><p class="section-sub">When people ask AI to plan, organize, route, schedule, or shop, the answer should be portable. AIX is a proposed exchange layer that describes the user's intent in a form other software can understand.</p><div class="flow"><div class="step"><b>1. Ask AI</b><span>“Plan my fishing trip,” “make a playlist,” or “build a grocery list.”</span></div><div class="arrow">→</div><div class="step"><b>2. Create AIX</b><span>The request becomes a structured AI Intent Exchange file.</span></div><div class="arrow">→</div><div class="step"><b>3. Export Actions</b><span>Adapters convert the intent into files apps already accept.</span></div></div></div></section>
-  <section id="examples" class="dark"><div class="wrap"><h2 class="section-title">One intent. Many applications.</h2><p class="section-sub">AIX starts as a simple file format and grows into a translation layer between AI and execution platforms.</p><div class="cards"><div class="card"><div class="icon">🗺️</div><h3>Travel routes</h3><p>Convert trip plans into Google Maps links, GPX, ICS, and CSV files for maps, GPS devices, and calendars.</p></div><div class="card"><div class="icon">🎵</div><h3>Playlists</h3><p>Turn a theme, mood, or event into a portable playlist intent that music services can interpret.</p></div><div class="card"><div class="icon">🛒</div><h3>Shopping lists</h3><p>Convert recipes, budgets, diets, or meal plans into structured grocery lists and future retail integrations.</p></div></div></div></section>
-  <section id="builder"><div class="wrap"><h2 class="section-title">Try the AIX travel prototype.</h2><p class="section-sub">This first demo creates a travel-route intent file and exports starter files. It is a proof of concept, not final navigation software.</p><div class="builder" style="margin-top:28px;"><div class="card"><label>Trip Title</label><input id="title" value="Northern Arkansas Fishing Trip" /><div class="row"><div><label>Creator</label><input id="creator" value="Tracy McMahan" /></div><div><label>Days</label><input id="days" type="number" min="1" max="30" value="2" /></div></div><label>Start Date</label><input id="startDate" type="date" value="2026-06-15" /><label>Plain-English Request</label><textarea id="prompt">Plan me a 2-day trout fishing trip starting in Batesville, Arkansas. Avoid interstates, prefer scenic routes, include fishing stops, food stops, and a simple calendar itinerary.</textarea><button class="btn" style="width:100%;" onclick="generateIntent()">Generate AIX File</button><div class="download-grid"><button class="small-btn" onclick="downloadCurrent('json')">JSON</button><button class="small-btn" onclick="openGoogleMaps()">Google Maps</button><button class="small-btn" onclick="downloadCurrent('gpx')">GPX</button><button class="small-btn" onclick="downloadCurrent('ics')">ICS</button><button class="small-btn" onclick="downloadCurrent('csv')">CSV</button></div><div class="notice"><b>Review required:</b> This MVP uses placeholder route logic. Real integrations should validate addresses, road data, business hours, inventory, prices, and permissions.</div></div><div class="card"><div class="tabs"><button class="tab active" onclick="showTab('json', this)">JSON</button><button class="tab" onclick="showTab('maps', this)">Maps</button><button class="tab" onclick="showTab('gpx', this)">GPX</button><button class="tab" onclick="showTab('ics', this)">ICS</button><button class="tab" onclick="showTab('csv', this)">CSV</button></div><pre id="output"></pre></div></div></div></section>
-  <footer class="footer"><div class="wrap"><b>Thooster</b> — Home of AI Intent Exchange. Prototype only. Generated files should be reviewed before real-world use.</div></footer>
-  <script>
-    let currentIntent={}, currentFiles={}, currentTab="json";
-    function slugify(text){return(text||"aix-intent").toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-+|-+$/g,"")||"aix-intent"}
-    function escapeXml(value){return String(value||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&apos;")}
-    function extractKnownLocation(prompt){const lower=prompt.toLowerCase();if(lower.includes("batesville"))return{name:"Batesville, Arkansas",latitude:35.7698,longitude:-91.6409};if(lower.includes("little rock"))return{name:"Little Rock, Arkansas",latitude:34.7465,longitude:-92.2896};if(lower.includes("mountain view"))return{name:"Mountain View, Arkansas",latitude:35.8684,longitude:-92.1177};return{name:"Origin to be resolved",latitude:35.7698,longitude:-91.6409}}
-    function buildIntent(){const title=document.getElementById("title").value,creator=document.getElementById("creator").value,startDate=document.getElementById("startDate").value,days=Number(document.getElementById("days").value||1),prompt=document.getElementById("prompt").value,origin=extractKnownLocation(prompt),scenic=/scenic|pretty|views|back road|backroad/i.test(prompt),avoidInterstates=/avoid interstate|no interstate|avoid highway/i.test(prompt),fishing=/fish|fishing|trout|river|lake/i.test(prompt),food=/food|restaurant|eat|dinner|lunch|breakfast/i.test(prompt),hotel=/hotel|stay|lodging|cabin|room/i.test(prompt);const waypoints=[{name:origin.name,latitude:origin.latitude,longitude:origin.longitude,purpose:"Trip start"},{name:fishing?"Trout fishing stop":"Primary stop",latitude:36.2267,longitude:-92.6849,purpose:fishing?"Suggested fishing waypoint placeholder":"Suggested waypoint placeholder"},{name:food?"Food stop":"Secondary stop",latitude:36.3353,longitude:-92.3852,purpose:food?"Meal stop placeholder":"Secondary waypoint placeholder"}];if(hotel)waypoints.push({name:"Lodging stop",latitude:36.3353,longitude:-92.3852,purpose:"Overnight lodging placeholder"});return{standard:"AIX",standard_name:"AI Intent Exchange",version:"0.1",title,creator,created_at:new Date().toISOString(),intent_type:"travel_route",user_prompt:prompt,user_goal:prompt,status:"draft_requires_review",schedule:{start_date:startDate,duration_days:days},preferences:{scenic_route:scenic,avoid_interstates:avoidInterstates,include_fishing_stops:fishing,include_food_stops:food,include_lodging:hotel},constraints:{requires_user_review:true,requires_mapping_validation:true,requires_current_business_hours_validation:true},requested_outputs:["aix.json","google_maps_url","gpx","ics","csv"],route:{origin:origin.name,destination:"Destination to be resolved by mapping adapter",waypoints},adapters:[{name:"AIX JSON",purpose:"Canonical AI intent file"},{name:"Google Maps Adapter",purpose:"Direct Google Maps route URL"},{name:"GPX Adapter",purpose:"GPS devices and route applications"},{name:"ICS Adapter",purpose:"Calendar itinerary"},{name:"CSV Adapter",purpose:"Spreadsheet itinerary"}],audit:{source:"human_prompt",ai_generated:true,safety_note:"This file represents user intent and should be reviewed before use in navigation, scheduling, or purchasing."}}}
-    function toKml(intent){const points=intent.route.waypoints||[];return `<?xml version="1.0" encoding="UTF-8"?>\n<kml xmlns="http://www.opengis.net/kml/2.2">\n  <Document>\n    <name>${escapeXml(intent.title)}</name>\n    <description>${escapeXml(intent.user_goal)}</description>\n${points.map(p=>`    <Placemark>\n      <name>${escapeXml(p.name)}</name>\n      <description>${escapeXml(p.purpose)}</description>\n      <Point>\n        <coordinates>${p.longitude},${p.latitude},0</coordinates>\n      </Point>\n    </Placemark>`).join("\n")}\n  </Document>\n</kml>`}
-    function toGpx(intent){const points=intent.route.waypoints||[];return `<?xml version="1.0" encoding="UTF-8"?>\n<gpx version="1.1" creator="AIX Prototype" xmlns="http://www.topografix.com/GPX/1/1">\n  <metadata>\n    <name>${escapeXml(intent.title)}</name>\n    <desc>${escapeXml(intent.user_goal)}</desc>\n  </metadata>\n${points.map(p=>`  <wpt lat="${p.latitude}" lon="${p.longitude}">\n    <name>${escapeXml(p.name)}</name>\n    <desc>${escapeXml(p.purpose)}</desc>\n  </wpt>`).join("\n")}\n</gpx>`}
-    function toIcs(intent){const startDate=(intent.schedule.start_date||"2026-06-01").replace(/-/g,""),now=new Date().toISOString().replace(/[-:]/g,"").split(".")[0]+"Z",description=`${intent.user_goal}\\n\\nGenerated by AIX v${intent.version}. Review before use.`;return `BEGIN:VCALENDAR\nVERSION:2.0\nPRODID:-//Thooster//AI Intent Exchange//EN\nBEGIN:VEVENT\nUID:${slugify(intent.title)}-${Date.now()}@thooster.com\nDTSTAMP:${now}\nSUMMARY:${intent.title}\nDESCRIPTION:${description}\nDTSTART;VALUE=DATE:${startDate}\nDTEND;VALUE=DATE:${startDate}\nEND:VEVENT\nEND:VCALENDAR`}
-    function toCsv(intent){const rows=intent.route.waypoints||[];return["name,latitude,longitude,purpose",...rows.map(r=>`"${r.name}","${r.latitude}","${r.longitude}","${r.purpose}"`)].join("\n")}
-    function generateIntent(){currentIntent=buildIntent();currentFiles={json:JSON.stringify(currentIntent,null,2),maps:toGoogleMapsUrl(currentIntent),gpx:toGpx(currentIntent),ics:toIcs(currentIntent),csv:toCsv(currentIntent)};document.getElementById("output").innerText=currentFiles[currentTab]}
-    function showTab(tab,button){currentTab=tab;document.querySelectorAll(".tab").forEach(b=>b.classList.remove("active"));button.classList.add("active");document.getElementById("output").innerText=currentFiles[tab]||""}
-    function downloadCurrent(type){if(!currentFiles[type])generateIntent();const title=document.getElementById("title").value,base=slugify(title),filename=type==="json"?`${base}.aix.json`:`${base}.${type}`,mimes={json:"application/json",kml:"application/vnd.google-earth.kml+xml",gpx:"application/gpx+xml",ics:"text/calendar",csv:"text/csv"},blob=new Blob([currentFiles[type]],{type:mimes[type]||"text/plain"}),url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download=filename;document.body.appendChild(a);a.click();document.body.removeChild(a);URL.revokeObjectURL(url)}
+}</div>
+      </div>
+    </div>
+  </header>
 
-    function openGoogleMaps(){if(!currentFiles.maps)generateIntent();window.open(currentFiles.maps,"_blank","noopener,noreferrer")}
+  <section id="vision">
+    <div class="wrap">
+      <h2 class="section-title">AI should not stop at giving you text.</h2>
+      <p class="section-sub">When people ask AI to plan, organize, route, schedule, or shop, the answer should be portable. AIX is a proposed exchange layer that describes the user's intent in a form other software can understand.</p>
+      <div class="flow">
+        <div class="step"><b>1. Ask AI</b><span>“Plan my fishing trip,” “make a playlist,” or “build a grocery list.”</span></div>
+        <div class="arrow">→</div>
+        <div class="step"><b>2. Create AIX</b><span>The request becomes a structured AI Intent Exchange file.</span></div>
+        <div class="arrow">→</div>
+        <div class="step"><b>3. Export Actions</b><span>Adapters convert the intent into files apps already accept.</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="examples" class="dark">
+    <div class="wrap">
+      <h2 class="section-title">One intent. Many applications.</h2>
+      <p class="section-sub">AIX starts as a simple file format and grows into a translation layer between AI and execution platforms.</p>
+      <div class="cards">
+        <div class="card"><div class="icon">🗺️</div><h3>Travel routes</h3><p>Convert trip plans into Google Maps links, GPX, ICS, and CSV files for maps, GPS devices, and calendars.</p></div>
+        <div class="card"><div class="icon">🎵</div><h3>Playlists</h3><p>Turn a theme, mood, or event into a portable playlist intent that music services can interpret.</p></div>
+        <div class="card"><div class="icon">🛒</div><h3>Shopping lists</h3><p>Convert recipes, budgets, diets, or meal plans into structured grocery lists and future retail integrations.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="builder">
+    <div class="wrap">
+      <h2 class="section-title">Try the AIX travel prototype.</h2>
+      <p class="section-sub">This first demo creates a travel-route intent file and exports starter files. It is a proof of concept, not final navigation software.</p>
+
+      <div class="builder" style="margin-top:28px;">
+        <div class="card">
+          <label>Trip Title</label>
+          <input id="title" value="Northern Arkansas Fishing Trip" />
+
+          <div class="row">
+            <div><label>Creator</label><input id="creator" value="Tracy McMahan" /></div>
+            <div><label>Days</label><input id="days" type="number" min="1" max="30" value="2" /></div>
+          </div>
+
+          <label>Start Date</label>
+          <input id="startDate" type="date" value="2026-06-15" />
+
+          <label>Plain-English Request</label>
+          <textarea id="prompt">Plan me a 2-day trout fishing trip starting in Batesville, Arkansas. Avoid interstates, prefer scenic routes, include fishing stops, food stops, and a simple calendar itinerary.</textarea>
+
+          <button class="btn" style="width:100%;" onclick="generateIntent()">Generate AIX File</button>
+
+          <div class="download-grid">
+            <button class="small-btn" onclick="downloadCurrent('json')">JSON</button>
+            <button class="small-btn" onclick="openGoogleMaps()">Google Maps</button>
+            <button class="small-btn" onclick="downloadCurrent('gpx')">GPX</button>
+            <button class="small-btn" onclick="downloadCurrent('ics')">ICS</button>
+            <button class="small-btn" onclick="downloadCurrent('csv')">CSV</button>
+          </div>
+
+          <div class="notice"><b>Review required:</b> This MVP uses placeholder route logic. Real integrations should validate addresses, road data, business hours, inventory, prices, and permissions.</div>
+        </div>
+
+        <div class="card">
+          <div class="tabs">
+            <button class="tab active" onclick="showTab('json', this)">JSON</button>
+            <button class="tab" onclick="showTab('maps', this)">Maps</button>
+            <button class="tab" onclick="showTab('gpx', this)">GPX</button>
+            <button class="tab" onclick="showTab('ics', this)">ICS</button>
+            <button class="tab" onclick="showTab('csv', this)">CSV</button>
+          </div>
+          <pre id="output"></pre>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer"><div class="wrap"><b>Thooster</b> — Home of AI Intent Exchange. Prototype only. Generated files should be reviewed before real-world use.</div></footer>
+
+  <script>
+    let currentIntent = {};
+    let currentFiles = {};
+    let currentTab = "json";
+
+    function slugify(text) {
+      return (text || "aix-intent")
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, "-")
+        .replace(/^-+|-+$/g, "") || "aix-intent";
+    }
+
+    function escapeXml(value) {
+      return String(value || "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&apos;");
+    }
+
+    function extractKnownLocation(prompt) {
+      const lower = prompt.toLowerCase();
+      if (lower.includes("batesville")) return { name: "Batesville, Arkansas", latitude: 35.7698, longitude: -91.6409 };
+      if (lower.includes("little rock")) return { name: "Little Rock, Arkansas", latitude: 34.7465, longitude: -92.2896 };
+      if (lower.includes("mountain view")) return { name: "Mountain View, Arkansas", latitude: 35.8684, longitude: -92.1177 };
+      return { name: "Origin to be resolved", latitude: 35.7698, longitude: -91.6409 };
+    }
+
+    function buildIntent() {
+      const title = document.getElementById("title").value;
+      const creator = document.getElementById("creator").value;
+      const startDate = document.getElementById("startDate").value;
+      const days = Number(document.getElementById("days").value || 1);
+      const prompt = document.getElementById("prompt").value;
+
+      const origin = extractKnownLocation(prompt);
+      const scenic = /scenic|pretty|views|back road|backroad/i.test(prompt);
+      const avoidInterstates = /avoid interstate|no interstate|avoid highway/i.test(prompt);
+      const fishing = /fish|fishing|trout|river|lake/i.test(prompt);
+      const food = /food|restaurant|eat|dinner|lunch|breakfast/i.test(prompt);
+      const hotel = /hotel|stay|lodging|cabin|room/i.test(prompt);
+
+      const waypoints = [
+        { name: origin.name, latitude: origin.latitude, longitude: origin.longitude, purpose: "Trip start" },
+        { name: fishing ? "Norfork River" : "Mountain View, Arkansas", latitude: 36.2267, longitude: -92.6849, purpose: fishing ? "Suggested fishing waypoint placeholder" : "Suggested waypoint placeholder" },
+        { name: food ? "Mountain Home, Arkansas" : "Secondary stop", latitude: 36.3353, longitude: -92.3852, purpose: food ? "Meal stop placeholder" : "Secondary waypoint placeholder" }
+      ];
+
+      if (hotel) {
+        waypoints.push({ name: "Mountain Home, Arkansas", latitude: 36.3353, longitude: -92.3852, purpose: "Overnight lodging placeholder" });
+      }
+
+      return {
+        standard: "AIX",
+        standard_name: "AI Intent Exchange",
+        version: "0.1",
+        title: title,
+        creator: creator,
+        created_at: new Date().toISOString(),
+        intent_type: "travel_route",
+        user_prompt: prompt,
+        user_goal: prompt,
+        status: "draft_requires_review",
+        schedule: { start_date: startDate, duration_days: days },
+        preferences: {
+          scenic_route: scenic,
+          avoid_interstates: avoidInterstates,
+          include_fishing_stops: fishing,
+          include_food_stops: food,
+          include_lodging: hotel
+        },
+        constraints: {
+          requires_user_review: true,
+          requires_mapping_validation: true,
+          requires_current_business_hours_validation: true
+        },
+        requested_outputs: ["aix.json", "google_maps_url", "gpx", "ics", "csv"],
+        route: {
+          origin: origin.name,
+          destination: "Destination to be resolved by mapping adapter",
+          waypoints: waypoints
+        },
+        adapters: [
+          { name: "AIX JSON", purpose: "Canonical AI intent file" },
+          { name: "Google Maps Adapter", purpose: "Direct Google Maps route URL" },
+          { name: "GPX Adapter", purpose: "GPS devices and route applications" },
+          { name: "ICS Adapter", purpose: "Calendar itinerary" },
+          { name: "CSV Adapter", purpose: "Spreadsheet itinerary" }
+        ],
+        audit: {
+          source: "human_prompt",
+          ai_generated: true,
+          safety_note: "This file represents user intent and should be reviewed before use in navigation, scheduling, or purchasing."
+        }
+      };
+    }
+
+    function toGoogleMapsUrl(intent) {
+      const points = intent.route.waypoints || [];
+      const names = points.map(p => p.name).filter(Boolean);
+      if (!names.length) return "https://www.google.com/maps";
+      return "https://www.google.com/maps/dir/" + names.map(n => encodeURIComponent(n)).join("/");
+    }
+
+    function toGpx(intent) {
+      const points = intent.route.waypoints || [];
+      return `<?xml version="1.0" encoding="UTF-8"?>
+<gpx version="1.1" creator="Thooster AIX Prototype" xmlns="http://www.topografix.com/GPX/1/1">
+  <metadata>
+    <name>${escapeXml(intent.title)}</name>
+    <desc>${escapeXml(intent.user_goal)}</desc>
+  </metadata>
+${points.map(p => `  <wpt lat="${p.latitude}" lon="${p.longitude}">
+    <name>${escapeXml(p.name)}</name>
+    <desc>${escapeXml(p.purpose)}</desc>
+  </wpt>`).join("\n")}
+</gpx>`;
+    }
+
+    function toIcs(intent) {
+      const startDate = (intent.schedule.start_date || "2026-06-01").replace(/-/g, "");
+      const now = new Date().toISOString().replace(/[-:]/g, "").split(".")[0] + "Z";
+      const description = `${intent.user_goal}\\n\\nGenerated by AIX v${intent.version}. Review before use.`;
+      return `BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Thooster//AI Intent Exchange//EN
+BEGIN:VEVENT
+UID:${slugify(intent.title)}-${Date.now()}@thooster.com
+DTSTAMP:${now}
+SUMMARY:${intent.title}
+DESCRIPTION:${description}
+DTSTART;VALUE=DATE:${startDate}
+DTEND;VALUE=DATE:${startDate}
+END:VEVENT
+END:VCALENDAR`;
+    }
+
+    function toCsv(intent) {
+      const rows = intent.route.waypoints || [];
+      return ["name,latitude,longitude,purpose", ...rows.map(r => `"${r.name}","${r.latitude}","${r.longitude}","${r.purpose}"`)].join("\n");
+    }
+
+    function generateIntent() {
+      currentIntent = buildIntent();
+      currentFiles = {
+        json: JSON.stringify(currentIntent, null, 2),
+        maps: toGoogleMapsUrl(currentIntent),
+        gpx: toGpx(currentIntent),
+        ics: toIcs(currentIntent),
+        csv: toCsv(currentIntent)
+      };
+      document.getElementById("output").innerText = currentFiles[currentTab];
+    }
+
+    function showTab(tab, button) {
+      currentTab = tab;
+      document.querySelectorAll(".tab").forEach(b => b.classList.remove("active"));
+      button.classList.add("active");
+      document.getElementById("output").innerText = currentFiles[tab] || "";
+    }
+
+    function openGoogleMaps() {
+      generateIntent();
+      window.open(currentFiles.maps, "_blank", "noopener,noreferrer");
+    }
+
+    function downloadCurrent(type) {
+      generateIntent();
+      const title = document.getElementById("title").value;
+      const base = slugify(title);
+      const filename = type === "json" ? `${base}.aix.json` : `${base}.${type}`;
+      const mimes = { json: "application/json", gpx: "application/gpx+xml", ics: "text/calendar", csv: "text/csv" };
+      const blob = new Blob([currentFiles[type]], { type: mimes[type] || "text/plain" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
+
     generateIntent();
   </script>
 </body>
