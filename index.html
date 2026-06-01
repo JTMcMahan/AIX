@@ -44,7 +44,7 @@
     .copyrow{display:flex;gap:8px;align-items:center;margin-bottom:12px}
     .copyrow input{margin:0;font-size:13px;padding:11px}
     .copybtn{background:#0f172a;color:white;border:0;border-radius:12px;padding:12px 14px;font-weight:800;cursor:pointer;white-space:nowrap}
-    .waypoints{margin:0;padding-left:22px;color:#334155;font-size:14px;line-height:1.55;max-height:220px;overflow:auto}.leglist{display:grid;gap:8px;margin-top:10px}.legbtn{display:block;background:white;border:1px solid #cbd5e1;border-radius:12px;padding:10px 12px;font-weight:800;font-size:13px;color:#0f172a;text-align:left;cursor:pointer}
+    .waypoints{margin:0;padding-left:22px;color:#334155;font-size:14px;line-height:1.55;max-height:220px;overflow:auto}
     .footer{border-top:1px solid #e2e8f0;color:#64748b;padding:28px 0;font-size:14px}
     .mobilehint{display:none;color:#64748b;font-size:13px;margin-top:10px;line-height:1.4}
 
@@ -82,7 +82,7 @@
 <nav class="nav"><div class="wrap"><div class="brand"><span class="logo">T</span>Thooster</div><div class="navlinks"><a href="#why">Why</a><a href="#builder">Try AIX</a></div></div></nav>
 
 <header class="hero"><div class="wrap">
-  <span class="badge">AIX v0.7 • Leg-by-Leg Mobile Fix</span>
+  <span class="badge">AIX v0.6 • Coordinate Maps Fix</span>
   <h1>The bridge between AI and the apps you use every day.</h1>
   <p class="lead">Thooster turns plain-English requests into structured action files. This demo enriches shopping, fashion, jewelry, food, lodging, entertainment, and fishing requests with route waypoints.</p>
 </div></header>
@@ -125,7 +125,7 @@
         <button class="small" onclick="downloadCurrent('csv')">CSV</button>
       </div>
 
-      <div class="mobilehint">On a phone, use <b>Mobile Leg Links</b> if Google Maps changes or drops the full route.</div>
+      <div class="mobilehint">On a phone, tap <b>Open in Google Maps</b>. If prompted, choose the Google Maps app.</div>
       <div class="notice"><b>Important:</b> This version uses a built-in Arkansas demo waypoint library and coordinate-based Google Maps routing. It does not yet use live Google Places, current hours, reviews, inventory, or hotel availability.</div>
     </div>
 
@@ -146,7 +146,7 @@
           <button class="copybtn" onclick="copyMapsUrl()">Copy Maps URL</button>
         </div>
         <h3>Waypoint List</h3>
-        <ol id="waypointList" class="waypoints"></ol><h3 style="margin-top:14px;">Mobile Leg Links</h3><div id="legLinks" class="leglist"></div>
+        <ol id="waypointList" class="waypoints"></ol>
       </div>
     </div>
   </div>
@@ -332,21 +332,6 @@ function toGoogleMapsNamedUrl(intent){
   return "https://www.google.com/maps/dir/" + names.map(n => encodeURIComponent(n)).join("/");
 }
 
-function toGoogleMapsLegUrls(intent){
-  const points = (intent.route.waypoints || []).filter(p => typeof p.latitude === "number" && typeof p.longitude === "number");
-  const legs = [];
-  for(let i = 0; i < points.length - 1; i++){
-    const start = points[i];
-    const end = points[i + 1];
-    const url = "https://www.google.com/maps/dir/" + start.latitude + "," + start.longitude + "/" + end.latitude + "," + end.longitude;
-    legs.push({
-      label: "Leg " + (i + 1) + ": " + start.name + " → " + end.name,
-      url: url
-    });
-  }
-  return legs;
-}
-
 function toGpx(intent){
   const points = intent.route.waypoints || [];
   return `<?xml version="1.0" encoding="UTF-8"?>
@@ -388,10 +373,7 @@ function toCsv(intent){
 function updateDebugTools(){
   const urlBox = document.getElementById("mapsUrlBox");
   const list = document.getElementById("waypointList");
-  const legBox = document.getElementById("legLinks");
-
   if(urlBox) urlBox.value = currentFiles.maps || "";
-
   if(list){
     list.innerHTML = "";
     const points = (currentIntent.route && currentIntent.route.waypoints) ? currentIntent.route.waypoints : [];
@@ -399,20 +381,6 @@ function updateDebugTools(){
       const li = document.createElement("li");
       li.textContent = p.name + " — " + p.purpose;
       list.appendChild(li);
-    });
-  }
-
-  if(legBox){
-    legBox.innerHTML = "";
-    const legs = currentFiles.legs || [];
-    legs.forEach((leg) => {
-      const btn = document.createElement("button");
-      btn.className = "legbtn";
-      btn.textContent = leg.label;
-      btn.onclick = function(){
-        window.open(leg.url, "_blank", "noopener,noreferrer");
-      };
-      legBox.appendChild(btn);
     });
   }
 }
@@ -423,7 +391,6 @@ function generateIntent(){
     json:JSON.stringify(currentIntent,null,2),
     maps:toGoogleMapsUrl(currentIntent),
     named_maps:toGoogleMapsNamedUrl(currentIntent),
-    legs:toGoogleMapsLegUrls(currentIntent),
     gpx:toGpx(currentIntent),
     ics:toIcs(currentIntent),
     csv:toCsv(currentIntent)
