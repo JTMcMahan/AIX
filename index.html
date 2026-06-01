@@ -39,6 +39,12 @@
     .tab.active{background:#0f172a;color:white}
     pre{background:#020617;color:white;border-radius:18px;padding:18px;white-space:pre-wrap;overflow:auto;max-height:500px;min-height:260px;font-size:13px;line-height:1.45}
     .notice{margin-top:16px;background:#fffbeb;border:1px solid #fde68a;color:#92400e;border-radius:16px;padding:14px;font-size:14px;line-height:1.45}
+    .toolbox{margin-top:16px;border:1px solid #e2e8f0;background:#f8fafc;border-radius:18px;padding:14px}
+    .toolbox h3{font-size:16px;margin:0 0 10px}
+    .copyrow{display:flex;gap:8px;align-items:center;margin-bottom:12px}
+    .copyrow input{margin:0;font-size:13px;padding:11px}
+    .copybtn{background:#0f172a;color:white;border:0;border-radius:12px;padding:12px 14px;font-weight:800;cursor:pointer;white-space:nowrap}
+    .waypoints{margin:0;padding-left:22px;color:#334155;font-size:14px;line-height:1.55;max-height:220px;overflow:auto}
     .footer{border-top:1px solid #e2e8f0;color:#64748b;padding:28px 0;font-size:14px}
     .mobilehint{display:none;color:#64748b;font-size:13px;margin-top:10px;line-height:1.4}
 
@@ -66,6 +72,9 @@
       textarea{min-height:190px}
       pre{font-size:12px;max-height:360px;min-height:180px;padding:14px}
       .mobilehint{display:block}
+      .copyrow{display:block}
+      .copyrow input{margin-bottom:8px}
+      .copybtn{width:100%}
     }
   </style>
 </head>
@@ -73,7 +82,7 @@
 <nav class="nav"><div class="wrap"><div class="brand"><span class="logo">T</span>Thooster</div><div class="navlinks"><a href="#why">Why</a><a href="#builder">Try AIX</a></div></div></nav>
 
 <header class="hero"><div class="wrap">
-  <span class="badge">AIX v0.4 • Mobile Friendly</span>
+  <span class="badge">AIX v0.5 • Waypoint Debug Tools</span>
   <h1>The bridge between AI and the apps you use every day.</h1>
   <p class="lead">Thooster turns plain-English requests into structured action files. This demo enriches shopping, fashion, jewelry, food, lodging, entertainment, and fishing requests with route waypoints.</p>
 </div></header>
@@ -129,6 +138,16 @@
         <button class="tab" onclick="showTab('csv', this)">CSV</button>
       </div>
       <pre id="output"></pre>
+
+      <div class="toolbox">
+        <h3>Route Debug Tools</h3>
+        <div class="copyrow">
+          <input id="mapsUrlBox" readonly value="" />
+          <button class="copybtn" onclick="copyMapsUrl()">Copy Maps URL</button>
+        </div>
+        <h3>Waypoint List</h3>
+        <ol id="waypointList" class="waypoints"></ol>
+      </div>
     </div>
   </div>
 </div></section>
@@ -263,7 +282,7 @@ function buildIntent(){
   return {
     standard:"AIX",
     standard_name:"AI Intent Exchange",
-    version:"0.4",
+    version:"0.5",
     title:title,
     creator:creator,
     created_at:new Date().toISOString(),
@@ -348,6 +367,21 @@ function toCsv(intent){
   return ["name,latitude,longitude,purpose", ...rows.map(r => `"${r.name}","${r.latitude}","${r.longitude}","${r.purpose}"`)].join("\n");
 }
 
+function updateDebugTools(){
+  const urlBox = document.getElementById("mapsUrlBox");
+  const list = document.getElementById("waypointList");
+  if(urlBox) urlBox.value = currentFiles.maps || "";
+  if(list){
+    list.innerHTML = "";
+    const points = (currentIntent.route && currentIntent.route.waypoints) ? currentIntent.route.waypoints : [];
+    points.forEach(p => {
+      const li = document.createElement("li");
+      li.textContent = p.name + " — " + p.purpose;
+      list.appendChild(li);
+    });
+  }
+}
+
 function generateIntent(){
   currentIntent = buildIntent();
   currentFiles = {
@@ -358,6 +392,7 @@ function generateIntent(){
     csv:toCsv(currentIntent)
   };
   document.getElementById("output").innerText = currentFiles[currentTab];
+  updateDebugTools();
 }
 
 function showTab(tab, button){
@@ -377,6 +412,21 @@ function openGoogleMaps(){
   document.body.appendChild(a);
   a.click();
   document.body.removeChild(a);
+}
+
+async function copyMapsUrl(){
+  generateIntent();
+  const text = currentFiles.maps;
+  const box = document.getElementById("mapsUrlBox");
+  box.value = text;
+  try{
+    await navigator.clipboard.writeText(text);
+    alert("Maps URL copied.");
+  }catch(e){
+    box.select();
+    document.execCommand("copy");
+    alert("Maps URL selected/copied.");
+  }
 }
 
 function downloadCurrent(type){
