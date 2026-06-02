@@ -1,334 +1,318 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Thooster | AIX Playlist Standard</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>White River Cameras, Levels & Fishing Links</title>
+  <meta name="description" content="Quick buttons for White River live cameras, river levels, lake levels, AGFC fishing reports, and Arkansas solunar tables." />
   <style>
-    *{box-sizing:border-box}
-    body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#f8fafc;color:#0f172a}
-    .wrap{max-width:1120px;margin:0 auto;padding:0 20px}
-    .nav{background:white;border-bottom:1px solid #e2e8f0;position:sticky;top:0;z-index:10}
-    .nav .wrap{min-height:66px;display:flex;align-items:center;justify-content:space-between}
-    .brand{font-size:24px;font-weight:900;display:flex;gap:12px;align-items:center}
-    .logo{width:40px;height:40px;border-radius:12px;background:linear-gradient(135deg,#0f172a,#7c3aed);color:white;display:grid;place-items:center}
-    .badge{display:inline-block;background:#ede9fe;color:#5b21b6;border-radius:999px;padding:8px 12px;font-weight:800;font-size:13px}
-    .hero{padding:58px 0 42px;background:linear-gradient(180deg,#fff,#f8fafc)}
-    h1{font-size:clamp(40px,6vw,68px);line-height:.98;margin:16px 0;letter-spacing:-2px}
-    .lead{font-size:20px;line-height:1.55;color:#475569;max-width:820px}
-    .grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:24px;margin:34px 0 60px}
-    .card{background:white;border:1px solid #e2e8f0;border-radius:24px;padding:22px;box-shadow:0 20px 55px rgba(15,23,42,.08)}
-    label{font-size:14px;font-weight:900;display:block;margin-bottom:7px}
-    input,textarea,select{width:100%;border:1px solid #cbd5e1;border-radius:14px;padding:14px;font-size:16px;margin-bottom:14px;background:white}
-    textarea{min-height:150px;resize:vertical;line-height:1.4}
-    .row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-    .btn{background:#0f172a;color:white;border:0;border-radius:999px;padding:15px 20px;font-weight:900;cursor:pointer;width:100%;font-size:16px;min-height:52px}
-    .downloads,.tabs{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:12px}
-    .small,.tab{background:white;border:1px solid #cbd5e1;border-radius:13px;padding:12px 8px;font-weight:900;cursor:pointer;font-size:14px;min-height:48px}
-    .tab.active{background:#0f172a;color:white}
-    pre{background:#020617;color:white;border-radius:18px;padding:18px;white-space:pre-wrap;overflow:auto;max-height:540px;min-height:300px;font-size:13px;line-height:1.45}
-    .notice{margin-top:16px;background:#eff6ff;border:1px solid #bfdbfe;color:#1e3a8a;border-radius:16px;padding:14px;font-size:14px;line-height:1.45}
-    .playlist{margin-top:16px;border:1px solid #e2e8f0;background:#f8fafc;border-radius:18px;padding:14px}
-    .playlist h3{margin:0 0 10px;font-size:16px}
-    .songlist{display:grid;gap:8px}
-    .song{background:white;border:1px solid #e2e8f0;border-radius:14px;padding:11px}
-    .songtitle{font-weight:900;margin-bottom:4px}
-    .songmeta{color:#64748b;font-size:13px}
-    .adaptergrid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:14px}
-    .adapter{border:1px solid #e2e8f0;border-radius:14px;padding:12px;background:#f8fafc}
-    .adapter b{display:block;margin-bottom:4px}
-    .adapter span{color:#64748b;font-size:13px;line-height:1.35}
-    .footer{border-top:1px solid #e2e8f0;color:#64748b;padding:28px 0;font-size:14px}
-    @media(max-width:900px){.grid,.row,.adaptergrid{grid-template-columns:1fr}.downloads,.tabs{grid-template-columns:1fr 1fr}h1{letter-spacing:-1px}.card{padding:18px}}
+    :root {
+      --bg: #071b22;
+      --card: rgba(255,255,255,.08);
+      --card-hover: rgba(255,255,255,.14);
+      --text: #f4fbff;
+      --muted: #b8ccd4;
+      --accent: #58d6ff;
+      --accent2: #9effc3;
+      --border: rgba(255,255,255,.16);
+      --shadow: 0 20px 55px rgba(0,0,0,.35);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; min-height: 100vh;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(88,214,255,.35), transparent 34rem),
+        radial-gradient(circle at bottom right, rgba(158,255,195,.18), transparent 32rem),
+        linear-gradient(135deg, #041116, var(--bg));
+    }
+    .wrap { width: min(1100px, calc(100% - 32px)); margin: 0 auto; padding: 42px 0 36px; }
+    header { text-align: center; margin-bottom: 24px; }
+    .eyebrow { display: inline-block; padding: 7px 12px; border: 1px solid var(--border); border-radius: 999px; color: var(--accent2); background: rgba(255,255,255,.06); font-size: .86rem; letter-spacing: .04em; text-transform: uppercase; }
+    h1 { margin: 16px 0 10px; font-size: clamp(2rem, 6vw, 4rem); line-height: 1.02; }
+    p { color: var(--muted); font-size: 1.08rem; line-height: 1.55; margin: 0 auto; max-width: 780px; }
+    nav { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin: 24px 0 8px; }
+    nav a { color: var(--text); text-decoration: none; border: 1px solid var(--border); border-radius: 999px; padding: 9px 13px; background: rgba(255,255,255,.06); }
+    nav a:hover { border-color: rgba(88,214,255,.65); background: rgba(255,255,255,.12); }
+    .section { margin-top: 34px; }
+    .section h2 { margin: 0 0 8px; font-size: clamp(1.45rem, 3vw, 2.1rem); }
+    .section .note { margin: 0 0 18px; max-width: 850px; color: var(--muted); }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(245px, 1fr)); gap: 16px; }
+    a.card {
+      display: flex; flex-direction: column; justify-content: space-between; min-height: 150px; padding: 20px;
+      border: 1px solid var(--border); border-radius: 22px; background: var(--card); box-shadow: var(--shadow);
+      color: var(--text); text-decoration: none; transition: transform .18s ease, background .18s ease, border-color .18s ease; backdrop-filter: blur(12px);
+    }
+    a.card:hover, a.card:focus-visible { transform: translateY(-4px); background: var(--card-hover); border-color: rgba(88,214,255,.65); outline: none; }
+    .title { font-size: 1.25rem; font-weight: 800; margin-bottom: 8px; }
+    .location { color: var(--muted); line-height: 1.4; margin-bottom: 20px; }
+    .button-text { display: inline-flex; align-items: center; gap: 8px; width: fit-content; padding: 10px 13px; border-radius: 999px; background: linear-gradient(135deg, var(--accent), var(--accent2)); color: #05202a; font-weight: 800; }
+    footer { margin-top: 30px; color: var(--muted); text-align: center; font-size: .9rem; }
   </style>
 </head>
 <body>
-<nav class="nav"><div class="wrap"><div class="brand"><span class="logo">T</span>Thooster</div><div class="badge">AIX Playlist v2.0</div></div></nav>
+  <main class="wrap">
+    <header>
+      <span class="eyebrow">Arkansas White River</span>
+      <h1>River Cameras, Levels & Fishing Links</h1>
+      <p>Quick-launch buttons for White River live cameras, river-level gauges, lake levels, AGFC fishing reports, and Arkansas solunar tables. Links open in a new tab so this page stays available.</p>
+      <nav aria-label="Page sections">
+        <a href="#cameras">Live Cameras</a>
+        <a href="#river-levels">River Levels</a>
+        <a href="#lake-levels">Lake Levels</a>
+        <a href="#reports">Fishing & Solunar</a>
+      </nav>
+    </header>
 
-<header class="hero"><div class="wrap">
-  <span class="badge">AI Intent Exchange • Universal Playlist File</span>
-  <h1>A playlist file for AI-generated music intent.</h1>
-  <p class="lead">Thooster creates a portable AIX Playlist file. It is not a Spotify file, not a YouTube file, and not an Apple Music file. It is a universal music-intent file that future adapters can turn into playlists on any platform.</p>
-</div></header>
-
-<main class="wrap">
-  <div class="grid">
-    <div class="card">
-      <label>Playlist Title</label>
-      <input id="title" value="Saturday Night Classics" />
-
-      <div class="row">
+    <section class="section" id="cameras">
+      <h2>Live Video Cameras</h2>
+      <p class="note">White River webcam and livestream pages.</p>
+      <div class="grid" aria-label="White River live camera links">
+      <a class="card" href="https://whiteholeresort.com/river-cam/" target="_blank" rel="noopener noreferrer">
         <div>
-          <label>Number of Songs</label>
-          <input id="count" type="number" min="1" max="50" value="12" />
+          <div class="title">White Hole Resort</div>
+          <div class="location">Flippin, AR · White River cam and river conditions</div>
         </div>
+        <span class="button-text">Open Camera →</span>
+      </a>
+      <a class="card" href="https://www.hisplaceresort.net/white-river-live-camera" target="_blank" rel="noopener noreferrer">
         <div>
-          <label>Clean / Family Friendly</label>
-          <select id="clean">
-            <option value="true">Yes</option>
-            <option value="false">No preference</option>
-          </select>
+          <div class="title">His Place Resort</div>
+          <div class="location">Cotter, AR · live White River conditions</div>
         </div>
+        <span class="button-text">Open Camera →</span>
+      </a>
+      <a class="card" href="https://www.youtube.com/watch?v=jw1Er6LyqT0" target="_blank" rel="noopener noreferrer">
+        <div>
+          <div class="title">His Place Resort YouTube</div>
+          <div class="location">Cotter, AR · live river stream on YouTube</div>
+        </div>
+        <span class="button-text">Open YouTube →</span>
+      </a>
+      <a class="card" href="https://retiretoarkansas.net/live-webcam/" target="_blank" rel="noopener noreferrer">
+        <div>
+          <div class="title">Z-Team Realtors</div>
+          <div class="location">Cotter, AR · bluff view over the White River and Big Spring Park</div>
+        </div>
+        <span class="button-text">Open Camera →</span>
+      </a>
+      <a class="card" href="https://www.youtube.com/watch?v=lPvp5_qlQ7E" target="_blank" rel="noopener noreferrer">
+        <div>
+          <div class="title">White River Cotter YouTube</div>
+          <div class="location">Cotter, AR · 24/7 White River webcam</div>
+        </div>
+        <span class="button-text">Open YouTube →</span>
+      </a>
+      <a class="card" href="https://thewhiteriverinn.com/white-river-cam" target="_blank" rel="noopener noreferrer">
+        <div>
+          <div class="title">The White River Inn</div>
+          <div class="location">Cotter, AR · live White River cam</div>
+        </div>
+        <span class="button-text">Open Camera →</span>
+      </a>
+      <a class="card" href="https://rtsp.me/embed/T9NZkFi4/" target="_blank" rel="noopener noreferrer">
+        <div>
+          <div class="title">Cranor's White River Lodge</div>
+          <div class="location">Cotter, AR · live webcam feed</div>
+        </div>
+        <span class="button-text">Open Camera →</span>
+      </a>
+      <a class="card" href="https://www.cotterbridge.org/" target="_blank" rel="noopener noreferrer">
+        <div>
+          <div class="title">Cotter Bridge Cam</div>
+          <div class="location">Cotter, AR · bridge and White River view</div>
+        </div>
+        <span class="button-text">Open Site →</span>
+      </a>
+      <a class="card" href="https://www.skylinewebcams.com/en/webcam/united-states/arkansas/cotter/cotter.html" target="_blank" rel="noopener noreferrer">
+        <div>
+          <div class="title">Skyline Webcams Cotter</div>
+          <div class="location">Cotter, AR · White River live webcam listing</div>
+        </div>
+        <span class="button-text">Open Camera →</span>
+      </a>
+      <a class="card" href="https://worldcam.eu/webcams/north-america/arkansas-usa/33073-mountain-home-white-river" target="_blank" rel="noopener noreferrer">
+        <div>
+          <div class="title">Riley's Outfitter / WorldCam</div>
+          <div class="location">Mountain Home / Buffalo City area · White River view</div>
+        </div>
+        <span class="button-text">Open Camera →</span>
+      </a>
+      <a class="card" href="https://www.rileysoutfitter.com/" target="_blank" rel="noopener noreferrer">
+        <div>
+          <div class="title">Riley's Outfitter</div>
+          <div class="location">White River & Buffalo River lodging site with RiverCam link</div>
+        </div>
+        <span class="button-text">Open Site →</span>
+      </a>
+      <a class="card" href="https://www.youtube.com/watch?v=Pnx_NEDFkEw" target="_blank" rel="noopener noreferrer">
+        <div>
+          <div class="title">Calico Rock Trout Dock</div>
+          <div class="location">Calico Rock, AR · live White River YouTube camera</div>
+        </div>
+        <span class="button-text">Open YouTube →</span>
+      </a>
       </div>
+    </section>
 
-      <label>Playlist Request</label>
-      <textarea id="prompt">Make me a clean playlist for a fun Saturday night with classic rock, 80s, 90s, upbeat songs, and a few sing-alongs.</textarea>
-
-      <button class="btn" onclick="generatePlaylist()">Generate AIX Playlist File</button>
-
-      <div class="downloads">
-        <button class="small" onclick="downloadCurrent('json')">Download .aix.json</button>
-        <button class="small" onclick="downloadCurrent('csv')">Download CSV</button>
-        <button class="small" onclick="downloadCurrent('m3u')">Download M3U</button>
-        <button class="small" onclick="copyPlaylist()">Copy Track List</button>
+    <section class="section" id="river-levels">
+      <h2>White River Levels</h2>
+      <p class="note">USGS, USACE, and NOAA river-stage pages for recorded White River spots. Use these before launching, wading, or planning a trout trip because generation and stage can change quickly.</p>
+      <div class="grid" aria-label="White River river level links">
+      <a class="card" href="https://www.swl-wc.usace.army.mil/pages/data/tabular/htm/river.shtml" target="_blank" rel="noopener noreferrer">
+        <div>
+          <div class="title">USACE Stream Gages Index</div>
+          <div class="location">All Little Rock District stream gage tables and links</div>
+        </div>
+        <span class="button-text">Open Index →</span>
+      </a>
+      <a class="card" href="https://www.swl-wc.usace.army.mil/pages/data/tabular/htm/norfhw34.htm" target="_blank" rel="noopener noreferrer">
+        <div>
+          <div class="title">White River at Highway 341</div>
+          <div class="location">Upper White River tailwater / Norfork area gage</div>
+        </div>
+        <span class="button-text">Open Level →</span>
+      </a>
+      <a class="card" href="https://waterdata.usgs.gov/monitoring-location/07057370/" target="_blank" rel="noopener noreferrer">
+        <div>
+          <div class="title">White River near Norfork</div>
+          <div class="location">USGS 07057370 · level and flow near Norfork</div>
+        </div>
+        <span class="button-text">Open Level →</span>
+      </a>
+      <a class="card" href="https://waterdata.usgs.gov/monitoring-location/07060500/" target="_blank" rel="noopener noreferrer">
+        <div>
+          <div class="title">White River at Calico Rock</div>
+          <div class="location">USGS 07060500 · level and flow at Calico Rock</div>
+        </div>
+        <span class="button-text">Open Level →</span>
+      </a>
+      <a class="card" href="https://www.swl-wc.usace.army.mil/pages/data/tabular/htm/batesvil.htm" target="_blank" rel="noopener noreferrer">
+        <div>
+          <div class="title">White River at Batesville</div>
+          <div class="location">USACE / NWS Batesville BAGA4 · stage and flow</div>
+        </div>
+        <span class="button-text">Open Level →</span>
+      </a>
+      <a class="card" href="https://www.swl-wc.usace.army.mil/pages/data/tabular/htm/newport.htm" target="_blank" rel="noopener noreferrer">
+        <div>
+          <div class="title">White River at Newport</div>
+          <div class="location">USACE / NWS Newport NPTA4 · stage and flow</div>
+        </div>
+        <span class="button-text">Open Level →</span>
+      </a>
+      <a class="card" href="https://www.swl-wc.usace.army.mil/pages/data/tabular/htm/georgeto.htm" target="_blank" rel="noopener noreferrer">
+        <div>
+          <div class="title">White River at Georgetown</div>
+          <div class="location">USACE / NWS Georgetown GEOA4 · stage and flow</div>
+        </div>
+        <span class="button-text">Open Level →</span>
+      </a>
+      <a class="card" href="https://www.swl-wc.usace.army.mil/pages/data/tabular/htm/augusta.htm" target="_blank" rel="noopener noreferrer">
+        <div>
+          <div class="title">White River at Augusta</div>
+          <div class="location">USACE / NWS Augusta AUGA4 · stage and flow</div>
+        </div>
+        <span class="button-text">Open Level →</span>
+      </a>
+      <a class="card" href="https://waterdata.usgs.gov/monitoring-location/07074491/" target="_blank" rel="noopener noreferrer">
+        <div>
+          <div class="title">White River at Jacksonport</div>
+          <div class="location">USGS 07074491 · Jacksonport monitoring location</div>
+        </div>
+        <span class="button-text">Open Level →</span>
+      </a>
+      <a class="card" href="https://waterdata.usgs.gov/monitoring-location/07077000/" target="_blank" rel="noopener noreferrer">
+        <div>
+          <div class="title">White River at DeValls Bluff</div>
+          <div class="location">USGS 07077000 · DeValls Bluff monitoring location</div>
+        </div>
+        <span class="button-text">Open Level →</span>
+      </a>
+      <a class="card" href="https://water.noaa.gov/" target="_blank" rel="noopener noreferrer">
+        <div>
+          <div class="title">NOAA White River Gauges</div>
+          <div class="location">NOAA flood-stage gauge map and river forecast pages</div>
+        </div>
+        <span class="button-text">Open NOAA →</span>
+      </a>
       </div>
+    </section>
 
-      <div class="notice">
-        <b>What this is:</b> a platform-neutral playlist intent file. Future adapters can read this same file and create a playlist in YouTube Music, Spotify, Apple Music, Amazon Music, or another app.
+    <section class="section" id="lake-levels">
+      <h2>Lake Levels</h2>
+      <p class="note">Current Corps lake-level and pool information for Greers Ferry, Norfork, and Bull Shoals.</p>
+      <div class="grid" aria-label="Lake level links">
+      <a class="card" href="https://www.swl-wc.usace.army.mil/pages/data/tabular/htm/greersf.htm" target="_blank" rel="noopener noreferrer">
+        <div>
+          <div class="title">Greers Ferry Lake Level</div>
+          <div class="location">USACE Little Rock · Greers Ferry elevation, pool and release data</div>
+        </div>
+        <span class="button-text">Open Lake Level →</span>
+      </a>
+      <a class="card" href="https://www.swl-wc.usace.army.mil/pages/data/tabular/htm/norfork.htm" target="_blank" rel="noopener noreferrer">
+        <div>
+          <div class="title">Norfork Lake Level</div>
+          <div class="location">USACE Little Rock · Norfork elevation, pool and release data</div>
+        </div>
+        <span class="button-text">Open Lake Level →</span>
+      </a>
+      <a class="card" href="https://www.swl-wc.usace.army.mil/pages/data/tabular/htm/bulsdam.htm" target="_blank" rel="noopener noreferrer">
+        <div>
+          <div class="title">Bull Shoals Lake Level</div>
+          <div class="location">USACE Little Rock · Bull Shoals elevation, pool and release data</div>
+        </div>
+        <span class="button-text">Open Lake Level →</span>
+      </a>
+      <a class="card" href="https://www.swl-wc.usace.army.mil/" target="_blank" rel="noopener noreferrer">
+        <div>
+          <div class="title">USACE Water Control Home</div>
+          <div class="location">Little Rock District water management data home</div>
+        </div>
+        <span class="button-text">Open Dashboard →</span>
+      </a>
       </div>
+    </section>
 
-      <div class="adaptergrid">
-        <div class="adapter"><b>YouTube Adapter</b><span>Future connector: search tracks and create YouTube playlist.</span></div>
-        <div class="adapter"><b>Spotify Adapter</b><span>Future connector: OAuth login, search tracks, add tracks.</span></div>
-        <div class="adapter"><b>Apple Adapter</b><span>Future connector: convert AIX playlist into Apple Music library items.</span></div>
+    <section class="section" id="reports">
+      <h2>Fishing Reports & Solunar Tables</h2>
+      <p class="note">AGFC report links and solunar calendars for planning fishing windows.</p>
+      <div class="grid" aria-label="Fishing report and solunar links">
+      <a class="card" href="https://www.agfc.com/tag/arkansas-wildlife-fishing-report/" target="_blank" rel="noopener noreferrer">
+        <div>
+          <div class="title">AGFC Weekly Fishing Report</div>
+          <div class="location">Arkansas Game & Fish weekly fishing report archive, newest reports first</div>
+        </div>
+        <span class="button-text">Open Report →</span>
+      </a>
+      <a class="card" href="https://www.agfc.com/fishing/" target="_blank" rel="noopener noreferrer">
+        <div>
+          <div class="title">AGFC Fishing Home</div>
+          <div class="location">Arkansas Game & Fish fishing page, regulations and resources</div>
+        </div>
+        <span class="button-text">Open AGFC →</span>
+      </a>
+      <a class="card" href="https://solunarforecast.com/hunting_fishing/best_times/calendar/united_states/arkansas/little_rock/" target="_blank" rel="noopener noreferrer">
+        <div>
+          <div class="title">Arkansas Solunar Table</div>
+          <div class="location">Solunar Forecast calendar for Little Rock, Arkansas</div>
+        </div>
+        <span class="button-text">Open Solunar →</span>
+      </a>
+      <a class="card" href="https://www.gameandfishmag.com/content/learn-solunar/245805" target="_blank" rel="noopener noreferrer">
+        <div>
+          <div class="title">Interactive Solunar Calendar</div>
+          <div class="location">Game & Fish interactive hunting and fishing times calendar</div>
+        </div>
+        <span class="button-text">Open Calendar →</span>
+      </a>
       </div>
-    </div>
+    </section>
 
-    <div class="card">
-      <div class="tabs">
-        <button class="tab active" onclick="showTab('json', this)">AIX JSON</button>
-        <button class="tab" onclick="showTab('csv', this)">CSV</button>
-        <button class="tab" onclick="showTab('m3u', this)">M3U</button>
-        <button class="tab" onclick="showTab('list', this)">List</button>
-      </div>
-      <pre id="output"></pre>
-
-      <div class="playlist">
-        <h3>Generated Track Intent</h3>
-        <div id="playlistList" class="songlist"></div>
-      </div>
-    </div>
-  </div>
-</main>
-
-<footer class="footer"><div class="wrap"><b>Thooster</b> — AIX files for playlists, maps, calendars, shopping, and future AI-to-app actions.</div></footer>
-
-<script>
-let currentIntent = {};
-let currentFiles = {};
-let currentTab = "json";
-
-const songLibrary = [
-  {title:"Don't Stop Believin'", artist:"Journey", era:"80s", genre:"classic rock", mood:["upbeat","classic","singalong"], clean:true},
-  {title:"Livin' on a Prayer", artist:"Bon Jovi", era:"80s", genre:"rock", mood:["upbeat","rock","singalong"], clean:true},
-  {title:"Sweet Home Alabama", artist:"Lynyrd Skynyrd", era:"70s", genre:"southern rock", mood:["classic","rock","singalong"], clean:true},
-  {title:"Here I Go Again", artist:"Whitesnake", era:"80s", genre:"rock", mood:["rock","upbeat"], clean:true},
-  {title:"Summer of '69", artist:"Bryan Adams", era:"80s", genre:"rock", mood:["upbeat","singalong"], clean:true},
-  {title:"Take It Easy", artist:"Eagles", era:"70s", genre:"classic rock", mood:["classic","roadtrip"], clean:true},
-  {title:"Free Fallin'", artist:"Tom Petty", era:"80s", genre:"classic rock", mood:["classic","singalong"], clean:true},
-  {title:"Brown Eyed Girl", artist:"Van Morrison", era:"60s", genre:"oldies", mood:["upbeat","singalong"], clean:true},
-  {title:"Come and Get Your Love", artist:"Redbone", era:"70s", genre:"classic pop", mood:["upbeat","fun"], clean:true},
-  {title:"Dancing Queen", artist:"ABBA", era:"70s", genre:"pop", mood:["dance","party","singalong"], clean:true},
-  {title:"September", artist:"Earth, Wind & Fire", era:"70s", genre:"funk", mood:["dance","upbeat","party"], clean:true},
-  {title:"Footloose", artist:"Kenny Loggins", era:"80s", genre:"pop rock", mood:["dance","upbeat"], clean:true},
-  {title:"Walking on Sunshine", artist:"Katrina and the Waves", era:"80s", genre:"pop", mood:["happy","upbeat"], clean:true},
-  {title:"Man! I Feel Like a Woman!", artist:"Shania Twain", era:"90s", genre:"country pop", mood:["party","singalong"], clean:true},
-  {title:"Friends in Low Places", artist:"Garth Brooks", era:"90s", genre:"country", mood:["country","singalong"], clean:true},
-  {title:"I Want It That Way", artist:"Backstreet Boys", era:"90s", genre:"pop", mood:["90s","singalong"], clean:true},
-  {title:"All Star", artist:"Smash Mouth", era:"90s", genre:"pop rock", mood:["fun","singalong"], clean:true},
-  {title:"Mr. Brightside", artist:"The Killers", era:"2000s", genre:"alternative", mood:["upbeat","singalong"], clean:true},
-  {title:"Uptown Funk", artist:"Mark Ronson ft. Bruno Mars", era:"2010s", genre:"funk pop", mood:["dance","party"], clean:true},
-  {title:"Shut Up and Dance", artist:"WALK THE MOON", era:"2010s", genre:"pop rock", mood:["dance","upbeat"], clean:true},
-  {title:"Can't Stop the Feeling!", artist:"Justin Timberlake", era:"2010s", genre:"pop", mood:["happy","dance"], clean:true},
-  {title:"Life is a Highway", artist:"Rascal Flatts", era:"2000s", genre:"country pop", mood:["roadtrip","upbeat"], clean:true},
-  {title:"Beautiful Day", artist:"U2", era:"2000s", genre:"rock", mood:["upbeat","positive"], clean:true},
-  {title:"Jessie's Girl", artist:"Rick Springfield", era:"80s", genre:"rock", mood:["upbeat","singalong"], clean:true},
-  {title:"Africa", artist:"Toto", era:"80s", genre:"pop rock", mood:["classic","singalong"], clean:true},
-  {title:"Girls Just Want to Have Fun", artist:"Cyndi Lauper", era:"80s", genre:"pop", mood:["party","upbeat","singalong"], clean:true},
-  {title:"Love Shack", artist:"The B-52's", era:"80s", genre:"pop rock", mood:["party","dance","singalong"], clean:true},
-  {title:"Wannabe", artist:"Spice Girls", era:"90s", genre:"pop", mood:["party","90s","singalong"], clean:true},
-  {title:"Waterfalls", artist:"TLC", era:"90s", genre:"r&b", mood:["90s","groove"], clean:true},
-  {title:"Iris", artist:"Goo Goo Dolls", era:"90s", genre:"alternative rock", mood:["90s","classic"], clean:true},
-  {title:"Sweet Caroline", artist:"Neil Diamond", era:"60s", genre:"oldies", mood:["classic","singalong"], clean:true},
-  {title:"Old Time Rock and Roll", artist:"Bob Seger", era:"70s", genre:"classic rock", mood:["classic","rock","party"], clean:true},
-  {title:"Hooked on a Feeling", artist:"Blue Swede", era:"70s", genre:"classic pop", mood:["fun","classic"], clean:true},
-  {title:"What I Like About You", artist:"The Romantics", era:"80s", genre:"rock", mood:["rock","upbeat"], clean:true},
-  {title:"Hit Me With Your Best Shot", artist:"Pat Benatar", era:"80s", genre:"rock", mood:["rock","upbeat"], clean:true}
-];
-
-function slugify(text){
-  return (text || "playlist").toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-+|-+$/g,"") || "playlist";
-}
-
-function hasAny(text, words){
-  return words.some(w => text.includes(w));
-}
-
-function scoreSong(song, prompt){
-  const p = prompt.toLowerCase();
-  let score = 0;
-  if(p.includes(song.era.toLowerCase())) score += 4;
-  if(p.includes(song.genre.toLowerCase())) score += 4;
-  song.mood.forEach(m => { if(p.includes(m)) score += 3; });
-  if(hasAny(p,["classic","classics"]) && song.mood.includes("classic")) score += 3;
-  if(hasAny(p,["rock"]) && song.genre.includes("rock")) score += 3;
-  if(hasAny(p,["party","fun","saturday","upbeat"]) && (song.mood.includes("party") || song.mood.includes("upbeat") || song.mood.includes("fun"))) score += 2;
-  if(hasAny(p,["sing","sing-along","singalong"]) && song.mood.includes("singalong")) score += 3;
-  if(hasAny(p,["road","drive","trip"]) && song.mood.includes("roadtrip")) score += 3;
-  if(score === 0) score = 1;
-  return score;
-}
-
-function generateSongs(prompt, count, cleanOnly){
-  let songs = songLibrary.filter(s => !cleanOnly || s.clean);
-  songs = songs.map(s => ({...s, score: scoreSong(s, prompt)}));
-  songs.sort((a,b) => b.score - a.score || a.title.localeCompare(b.title));
-  return songs.slice(0, count).map((s, index) => ({
-    track_number:index+1,
-    title:s.title,
-    artist:s.artist,
-    era:s.era,
-    genre:s.genre,
-    intent_tags:s.mood,
-    match_reason:s.mood.join(", "),
-    clean:s.clean,
-    platform_resolution:{
-      status:"unresolved",
-      note:"A future adapter should resolve this artist/title to platform-specific IDs such as YouTube videoId, Spotify trackId, or Apple Music catalogId."
-    }
-  }));
-}
-
-function buildIntent(){
-  const title = document.getElementById("title").value;
-  const count = Math.max(1, Math.min(50, Number(document.getElementById("count").value || 12)));
-  const cleanOnly = document.getElementById("clean").value === "true";
-  const prompt = document.getElementById("prompt").value;
-  const songs = generateSongs(prompt, count, cleanOnly);
-
-  return {
-    standard:"AIX",
-    standard_name:"AI Intent Exchange",
-    schema:"aix.playlist",
-    version:"2.0",
-    file_extension:".aix.json",
-    intent_type:"playlist",
-    title:title,
-    created_at:new Date().toISOString(),
-    user_prompt:prompt,
-    user_goal:prompt,
-    preferences:{
-      clean_or_family_friendly:cleanOnly,
-      requested_song_count:count,
-      detected_themes:{
-        classic_rock:hasAny(prompt.toLowerCase(),["classic rock","rock"]),
-        eighties:hasAny(prompt.toLowerCase(),["80s","eighties"]),
-        nineties:hasAny(prompt.toLowerCase(),["90s","nineties"]),
-        upbeat:hasAny(prompt.toLowerCase(),["upbeat","fun","party"]),
-        singalong:hasAny(prompt.toLowerCase(),["singalong","sing-along","sing"])
-      }
-    },
-    playlist:{
-      track_count:songs.length,
-      tracks:songs
-    },
-    requested_outputs:["aix.json","csv","m3u","plain_text"],
-    adapter_contract:{
-      purpose:"Adapters should resolve generic artist/title track intent into platform-specific songs and create/import a playlist.",
-      required_track_fields:["title","artist"],
-      optional_track_fields:["era","genre","intent_tags","clean"],
-      expected_adapter_outputs:[
-        {platform:"YouTube Music", output:"playlist in user account or shareable YouTube playlist URL"},
-        {platform:"Spotify", output:"playlist in user account or shareable Spotify playlist URL"},
-        {platform:"Apple Music", output:"playlist in user account or Apple Music catalog list"}
-      ]
-    },
-    audit:{
-      source:"human_prompt_plus_demo_song_library",
-      requires_review:true,
-      limitation:"Prototype uses a built-in demo library. Production version should use AI plus platform adapters."
-    }
-  };
-}
-
-function toCsv(intent){
-  const rows = intent.playlist.tracks || [];
-  return ["track_number,title,artist,era,genre,intent_tags,clean", ...rows.map(r => `"${r.track_number}","${r.title}","${r.artist}","${r.era}","${r.genre}","${r.intent_tags.join("; ")}","${r.clean}"`)].join("\n");
-}
-
-function toM3u(intent){
-  const rows = intent.playlist.tracks || [];
-  return "#EXTM3U\n" + rows.map(r => `#EXTINF:-1,${r.artist} - ${r.title}\n${r.artist} - ${r.title}.mp3`).join("\n");
-}
-
-function toList(intent){
-  const rows = intent.playlist.tracks || [];
-  return rows.map(r => `${r.track_number}. ${r.title} — ${r.artist}`).join("\n");
-}
-
-function updatePlaylistList(){
-  const list = document.getElementById("playlistList");
-  list.innerHTML = "";
-  const rows = currentIntent.playlist ? currentIntent.playlist.tracks : [];
-  rows.forEach(r => {
-    const div = document.createElement("div");
-    div.className = "song";
-    div.innerHTML = `
-      <div class="songtitle">${r.track_number}. ${r.title} — ${r.artist}</div>
-      <div class="songmeta">${r.era} • ${r.genre} • ${r.match_reason}</div>
-    `;
-    list.appendChild(div);
-  });
-}
-
-function generatePlaylist(){
-  currentIntent = buildIntent();
-  currentFiles = {
-    json:JSON.stringify(currentIntent,null,2),
-    csv:toCsv(currentIntent),
-    m3u:toM3u(currentIntent),
-    list:toList(currentIntent)
-  };
-  document.getElementById("output").innerText = currentFiles[currentTab];
-  updatePlaylistList();
-}
-
-function showTab(tab, button){
-  currentTab = tab;
-  document.querySelectorAll(".tab").forEach(b => b.classList.remove("active"));
-  button.classList.add("active");
-  document.getElementById("output").innerText = currentFiles[tab] || "";
-}
-
-function downloadCurrent(type){
-  generatePlaylist();
-  const base = slugify(document.getElementById("title").value);
-  const extensions = {json:"aix.json", csv:"csv", m3u:"m3u", list:"txt"};
-  const mimes = {json:"application/json", csv:"text/csv", m3u:"audio/x-mpegurl", list:"text/plain"};
-  const filename = type === "json" ? `${base}.aix.json` : `${base}.${extensions[type]}`;
-  const blob = new Blob([currentFiles[type]], {type:mimes[type] || "text/plain"});
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement("a");
-  a.href = url;
-  a.download = filename;
-  document.body.appendChild(a);
-  a.click();
-  document.body.removeChild(a);
-  URL.revokeObjectURL(url);
-}
-
-async function copyPlaylist(){
-  generatePlaylist();
-  const text = currentFiles.list;
-  try{
-    await navigator.clipboard.writeText(text);
-    alert("Track list copied.");
-  }catch(e){
-    alert(text);
-  }
-}
-
-generatePlaylist();
-</script>
+    <footer>
+      Tip: for GitHub Pages, upload this file as <strong>index.html</strong> in the root of your repository. Official gauge pages should be treated as the source of truth.
+    </footer>
+  </main>
 </body>
 </html>
