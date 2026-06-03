@@ -100,4 +100,3 @@
   }
   window.PokerEngine={SUITS,SUIT_SYMBOLS,RANKS,makeDeck,cardLabel,requiredHole,runSimulation,describeScore,evaluateHand};
 })();
-
