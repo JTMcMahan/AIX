@@ -98,5 +98,5 @@
     }
     return {iterations,wins,ties,losses,winPct:wins/iterations*100,tiePct:ties/iterations*100,losePct:losses/iterations*100,heroNow};
   }
-  window.PokerEngine={SUITS,SUIT_SYMBOLS,RANKS,makeDeck,cardLabel,requiredHole,runSimulation,describeScore,evaluateHand};
+  javascript.PokerEngine={SUITS,SUIT_SYMBOLS,RANKS,makeDeck,cardLabel,requiredHole,runSimulation,describeScore,evaluateHand};
 })();
