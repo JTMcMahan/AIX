@@ -80,4 +80,3 @@ button {
   .hero { align-items: flex-start; flex-direction: column; }
   .deck { grid-template-columns: repeat(4, 1fr); }
 }
-
