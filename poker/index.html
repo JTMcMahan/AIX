@@ -3,98 +3,99 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Thooster Poker Odds</title>
-  <link rel="stylesheet" href="styles.css" />
+  <title>Thooster Poker Odds Command Center</title>
+  <link rel="stylesheet" href="/poker/styles.css" />
 </head>
 <body>
   <main class="app-shell">
     <header class="hero">
       <div>
-        <p class="eyebrow">THOOSTER</p>
+        <div class="brand">THOOSTER</div>
         <h1>Poker Odds Command Center</h1>
-        <p class="subtitle">Monte Carlo odds for Texas Hold'em, 3-card Omaha, 4-card Omaha, and wild-card games.</p>
+        <p>Monte Carlo odds for Texas Hold'em, 3-card Omaha, 4-card Omaha, and wild-card games.</p>
       </div>
-      <button id="clearAll" class="ghost">Clear All</button>
+      <button id="clearAllBtn" class="secondary">Clear All</button>
     </header>
 
-    <section class="panel controls">
+    <section class="control-card">
       <label>
         Game
-        <select id="gameMode">
+        <select id="gameSelect">
           <option value="holdem">Texas Hold'em</option>
-          <option value="omaha3">3-Card Omaha</option>
-          <option value="omaha4">4-Card Omaha</option>
+          <option value="omaha3">3-card Omaha</option>
+          <option value="omaha4">4-card Omaha</option>
         </select>
       </label>
-
       <label>
         Total Players
-        <input id="players" type="number" min="2" max="10" value="6" />
+        <input id="playersInput" type="number" min="2" max="10" value="6" />
       </label>
-
-      <button id="calculate" class="primary">Calculate</button>
+      <button id="calculateBtn" class="primary">Calculate</button>
     </section>
 
-    <section class="layout">
+    <section class="grid-two">
       <section class="panel">
         <h2>Your Pocket Cards</h2>
-        <p id="holeHelp" class="muted">Choose exactly 2 cards for Texas Hold'em.</p>
-        <div id="holeCards" class="card-row"></div>
+        <p id="pocketHelp">Choose exactly 2 pocket cards for Texas Hold'em.</p>
+        <div id="pocketZone" class="card-zone"></div>
       </section>
 
       <section class="panel">
         <h2>Board Cards</h2>
-        <p class="muted">Add flop, turn, and river as they appear. Odds update after each street.</p>
-        <div class="street-label">Flop</div>
-        <div id="flopCards" class="card-row"></div>
-        <div class="street-label">Turn</div>
-        <div id="turnCards" class="card-row"></div>
-        <div class="street-label">River</div>
-        <div id="riverCards" class="card-row"></div>
+        <p>Add flop, turn, and river as they appear. Odds update after each street.</p>
+
+        <h3>Flop</h3>
+        <div id="flopZone" class="card-zone small-zone"></div>
+
+        <h3>Turn</h3>
+        <div id="turnZone" class="card-zone small-zone"></div>
+
+        <h3>River</h3>
+        <div id="riverZone" class="card-zone small-zone"></div>
       </section>
     </section>
 
     <section class="panel">
       <h2>Wild Cards</h2>
-      <p class="muted">Optional. Example: choose all 2s, one-eyed jacks, or any individual cards you want wild.</p>
-      <div class="wild-tools">
-        <button class="ghost small" data-wild-rank="2">All 2s</button>
-        <button class="ghost small" data-wild-rank="3">All 3s</button>
-        <button class="ghost small" data-wild-rank="A">All Aces</button>
-        <button class="ghost small" id="clearWild">Clear Wilds</button>
+      <p>Optional. Example: choose all 2s, one-eyed jacks, or any individual cards you want wild.</p>
+      <div class="quick-actions">
+        <button data-wild-rank="2">All 2s</button>
+        <button data-wild-rank="3">All 3s</button>
+        <button data-wild-rank="A">All Aces</button>
+        <button id="clearWildsBtn">Clear Wilds</button>
       </div>
-      <div id="wildCards" class="card-row compact"></div>
+      <div id="wildZone" class="card-zone small-zone"></div>
     </section>
 
-    <section class="panel results">
-      <div class="results-head">
+    <section class="panel odds-panel">
+      <div class="odds-heading">
         <h2>Odds</h2>
-        <span id="status" class="status">Ready</span>
+        <strong id="statusText">Ready</strong>
       </div>
-      <div class="stat-grid">
-        <div class="stat"><span>Win</span><strong id="winPct">--</strong></div>
-        <div class="stat"><span>Tie</span><strong id="tiePct">--</strong></div>
-        <div class="stat"><span>Lose</span><strong id="losePct">--</strong></div>
-        <div class="stat"><span>Your Hand Now</span><strong id="handNow">--</strong></div>
+      <div class="odds-grid">
+        <div><span>Win</span><strong id="winPct">--</strong></div>
+        <div><span>Tie</span><strong id="tiePct">--</strong></div>
+        <div><span>Lose</span><strong id="losePct">--</strong></div>
+        <div><span>Your Hand Now</span><strong id="handNow">--</strong></div>
       </div>
-      <p id="note" class="muted">Odds based on 1,000 Monte Carlo simulations. Wild-card hands are evaluated by trying reasonable replacements.</p>
+      <p>Odds based on 1,000 Monte Carlo simulations. Wild-card hands are evaluated by trying reasonable replacements.</p>
     </section>
 
-    <section class="panel deck-panel">
+    <section class="panel">
       <h2>Card Picker</h2>
-      <p class="muted">Click a destination first, then choose cards. Red cards are hearts/diamonds.</p>
-      <div class="destination-bar">
-        <button class="dest active" data-dest="hole">Pocket</button>
+      <p>Click a destination first, then choose cards. Red cards are hearts/diamonds.</p>
+      <div class="destination-row">
+        <button class="dest active" data-dest="pocket">Pocket</button>
         <button class="dest" data-dest="flop">Flop</button>
         <button class="dest" data-dest="turn">Turn</button>
         <button class="dest" data-dest="river">River</button>
         <button class="dest" data-dest="wild">Wild</button>
       </div>
-      <div id="deck" class="deck"></div>
+      <div id="deckGrid" class="deck-grid"></div>
     </section>
   </main>
 
-  <script src="poker-engine.js"></script>
-  <script src="app.js"></script>
+  <script src="/poker/poker-engine.js"></script>
+  <script src="/poker/app.js"></script>
 </body>
 </html>
