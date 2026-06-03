@@ -66,7 +66,7 @@
     return 0;
   }
 
-  function scoreFive(cards){
+  function scoreFiveNatural(cards){
     const vals=cards.map(c=>RANK_VALUE[rankOf(c)]).sort((a,b)=>b-a);
     const flush=cards.every(c=>suitOf(c)===suitOf(cards[0]));
     const straight=straightHigh(vals);
@@ -89,12 +89,9 @@
     return [0,...vals];
   }
 
-  // ULTRA FAST WILD APPROXIMATION
-  // Wild cards are not recursively optimized. They are converted into high-value helper cards.
-  // This keeps the browser responsive.
-  function fastWildScoreFive(cards,wildRanks,wildSpecific){
-    let wildCount=0;
+  function scoreFiveWithWilds(cards,wildRanks,wildSpecific){
     const nonWild=[];
+    let wildCount=0;
 
     for(const c of cards){
       if(wildSpecific.has(c) || wildRanks.has(rankOf(c))){
@@ -104,17 +101,30 @@
       }
     }
 
-    if(wildCount===0) return scoreFive(cards);
+    if(wildCount===0) return scoreFiveNatural(cards);
 
-    // Quick practical replacement set. Not casino-exact, but fast.
-    const helpers = ["As","Ah","Ad","Ac","Ks","Kh","Kd","Kc","Qs","Qh","Qd","Qc"];
-    const filled = nonWild.slice();
+    // Exact-enough wildcard search for 5-card scoring:
+    // Try every rank/suit replacement for wilds. Duplicate replacement cards are allowed
+    // because wild cards represent whatever is needed. Five of a kind is allowed.
+    const replacementDeck = makeDeck();
+    let best=null;
 
-    for(let i=0;i<wildCount;i++){
-      filled.push(helpers[i] || "As");
+    function rec(current, depth){
+      if(depth===wildCount){
+        const score = scoreFiveNatural(nonWild.concat(current));
+        if(!best || compareScore(score,best)>0) best=score;
+        return;
+      }
+
+      for(const rep of replacementDeck){
+        current.push(rep);
+        rec(current, depth+1);
+        current.pop();
+      }
     }
 
-    return scoreFive(filled.slice(0,5));
+    rec([],0);
+    return best || scoreFiveNatural(cards);
   }
 
   function describeScore(score){
@@ -123,14 +133,14 @@
 
   function evaluateTexas(hole,board,wildRanks,wildSpecific){
     const all=hole.concat(board);
-    return bestScore(combinations(all,5).map(c=>fastWildScoreFive(c,wildRanks,wildSpecific)));
+    return bestScore(combinations(all,5).map(c=>scoreFiveWithWilds(c,wildRanks,wildSpecific)));
   }
 
   function evaluateOmaha(hole,board,wildRanks,wildSpecific){
     const scores=[];
     for(const h of combinations(hole,2)){
       for(const b of combinations(board,3)){
-        scores.push(fastWildScoreFive(h.concat(b),wildRanks,wildSpecific));
+        scores.push(scoreFiveWithWilds(h.concat(b),wildRanks,wildSpecific));
       }
     }
     return bestScore(scores);
@@ -155,10 +165,10 @@
 
     const wildRankSet=new Set(wildRanks);
     const wildSpecificSet=new Set(wildSpecific);
-
-    // Keep it fast no matter what.
     const activeWilds = wildRankSet.size + wildSpecificSet.size;
-    const actualIterations = activeWilds ? 100 : 1000;
+
+    // Accurate wildcard evaluator is much heavier, so cap active-wild simulations.
+    const actualIterations = activeWilds ? Math.min(iterations, 60) : iterations;
 
     let wins=0,ties=0,losses=0;
     const heroNow=boardCards.length===5
