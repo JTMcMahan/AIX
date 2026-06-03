@@ -80,7 +80,14 @@
     return [0,...vals];
   }
 
-  function expandWildFive(cards,wildRanks,wildSpecific){
+  function hasWild(cards,wildRanks,wildSpecific){
+    return cards.some(c => wildSpecific.has(c) || wildRanks.has(rankOf(c)));
+  }
+
+  // Fast practical wild estimate:
+  // Instead of trying every possible replacement recursively, test a small set of high-value candidates.
+  // This keeps the app responsive while still giving useful odds.
+  function fastWildScoreFive(cards,wildRanks,wildSpecific){
     const nonWild=[];
     let wildCount=0;
     for(const c of cards){
@@ -89,22 +96,34 @@
     }
     if(wildCount===0) return scoreFive(cards);
 
-    const replacements=makeDeck();
+    const candidateRanks=["A","K","Q","J","T","9","8","7","6","5","4","3","2"];
+    const candidateCards=[];
+    for(const r of candidateRanks){
+      for(const s of SUITS) candidateCards.push(r+s);
+    }
+
     let best=null;
+    // Limit branching: choose from 52 candidates for first wild, and a reduced smart set for additional wilds.
+    const smart = candidateCards.slice(0, 24);
+
     function rec(current,n){
       if(n===0){
         const score=scoreFive(nonWild.concat(current));
         if(!best || compareScore(score,best)>0) best=score;
         return;
       }
-      for(const r of replacements){
-        current.push(r);
+      const pool = current.length === 0 ? candidateCards : smart;
+      for(const c of pool){
+        current.push(c);
         rec(current,n-1);
         current.pop();
       }
     }
-    rec([],wildCount);
-    return best;
+
+    // Cap at 3 wild replacements for speed. Extra wilds still score very strong.
+    if(wildCount >= 4) return [9,14];
+    rec([], wildCount);
+    return best || scoreFive(nonWild.concat(Array(wildCount).fill("As")));
   }
 
   function describeScore(score){
@@ -113,14 +132,14 @@
 
   function evaluateTexas(hole,board,wildRanks,wildSpecific){
     const all=hole.concat(board);
-    return bestScore(combinations(all,5).map(c=>expandWildFive(c,wildRanks,wildSpecific)));
+    return bestScore(combinations(all,5).map(c=>fastWildScoreFive(c,wildRanks,wildSpecific)));
   }
 
   function evaluateOmaha(hole,board,wildRanks,wildSpecific){
     const scores=[];
     for(const h of combinations(hole,2)){
       for(const b of combinations(board,3)){
-        scores.push(expandWildFive(h.concat(b),wildRanks,wildSpecific));
+        scores.push(fastWildScoreFive(h.concat(b),wildRanks,wildSpecific));
       }
     }
     return bestScore(scores);
@@ -144,10 +163,15 @@
 
     const wildRankSet=new Set(wildRanks);
     const wildSpecificSet=new Set(wildSpecific);
+
+    // If wild cards are active, reduce iterations to keep response quick.
+    const activeWilds = wildSpecificSet.size + wildRankSet.size;
+    const actualIterations = activeWilds ? Math.min(iterations, 300) : iterations;
+
     let wins=0,ties=0,losses=0;
     const heroNow=boardCards.length===5 ? describeScore(evaluateHand(mode,heroCards,boardCards,wildRankSet,wildSpecificSet)) : "Pending";
 
-    for(let i=0;i<iterations;i++){
+    for(let i=0;i<actualIterations;i++){
       const deck=shuffle(makeDeck().filter(c=>!allChosen.includes(c)));
       const board=boardCards.concat(deck.splice(0,5-boardCards.length));
       const heroScore=evaluateHand(mode,heroCards,board,wildRankSet,wildSpecificSet);
@@ -166,10 +190,10 @@
     }
 
     return {
-      iterations,wins,ties,losses,
-      winPct:wins/iterations*100,
-      tiePct:ties/iterations*100,
-      losePct:losses/iterations*100,
+      iterations: actualIterations,wins,ties,losses,
+      winPct:wins/actualIterations*100,
+      tiePct:ties/actualIterations*100,
+      losePct:losses/actualIterations*100,
       heroNow
     };
   }
