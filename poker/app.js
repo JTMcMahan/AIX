@@ -101,7 +101,7 @@ function render(){
 
 function resetResults(){
   ['winPct','tiePct','losePct','handNow'].forEach(id=>$(id).textContent='--');
-  $('note').textContent='Monte Carlo estimates improve as simulations increase. Wild-card hands are evaluated by trying reasonable replacements.';
+  $('note').textContent='Odds based on 1,000 Monte Carlo simulations. Wild-card hands are evaluated by trying reasonable replacements.';
 }
 
 function clearAll(){
@@ -126,7 +126,7 @@ function calculate(){
     heroCards:[...state.hole],
     boardCards:boardCards(),
     players:+$('players').value,
-    iterations:+$('simulations').value,
+    iterations:1000,
     wildRanks,
     wildSpecific:[...state.wild]
   };
@@ -154,7 +154,7 @@ function calculate(){
     $('tiePct').textContent=pct(res.tiePct);
     $('losePct').textContent=pct(res.losePct);
     $('handNow').textContent=res.heroNow;
-    $('note').textContent=`Ran ${res.iterations.toLocaleString()} simulations. These are estimates, not exact enumerations.`;
+    $('note').textContent=`Odds based on ${res.iterations.toLocaleString()} Monte Carlo simulations. These are estimates, not exact enumerations.`;
     setStatus('Complete');
   };
   currentWorker.onerror = err => {
