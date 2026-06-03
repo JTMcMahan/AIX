@@ -32,17 +32,7 @@
         <input id="players" type="number" min="2" max="10" value="6" />
       </label>
 
-      <label>
-        Simulations
-        <select id="simulations">
-          <option value="1000">Fast - 1,000</option>
-          <option value="5000" selected>Good - 5,000</option>
-          <option value="20000">Better - 20,000</option>
-          <option value="75000">Deep - 75,000</option>
-        </select>
-      </label>
-
-      <button id="calculate" class="primary">Calculate Odds</button>
+      <button id="calculate" class="primary">Calculate</button>
     </section>
 
     <section class="layout">
@@ -87,7 +77,7 @@
         <div class="stat"><span>Lose</span><strong id="losePct">--</strong></div>
         <div class="stat"><span>Your Hand Now</span><strong id="handNow">--</strong></div>
       </div>
-      <p id="note" class="muted">Monte Carlo estimates improve as simulations increase. Wild-card hands are evaluated by trying reasonable replacements.</p>
+      <p id="note" class="muted">Odds based on 1,000 Monte Carlo simulations. Wild-card hands are evaluated by trying reasonable replacements.</p>
     </section>
 
     <section class="panel deck-panel">
