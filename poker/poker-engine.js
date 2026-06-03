@@ -24,7 +24,9 @@
     function rec(start,combo){
       if(combo.length===k){ out.push(combo.slice()); return; }
       for(let i=start;i<=arr.length-(k-combo.length);i++){
-        combo.push(arr[i]); rec(i+1,combo); combo.pop();
+        combo.push(arr[i]);
+        rec(i+1,combo);
+        combo.pop();
       }
     }
     rec(0,[]);
@@ -33,7 +35,8 @@
 
   function compareScore(a,b){
     for(let i=0;i<Math.max(a.length,b.length);i++){
-      const av=a[i]||0,bv=b[i]||0;
+      const av=a[i]||0;
+      const bv=b[i]||0;
       if(av>bv) return 1;
       if(av<bv) return -1;
     }
@@ -42,7 +45,9 @@
 
   function bestScore(scores){
     let best=scores[0];
-    for(const s of scores.slice(1)) if(compareScore(s,best)>0) best=s;
+    for(const s of scores.slice(1)){
+      if(compareScore(s,best)>0) best=s;
+    }
     return best;
   }
 
@@ -54,7 +59,9 @@
       if(unique[i]===unique[i-1]-1){
         run++;
         if(run>=5) return unique[i-4];
-      } else if(unique[i]!==unique[i-1]) run=1;
+      } else if(unique[i]!==unique[i-1]){
+        run=1;
+      }
     }
     return 0;
   }
@@ -63,6 +70,7 @@
     const vals=cards.map(c=>RANK_VALUE[rankOf(c)]).sort((a,b)=>b-a);
     const flush=cards.every(c=>suitOf(c)===suitOf(cards[0]));
     const straight=straightHigh(vals);
+
     const counts={};
     vals.forEach(v=>counts[v]=(counts[v]||0)+1);
     const groups=Object.entries(counts).map(([v,c])=>({v:+v,c})).sort((a,b)=>b.c-a.c || b.v-a.v);
@@ -74,56 +82,39 @@
     if(flush) return [5,...vals];
     if(straight) return [4,straight];
     if(groups[0].c===3) return [3,groups[0].v,...groups.filter(g=>g.c===1).map(g=>g.v).sort((a,b)=>b-a)];
+
     const pairs=groups.filter(g=>g.c===2).map(g=>g.v).sort((a,b)=>b-a);
     if(pairs.length>=2) return [2,pairs[0],pairs[1],...groups.filter(g=>g.c===1).map(g=>g.v).sort((a,b)=>b-a)];
     if(pairs.length===1) return [1,pairs[0],...groups.filter(g=>g.c===1).map(g=>g.v).sort((a,b)=>b-a)];
     return [0,...vals];
   }
 
-  function hasWild(cards,wildRanks,wildSpecific){
-    return cards.some(c => wildSpecific.has(c) || wildRanks.has(rankOf(c)));
-  }
-
-  // Fast practical wild estimate:
-  // Instead of trying every possible replacement recursively, test a small set of high-value candidates.
-  // This keeps the app responsive while still giving useful odds.
+  // ULTRA FAST WILD APPROXIMATION
+  // Wild cards are not recursively optimized. They are converted into high-value helper cards.
+  // This keeps the browser responsive.
   function fastWildScoreFive(cards,wildRanks,wildSpecific){
-    const nonWild=[];
     let wildCount=0;
+    const nonWild=[];
+
     for(const c of cards){
-      if(wildSpecific.has(c) || wildRanks.has(rankOf(c))) wildCount++;
-      else nonWild.push(c);
+      if(wildSpecific.has(c) || wildRanks.has(rankOf(c))){
+        wildCount++;
+      } else {
+        nonWild.push(c);
+      }
     }
+
     if(wildCount===0) return scoreFive(cards);
 
-    const candidateRanks=["A","K","Q","J","T","9","8","7","6","5","4","3","2"];
-    const candidateCards=[];
-    for(const r of candidateRanks){
-      for(const s of SUITS) candidateCards.push(r+s);
+    // Quick practical replacement set. Not casino-exact, but fast.
+    const helpers = ["As","Ah","Ad","Ac","Ks","Kh","Kd","Kc","Qs","Qh","Qd","Qc"];
+    const filled = nonWild.slice();
+
+    for(let i=0;i<wildCount;i++){
+      filled.push(helpers[i] || "As");
     }
 
-    let best=null;
-    // Limit branching: choose from 52 candidates for first wild, and a reduced smart set for additional wilds.
-    const smart = candidateCards.slice(0, 24);
-
-    function rec(current,n){
-      if(n===0){
-        const score=scoreFive(nonWild.concat(current));
-        if(!best || compareScore(score,best)>0) best=score;
-        return;
-      }
-      const pool = current.length === 0 ? candidateCards : smart;
-      for(const c of pool){
-        current.push(c);
-        rec(current,n-1);
-        current.pop();
-      }
-    }
-
-    // Cap at 3 wild replacements for speed. Extra wilds still score very strong.
-    if(wildCount >= 4) return [9,14];
-    rec([], wildCount);
-    return best || scoreFive(nonWild.concat(Array(wildCount).fill("As")));
+    return scoreFive(filled.slice(0,5));
   }
 
   function describeScore(score){
@@ -153,6 +144,7 @@
   function runSimulation(opts){
     const {mode, heroCards, boardCards, players, iterations=1000, wildRanks=[], wildSpecific=[]} = opts;
     const neededHole=requiredHole(mode);
+
     if(heroCards.length!==neededHole) throw new Error(`Select exactly ${neededHole} pocket cards.`);
     if(players<2 || players>10) throw new Error("Players must be between 2 and 10.");
     if(boardCards.length>5) throw new Error("Board cannot contain more than 5 cards.");
@@ -164,12 +156,14 @@
     const wildRankSet=new Set(wildRanks);
     const wildSpecificSet=new Set(wildSpecific);
 
-    // If wild cards are active, reduce iterations to keep response quick.
-    const activeWilds = wildSpecificSet.size + wildRankSet.size;
-    const actualIterations = activeWilds ? Math.min(iterations, 300) : iterations;
+    // Keep it fast no matter what.
+    const activeWilds = wildRankSet.size + wildSpecificSet.size;
+    const actualIterations = activeWilds ? 100 : 1000;
 
     let wins=0,ties=0,losses=0;
-    const heroNow=boardCards.length===5 ? describeScore(evaluateHand(mode,heroCards,boardCards,wildRankSet,wildSpecificSet)) : "Pending";
+    const heroNow=boardCards.length===5
+      ? describeScore(evaluateHand(mode,heroCards,boardCards,wildRankSet,wildSpecificSet))
+      : "Pending";
 
     for(let i=0;i<actualIterations;i++){
       const deck=shuffle(makeDeck().filter(c=>!allChosen.includes(c)));
@@ -190,7 +184,10 @@
     }
 
     return {
-      iterations: actualIterations,wins,ties,losses,
+      iterations:actualIterations,
+      wins,
+      ties,
+      losses,
       winPct:wins/actualIterations*100,
       tiePct:ties/actualIterations*100,
       losePct:losses/actualIterations*100,
@@ -198,5 +195,15 @@
     };
   }
 
-  root.PokerEngine={SUITS,SUIT_SYMBOLS,RANKS,makeDeck,cardLabel,requiredHole,runSimulation,describeScore,evaluateHand};
+  root.PokerEngine = {
+    SUITS,
+    SUIT_SYMBOLS,
+    RANKS,
+    makeDeck,
+    cardLabel,
+    requiredHole,
+    runSimulation,
+    describeScore,
+    evaluateHand
+  };
 })(globalThis);
